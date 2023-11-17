@@ -1,0 +1,62 @@
+main{
+  display:flex;
+  flex-direction:row-reverse;
+  flex-grow:1;
+}
+
+.page_Title{
+  position:relative;
+  top:-90px;
+  display:flex;
+  -webkit-writing-mode: vertical-rl;
+      -ms-writing-mode: tb-rl;
+          writing-mode: vertical-rl;
+  -webkit-text-orientation: mixed;
+          text-orientation: mixed;
+  
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background-color:red;
+  width:5%;
+  text-align:center;
+}
+
+.form{
+  display:flex;
+  flex-direction:column;
+  order:0;
+  width:95%;
+  padding:100px;
+}
+
+.container_user_infos{
+  display:flex;
+  flex-direction:row;
+  background-color:yellow;
+  margin:50px;
+}
+
+.container_personals_infos{
+  display:flex;
+  flex-direction:column;
+  background-color:blue;
+  width:400px;
+  margin:50px;
+}
+
+.container_contact_infos{
+  display:flex;
+  flex-direction:column;
+  background-color:green;
+  width:400px;
+  margin:50px;
+}
+
+.container_corps_infos{
+  display:flex;
+  background-color:purple;
+  width:400px;
+  margin:50px;
+}
+

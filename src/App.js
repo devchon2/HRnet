@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import CreateUserPage from './Pages/CreateUserPage.jsx';
-import ShowUserPage from './Pages/ShowUsersPage.jsx';
+import CreateUserPage from './Pages/CreateUserPage/CreateUserPage.jsx';
+import ShowUserPage from './Pages/ShowUsersPage/ShowUsersPage.jsx';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './Pages/Components/Layout.jsx';
 

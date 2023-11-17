@@ -1,0 +1,71 @@
+.header{
+  position:relative;
+  top:0px;
+  left:0;
+  width:100%;
+}
+
+.hrnet{
+  display:flex;
+  width:100%;
+  text-align:center;
+}
+
+.logo{
+  width:100px;
+  height:100px;
+}
+
+.application_Title{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  width:100%;
+  background-color:#0056b3;
+}
+
+.nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  width:95%;
+  text-align:center;
+}
+
+.nav > a.active{
+  background-color:blue;
+}
+
+.createLink{
+  display:flex;
+  justify-content:start;
+  align-items:center;
+  text-decoration:none;
+  text-align:center;
+  padding:20px;
+  list-style:none;  
+  height:90px;
+  width:50%;
+  background-color:rgba(0,0,0,0.5);
+
+}
+
+.nav .active{
+  background-color:blue;
+}
+
+
+.showLink{
+  display:flex;
+  justify-content:end;
+  align-items:center;
+  text-decoration:none;
+  text-align:center;
+  padding:20px;
+  list-style:none;  
+  height:90px;
+  width:50%;
+  background-color:rgba(0,0,0,0.5);;
+
+}
