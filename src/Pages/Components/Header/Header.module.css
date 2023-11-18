@@ -9,6 +9,10 @@
   display:flex;
   width:100%;
   text-align:center;
+  color:lightGrey;
+  font-size:30px;
+  font-weight:bold;
+  
 }
 
 .logo{
@@ -22,7 +26,8 @@
   align-items:center;
   text-align:center;
   width:100%;
-  background-color:#0056b3;
+  background-color:#001c30;
+  text-shadow: 0px 10px 10px lightGrey;
 }
 
 .nav{
@@ -31,15 +36,14 @@
   align-items:center;
   width:95%;
   text-align:center;
+  background-color:#001c30;
 }
 
-.nav > a.active{
-  background-color:blue;
-}
+
 
 .createLink{
   display:flex;
-  justify-content:start;
+  justify-content:flex-start;
   align-items:center;
   text-decoration:none;
   text-align:center;
@@ -47,18 +51,18 @@
   list-style:none;  
   height:90px;
   width:50%;
-  background-color:rgba(0,0,0,0.5);
+  
+  color:lightGrey;
+  font-weight:900;
 
 }
 
-.nav .active{
-  background-color:blue;
-}
+
 
 
 .showLink{
   display:flex;
-  justify-content:end;
+  justify-content:flex-end;
   align-items:center;
   text-decoration:none;
   text-align:center;
@@ -66,6 +70,11 @@
   list-style:none;  
   height:90px;
   width:50%;
-  background-color:rgba(0,0,0,0.5);;
+  color:lightGrey;
+  font-weight:900;
+  
+}
 
+.active{
+  background-color:blue;
 }

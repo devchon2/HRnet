@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import style from './ShowUsersPage.module.css'
 
 export default function ShowUserPage() {

@@ -4,22 +4,24 @@ main{
   flex-grow:1;
 }
 
-.page_Title{
-  position:relative;
-  top:-90px;
-  display:flex;
+.page_Title {
+  position: relative;
+  top: -90px;
+  display: flex;
+
   -webkit-writing-mode: vertical-rl;
-      -ms-writing-mode: tb-rl;
-          writing-mode: vertical-rl;
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
   -webkit-text-orientation: mixed;
-          text-orientation: mixed;
-  
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  background-color:red;
-  width:5%;
-  text-align:center;
+  text-orientation: mixed;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  width: 5%;
+  text-align: center;
+  height: 100%;
 }
 
 .form{

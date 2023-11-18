@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import CreateUserPage from './Pages/CreateUserPage/CreateUserPage.jsx';
 import ShowUserPage from './Pages/ShowUsersPage/ShowUsersPage.jsx';
