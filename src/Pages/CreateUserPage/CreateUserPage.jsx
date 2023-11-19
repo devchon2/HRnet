@@ -13,6 +13,7 @@ export default function CreateUserPage() {
   const [startDate, setStartDate] = useState('')
   const [department, setDepartment] = useState('')
 
+console.log(firstName, lastName, birthDate, street, city, state, zip, startDate, department)
 
 
 

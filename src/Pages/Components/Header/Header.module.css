@@ -34,23 +34,44 @@
   display:flex;
   justify-content:space-between;
   align-items:center;
-  width:95%;
+  width:100%;
   text-align:center;
-  background-color:#001c30;
+  background-color:#2c2c60;
 }
 
+.createLink.active{
+  background-color:#2c2c60;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  overflow:visible;
 
+} 
+.showLink.active{
+  background-color:#2c2c60;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  overflow:visible;
+
+  
+} 
 
 .createLink{
   display:flex;
   justify-content:flex-start;
   align-items:center;
   text-decoration:none;
+  background-color:#001c30;
   text-align:center;
   padding:20px;
   list-style:none;  
   height:90px;
   width:50%;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 15px;
+  
+  overflow:hidden;
   
   color:lightGrey;
   font-weight:900;
@@ -72,9 +93,9 @@
   width:50%;
   color:lightGrey;
   font-weight:900;
+  border-bottom-left-radius: 15px;
+  overflow:visible;
+  background-color:#001c30;
   
 }
 
-.active{
-  background-color:blue;
-}

@@ -15,9 +15,9 @@ export default function Header() {
         <h1 className={style.application_Title} >HRnet</h1>
       </div>
 
-      <nav className={style.nav}>
-        <NavLink id='createLink' className={style.createLink} to="/createemployees">Create new Employee</NavLink>
-        <NavLink id="showLink" className={style.showLink} to="/showEmployees">View current Employees</NavLink>
+      <nav id='nav' className={style.nav}>
+        <NavLink id='createLink' className={({isActive}) =>  isActive ? `${style.createLink}  ${style.active}` : `${style.createLink}` } to="/createemployees">Create new Employee</NavLink>
+        <NavLink id="showLink" className={({isActive}) =>  isActive ? `${style.showLink}  ${style.active}` : `${style.showLink}` } to="/showEmployees">View current Employees</NavLink>
       </nav></header>
   )
 }
