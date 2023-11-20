@@ -1,6 +1,7 @@
 import { useState } from "react";
 import style from "./CreateUserPage.module.css";
 import Select from "react-select"
+import { SelectStates } from "../../utils/utils.js";
 
 export default function CreateUserPage() {
   const [firstName, setFirstName] = useState('')
@@ -12,8 +13,19 @@ export default function CreateUserPage() {
   const [zip, setZip] = useState('')
   const [startDate, setStartDate] = useState('')
   const [department, setDepartment] = useState('')
+  const [Contact, setContact] = useState({contact: {street: street, city: city, state: state, zip: zip}})
+  const [employee, setEmployee] = useState({employee: {
+                                                firstName: firstName, 
+                                                lastName: lastName, 
+                                                birthDate: birthDate, 
+                                                
+                                  }})
+  const [onboarding, setOnboarding] = useState({onboarding: {
+                                                  startDate: startDate, 
+                                                  department: department
+                                      }})
 
-console.log(firstName, lastName, birthDate, street, city, state, zip, startDate, department)
+console.log(firstName, lastName, birthDate, street, city, state, zip, startDate, department, Contact, employee, onboarding)
 
 
 
@@ -62,8 +74,8 @@ console.log(firstName, lastName, birthDate, street, city, state, zip, startDate,
             </div>
 
             <div className={style.form_group}>
-            <label htmlFor="State">State</label>
-            <input onChange={(e) => setState(e.target.value)} type="text" id="State" name="State" />
+            <label htmlFor="State" >State</label>
+            <Select id="State" options={SelectStates} onChange={(e) => setState(e.value)}/>
             </div>
 
             <div className={style.form_group}>
