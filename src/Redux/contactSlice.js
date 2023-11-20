@@ -4,21 +4,42 @@ const contactSlice = createSlice({
   name: "contact",
   initialState: {
     
-      firstName: "",
-      lastName: "",
-      birthdate: "",
+      street: "",
+      city: "",
+      state: "",
+      zip: "",
       
   },
   reducers: {
-    set_contact: (state, action) => {
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
-      state.birthdate = action.payload.birthdate;
+    add_contact: (state, action) => {
+      state.street = action.payload.street;
+      state.city = action.payload.city;
+      state.state = action.payload.state;
+      state.zip = action.payload.zip;
     },
     remove_contact: (state, action) => {
-      state.firstName = "";
-      state.lastName = "";
-      state.birthdate = "";
+      state.street = "";
+      state.city = "";
+      state.state = "";
+      state.zip = "";
+    },
+    modify_contact: (state, action) => {
+      switch (action.payload){
+        case "street":
+          state.street = action.payload.street;
+          break;
+        case "city":
+          state.city = action.payload.city;
+          break;
+        case "state":
+          state.state = action.payload.state;
+          break;
+        case "zip":
+          state.zip = action.payload.zip;
+          break;
+        default: 
+          break;
+      }
     }
   }
 });

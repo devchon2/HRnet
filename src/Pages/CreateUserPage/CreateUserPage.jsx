@@ -13,20 +13,21 @@ export default function CreateUserPage() {
   const [zip, setZip] = useState('')
   const [startDate, setStartDate] = useState('')
   const [department, setDepartment] = useState('')
-  const [Contact, setContact] = useState({contact: {street: street, city: city, state: state, zip: zip}})
-  const [employee, setEmployee] = useState({employee: {
-                                                firstName: firstName, 
-                                                lastName: lastName, 
-                                                birthDate: birthDate, 
-                                                
-                                  }})
-  const [onboarding, setOnboarding] = useState({onboarding: {
-                                                  startDate: startDate, 
-                                                  department: department
-                                      }})
+  const [contact, setContact] = useState({ street: street, city: city, state: state, zip: zip })
+  const [employee, setEmployee] = useState({
+    firstName: firstName,
+    lastName: lastName,
+    birthDate: birthDate,
 
-console.log(firstName, lastName, birthDate, street, city, state, zip, startDate, department, Contact, employee, onboarding)
+  })
+  const [onboarding, setOnboarding] = useState({
 
+    startDate: startDate,
+    department: department
+
+  })
+  
+  console.log({firstName: firstName, lastName: lastName, birthDate: birthDate, street: street, city: city, state: state, zip: zip, startDate: startDate, department: department, onboarding: onboarding, contact: contact, employee: employee})
 
 
   return (
@@ -37,7 +38,7 @@ console.log(firstName, lastName, birthDate, street, city, state, zip, startDate,
       <form className={style.form}>
 
         <div className={style.container_infos}>
-          
+
           <div className={style.container_employee_infos}>
 
             <h2>Employee</h2>
@@ -56,31 +57,31 @@ console.log(firstName, lastName, birthDate, street, city, state, zip, startDate,
               <label htmlFor="birthDate">Birth Date</label>
               <input onChange={(e) => setBirthDate(e.target.value)} type="date" id="birthDate" name="birthDate" />
             </div>
-          
+
           </div>
 
           <div className={style.container_contact_infos}>
-            
-            <h2>Contact</h2>
-            
+
+            <h2>contact</h2>
+
             <div className={style.form_group}>
-            <label htmlFor="Street">Street</label>
-            <input onChange={(e) => setStreet(e.target.value)} type="text" id="Street" name="Street" />
+              <label htmlFor="Street">Street</label>
+              <input onChange={(e) => setStreet(e.target.value)} type="text" id="Street" name="Street" />
             </div>
 
             <div className={style.form_group}>
-            <label htmlFor="City">City</label>
-            <input onChange={(e) => setCity(e.target.value)} type="text" id="City" name="City" />
+              <label htmlFor="City">City</label>
+              <input onChange={(e) => setCity(e.target.value)} type="text" id="City" name="City" />
             </div>
 
             <div className={style.form_group}>
-            <label htmlFor="State" >State</label>
-            <Select id="State" options={SelectStates} onChange={(e) => setState(e.value)}/>
+              <label htmlFor="selectStates" >State</label>
+              <Select name='selectStates' inputId="selectStates" options={SelectStates} onChange={(e) => setState(e.value)} />
             </div>
 
             <div className={style.form_group}>
-            <label htmlFor="Zip">Zip Code</label>
-            <input onChange={(e) => setZip(e.target.value)} type="text" id="Zip" name="Zip" />
+              <label htmlFor="Zip">Zip Code</label>
+              <input onChange={(e) => setZip(e.target.value)} type="text" id="Zip" name="Zip" />
             </div>
           </div>
 
@@ -89,16 +90,16 @@ console.log(firstName, lastName, birthDate, street, city, state, zip, startDate,
         <div className={style.container_corps_infos}>
           <h2>Onboarding</h2>
           <div className={style.onboarding_Group}>
-          <div className={style.form_group}>
-            <label htmlFor="startDate">Start Date</label>
-            <input onChange={(e) => setStartDate(e.target.value)} type="date" id="startDate" name="startDate" />
-          </div>
+            <div className={style.form_group}>
+              <label htmlFor="startDate">Start Date</label>
+              <input onChange={(e) => setStartDate(e.target.value)} type="date" id="startDate" name="startDate" />
+            </div>
 
-          <div className={style.form_group}>
+            <div className={style.form_group}>
 
-            <label htmlFor="department">Department</label>
-            <input onChange={(e) => setDepartment(e.target.value)} type="text" id="department" name="department" />
-          </div>
+              <label htmlFor="department">Department</label>
+              <input onChange={(e) => setDepartment(e.target.value)} type="text" id="department" name="department" />
+            </div>
           </div>
         </div>
 

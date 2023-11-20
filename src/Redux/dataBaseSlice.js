@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const dataBaseSlice = createSlice({
   name: "EmployeeList",
   initialState: {
-      employees: [null]      
+      employees: []      
   },
   reducers: {
     set_Employee: (state, action) => {
