@@ -3,25 +3,26 @@ import { createSlice } from "@reduxjs/toolkit";
 const onBoardingSlice = createSlice({
   name: "onBoarding",
   initialState: {
-    
-      firstName: "",
-      lastName: "",
-      birthdate: "",
+      
+        startDate: "",
+        department: "",
       
   },
   reducers: {
-    set_onBoarding: (state, action) => {
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
-      state.birthdate = action.payload.birthdate;
-    },
-    remove_onBoarding: (state, action) => {
-      state.firstName = "";
-      state.lastName = "";
-      state.birthdate = "";
+    add_onboarding: (state, action) => {
+      if (action.payload) {
+      state.startDate = action.payload.startDate;
+      state.department = action.payload.department
+    } else {
+      state = {...state}
+      }},
+
+    remove_onboarding: (state) => {
+      state.startDate = "";
+      state.department = "";
     }
   }
 });
 
-export const { set_onBoarding, remove_onBoarding } = onBoardingSlice.actions;
+export const { add_onboarding, remove_onboarding } = onBoardingSlice.actions;
 export default onBoardingSlice.reducer;

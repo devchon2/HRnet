@@ -4,13 +4,19 @@ import ShowUserPage from './Pages/ShowUsersPage/ShowUsersPage.jsx';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './Pages/Components/Layout.jsx';
 
-function App() {
+
+
+function App() {    
+  
+
+
   return (
     <Routes>
       <Route path="/" element={<Layout />} >
-        <Route index path='/createemployees' element={<CreateUserPage />} />
+        <Route index element={<CreateUserPage />} />
         <Route path='/showemployees' element={<ShowUserPage />} />
       </Route>
+      {/* <Route path='*' element={<ErrorPage/>}/> */}
     </Routes>
   )
 }

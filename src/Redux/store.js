@@ -5,7 +5,7 @@ import contactSlice from './contactSlice.js'
 import databaseSlice from './dataBaseSlice.js'
 
 const employee = combineReducers({
-    infos:infos,
+  infos:infos,
   contact: contactSlice,
   onboarding: onBoardingSlice
 })
@@ -21,6 +21,5 @@ const store = configureStore({
   reducer: rootReducer
 })
 
-console.log(store.getState())
 
 export default store

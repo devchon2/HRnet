@@ -2,22 +2,23 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const dataBaseSlice = createSlice({
   name: "EmployeeList",
-  initialState: {
-      employees: []      
-  },
+  initialState: [],
   reducers: {
-    set_Employee: (state, action) => {
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
-      state.birthdate = action.payload.birthdate;
+    add_employee: (state, action) => {
+      console.log(action.payload.infos);
+      console.log(action.payload.contact);
+      console.log(action.payload.onBoarding);
+      state.push({infos: action.payload.infos, contact: action.payload.contact, onboarding: action.payload.onBoarding });
+      
     },
-    remove_Employee: (state, action) => {
-      state.firstName = "";
-      state.lastName = "";
-      state.birthdate = "";
+    
+    remove_employee: (state, action) => {
+      state.employees.infos = "";
+      state.employees.contact = "";
+      state.employees.onBoarding = "";
     }
   }
 });
 
-export const { set_dataBase, remove_dataBase } = dataBaseSlice.actions;
+export const { add_employee, remove_employee } = dataBaseSlice.actions;
 export default dataBaseSlice.reducer;

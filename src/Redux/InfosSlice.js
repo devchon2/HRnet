@@ -6,22 +6,26 @@ const infosSlice = createSlice({
     
       firstName: "",
       lastName: "",
-      birthdate: "",
+      birthDate: "",
       
   },
   reducers: {
-    set_Infos: (state, action) => {
+    add_infos: (state, action) => {
+      if (action.payload) {
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
-      state.birthdate = action.payload.birthdate;
+      state.birthDate = action.payload.birthdate;
+      } else {
+      state = {...state}
+      }
     },
-    remove_Infos: (state, action) => {
+    remove_infos: (state) => {
       state.firstName = "";
       state.lastName = "";
-      state.birthdate = "";
+      state.birthDate = "";
     }
   }
 });
 
-export const { set_Infos, remove_Infos } = infosSlice.actions;
+export const { add_infos, remove_infos } = infosSlice.actions;
 export default infosSlice.reducer;

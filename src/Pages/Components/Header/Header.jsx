@@ -16,7 +16,7 @@ export default function Header() {
       </div>
 
       <nav id='nav' className={style.nav}>
-        <NavLink id='createLink' className={({isActive}) =>  isActive ? `${style.createLink}  ${style.active}` : `${style.createLink}` } to="/createemployees">Create new Employee</NavLink>
+        <NavLink id='createLink' className={({isActive}) =>  isActive ? `${style.createLink}  ${style.active}` : `${style.createLink}` } to="/">Create new Employee</NavLink>
         <NavLink id="showLink" className={({isActive}) =>  isActive ? `${style.showLink}  ${style.active}` : `${style.showLink}` } to="/showEmployees">View current Employees</NavLink>
       </nav></header>
   )
