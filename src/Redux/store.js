@@ -2,7 +2,7 @@ import {configureStore, combineReducers  } from '@reduxjs/toolkit'
 import infos from './InfosSlice'
 import onBoardingSlice from './onBoardingSlice.js'
 import contactSlice from './contactSlice.js'
-import databaseSlice from './dataBaseSlice.js'
+import database from './dataBaseSlice.js'
 
 const employee = combineReducers({
   infos:infos,
@@ -13,7 +13,7 @@ const employee = combineReducers({
 
 const rootReducer = combineReducers({
   employee: employee,
-  database: databaseSlice
+  database
   
 })
 

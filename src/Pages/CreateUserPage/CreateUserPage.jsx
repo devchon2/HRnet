@@ -106,7 +106,7 @@ export default function CreateUserPage() {
     e.preventDefault();
 
     if(checkForm()) {
-
+console.log(firstName, lastName, birthDate, street, city, stateLocation, zip, startDate, department)
     dispatch(add_infos({'firstName': infos.firstName, 'lastName': infos.lastName, 'birthDate':  infos.birthDate}));
     console.log("dispatch infos", infos);
     dispatch(add_contact({'street': contact.street, 'city': contact.city, 'state': contact.state, 'zip': contact.zip}));
