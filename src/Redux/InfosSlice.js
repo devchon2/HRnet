@@ -11,7 +11,6 @@ const infosSlice = createSlice({
   reducers: {
     add_infos: (state, action) => {
       console.log('action.payload add infos', action.payload)
-      console.log('state add infos', state)
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
       state.birthDate = action.payload.birthDate; 

@@ -13,7 +13,6 @@ const contactSlice = createSlice({
   reducers: {
     add_contact: (state, action) => {
       console.log('action.payload add contact', action.payload)
-      console.log('state add contact', state)
         state.street = action.payload.street;
         state.city = action.payload.city;
         state.state = action.payload.state;

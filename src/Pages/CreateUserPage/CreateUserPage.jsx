@@ -23,13 +23,9 @@ export default function CreateUserPage() {
   const [contact, setContact] = useState("");
   const [infos, setInfos] = useState("");
   const [onBoarding, setOnboarding] = useState("");
-  const [SelectedStateLocation, setSelectedStateLocation] = useState('');
+  const [selectedStateLocation, setSelectedStateLocation] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState('');
   const dispatch = useDispatch();
-
-
-
-
 
 
   useEffect(() => {
@@ -38,10 +34,10 @@ export default function CreateUserPage() {
     setBirthDate(birthDate);
     setStreet(street);
     setCity(city);
-    setStateLocation(stateLocation);
     setZip(zip);
     setStartDate(startDate);
-    setDepartment(department);
+    setDepartment(selectedDepartment.value);
+    setStateLocation(selectedStateLocation.value);
   }, [
     firstName,
     lastName,
@@ -52,6 +48,8 @@ export default function CreateUserPage() {
     zip,
     startDate,
     department,
+    selectedStateLocation.value,
+    selectedDepartment,
   ]);
 
   function checkForm() {
@@ -70,8 +68,8 @@ export default function CreateUserPage() {
 
     if (checkInfos) {
 
-      setInfos({ firstName: firstName, lastName: lastName, birthDate: birthDate });
-      console.log("checkInfos OK");
+      setInfos({ 'firstName': firstName, 'lastName': lastName, 'birthDate': birthDate });
+      console.log("checkInfos OK", { 'firstName': firstName, 'lastName': lastName, 'birthDate': birthDate });
     } else {
 
       validate = false;
@@ -81,21 +79,21 @@ export default function CreateUserPage() {
     if (checkContact) {
 
       console.log("checkContact", contact);
-      setContact(JSON.stringify({ street: street, city: city, state: stateLocation, zip: zip }));
-      console.log("checkContact OK");
+      setContact({ 'street': street, 'city': city, 'state': stateLocation, 'zip': zip });
+      console.log("checkContact OK",{ 'street': street, 'city': city, 'state': stateLocation, 'zip': zip });
     } else {
 
-      console.log("checkContact ko", { street: street, city: city, state: stateLocation, zip: zip })
+      console.log("checkContact ko", { 'street': street, 'city': city, 'state': stateLocation, 'zip': zip })
       validate = false;
     }
 
     if (checkOnBoarding) {
 
-      setOnboarding(JSON.stringify({ startDate: startDate, department: department }));
-      console.log("checkOnBoarding OK");
+      setOnboarding({ 'startDate': startDate, 'department': department });
+      console.log("checkOnBoarding OK", { 'startDate': startDate, 'department': department });
     } else {
 
-      console.log("checkOnBoarding ko", { startDate: startDate, department: department })
+      console.log("checkOnBoarding ko", { 'startDate': startDate, 'department': department })
       validate = false;
     }
 
@@ -109,16 +107,16 @@ export default function CreateUserPage() {
 
     if(checkForm()) {
 
-    dispatch(add_infos(infos));
+    dispatch(add_infos({'firstName': infos.firstName, 'lastName': infos.lastName, 'birthDate':  infos.birthDate}));
     console.log("dispatch infos", infos);
-    dispatch(add_contact(contact));
+    dispatch(add_contact({'street': contact.street, 'city': contact.city, 'state': contact.state, 'zip': contact.zip}));
     console.log("dispatch contact", contact);
-    dispatch(add_onboarding(onBoarding));
+    dispatch(add_onboarding({'startDate': onBoarding.startDate, 'department': onBoarding.department}));
     console.log("dispatch onBoarding", onBoarding);
 
     //Fonction de vérification des éléments de formulaire a implémenter
     
-     dispatch(add_employee({ infos: infos, contact: contact, onBoarding: onBoarding }));
+     dispatch(add_employee({'infos': infos, 'contact': contact, 'onBoarding': onBoarding}));
 
       console.log("submit");
     }
@@ -192,8 +190,10 @@ export default function CreateUserPage() {
             <div className={style.form_group}>
               <label htmlFor="selectStates">State</label>
               <Select
-                value={states[0]}
-                onChange={setStateLocation}
+                type="text"
+                value={selectedStateLocation}
+
+                onChange={setSelectedStateLocation}
                 placeholder={states[0].value}
                 name="selectStates"
                 inputId="selectStates"
@@ -227,14 +227,14 @@ export default function CreateUserPage() {
               <label htmlFor="department">Department</label>
               <Select
                 type="text"
-                value={department[0]}
+                value={selectedDepartment}
                 styles={{
                   control: (baseStyles) => ({
                     ...baseStyles,
                     borderColor: 'orange',
                   }),
                 }}
-                onChange={setDepartment}
+                onChange={setSelectedDepartment}
                 options={departments}
                 placeholder={departments[0].value}
                 inputId={"department"}
