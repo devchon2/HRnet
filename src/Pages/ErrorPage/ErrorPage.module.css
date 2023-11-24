@@ -1,0 +1,45 @@
+main {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-grow: 1;
+  position: relative;
+  max-height: 100%;
+  background-color:#2c2c60 ;
+}
+
+.page_Title {
+  position: absolute;
+  display: flex;
+  -webkit-writing-mode: vertical-rl;
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+  -webkit-text-orientation: mixed;
+  text-orientation: mixed;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 5%;
+  text-align: center;
+  height: 100%;
+  color:lightGrey;
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:space-around;
+  order: 0;
+  width: 100%;
+  color: lightGrey;
+  font-weight: bold;
+}
+
+.content h2{
+  font-size:6rem;
+  text-shadow: 20px 15px 100px #fff;
+}
+
+.content p{
+  font-size:2rem;margin-bottom: 5rem;
+}
