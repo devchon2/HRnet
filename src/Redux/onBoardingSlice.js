@@ -10,13 +10,11 @@ const onBoardingSlice = createSlice({
   },
   reducers: {
     add_onboarding: (state, action) => {
-      if (action.payload) {
+      console.log('action.payload add onboarding', action.payload)
+      console.log('state add onboarding', state)
       state.startDate = action.payload.startDate;
       state.department = action.payload.department
-    } else {
-      state = {...state}
-      }},
-
+    },
     remove_onboarding: (state) => {
       state.startDate = "";
       state.department = "";

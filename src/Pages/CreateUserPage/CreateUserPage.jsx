@@ -107,6 +107,8 @@ export default function CreateUserPage() {
   function Handle_Submit(e) {
     e.preventDefault();
 
+    if(checkForm()) {
+
     dispatch(add_infos(infos));
     console.log("dispatch infos", infos);
     dispatch(add_contact(contact));
@@ -119,9 +121,8 @@ export default function CreateUserPage() {
      dispatch(add_employee({ infos: infos, contact: contact, onBoarding: onBoarding }));
 
       console.log("submit");
-    
+    }
   }
-
   return (
     <main>
       <h1 className={style.page_Title}>Create Employees</h1>
@@ -210,8 +211,6 @@ export default function CreateUserPage() {
             </div>
           </div>
         </div>
-
-
         <div className={style.container_corps_infos}>
           <h2>Onboarding</h2>
           <div className={style.onboardingGroup}>

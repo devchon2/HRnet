@@ -12,14 +12,12 @@ const contactSlice = createSlice({
   },
   reducers: {
     add_contact: (state, action) => {
-      if (action.payload) {
+      console.log('action.payload add contact', action.payload)
+      console.log('state add contact', state)
         state.street = action.payload.street;
         state.city = action.payload.city;
         state.state = action.payload.state;
         state.zip = action.payload.zip;
-      } else {
-        state = { ...state }
-      }
     },
 
     remove_contact: (state, action) => {
