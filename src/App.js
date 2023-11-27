@@ -7,8 +7,8 @@ import ErrorPage from './Pages/ErrorPage/ErrorPage.jsx';
 
 
 
-function App() {    
-  
+function App() {
+
 
 
   return (
@@ -16,8 +16,8 @@ function App() {
       <Route path="/" element={<Layout />} >
         <Route index element={<CreateUserPage />} />
         <Route path='/showemployees' element={<ShowUserPage />} />
-            <Route path='*' element={<ErrorPage/>}/>
-</Route>
+        <Route path='*' element={<ErrorPage />} />
+      </Route>
     </Routes>
   )
 }

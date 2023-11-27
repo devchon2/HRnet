@@ -1,4 +1,4 @@
-   const datas = [{
+  [{
   "firstname": "Göran",
   "lastname": "Kennea",
   "birthdate": "2/3/2023",
@@ -500,5 +500,3 @@
   "department": "Marketing"
 }
 ]
-
-export default datas;
