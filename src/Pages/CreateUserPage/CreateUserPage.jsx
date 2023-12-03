@@ -24,6 +24,7 @@ export default function CreateUserPage() {
   const [onBoarding, setOnboarding] = useState("");
   const [selectedStateLocation, setSelectedStateLocation] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [show, setShow] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -50,76 +51,77 @@ export default function CreateUserPage() {
     selectedDepartment,
   ]);
 
-  // function checkForm() {
+  function checkForm() {
 
-  //   console.log("stateLocation, department", stateLocation, department)
-  //   const infosDatas = [firstName, lastName, birthDate];
-  //   const contactDatas = [street, city, stateLocation, zip];
-  //   const onBoardingDatas = [startDate, department];
-  //   const checkInfos = infosDatas.every(element => element !== "");
-  //   const checkContact = contactDatas.every(element => element !== "");
-  //   const checkOnBoarding = onBoardingDatas.every(element => element !== "");
-  //   let validate = true;
+    console.log("stateLocation, department", stateLocation, department)
+    const infosDatas = [firstName, lastName, birthDate];
+    const contactDatas = [street, city, stateLocation, zip];
+    const onBoardingDatas = [startDate, department];
+    const checkInfos = infosDatas.every(element => element !== "");
+    const checkContact = contactDatas.every(element => element !== "");
+    const checkOnBoarding = onBoardingDatas.every(element => element !== "");
+    let validate = true;
 
-  //   console.log("checkForm", checkInfos, checkContact, checkOnBoarding)
+    console.log("checkForm", checkInfos, checkContact, checkOnBoarding)
 
-  //   if (checkInfos) {
+    if (checkInfos) {
 
-  //     setInfos({ 'firstName': firstName, 'lastName': lastName, 'birthDate': birthDate });
-  //     console.log("checkInfos OK", { 'firstName': firstName, 'lastName': lastName, 'birthDate': birthDate });
-  //   } else {
+      setInfos({ 'firstName': firstName, 'lastName': lastName, 'birthDate': birthDate });
+      console.log("checkInfos OK", { 'firstName': firstName, 'lastName': lastName, 'birthDate': birthDate });
+    } else {
 
-  //     validate = false;
-  //     console.log("checkInfos ko", { firstName: firstName, lastName: lastName, birthDate: birthDate })
-  //   }
+      validate = false;
+      console.log("checkInfos ko", { firstName: firstName, lastName: lastName, birthDate: birthDate })
+    }
 
-  //   if (checkContact) {
+    if (checkContact) {
 
-  //     console.log("checkContact", contact);
-  //     setContact({ 'street': street, 'city': city, 'state': stateLocation, 'zip': zip });
-  //     console.log("checkContact OK", { 'street': street, 'city': city, 'state': stateLocation, 'zip': zip });
-  //   } else {
+      console.log("checkContact", contact);
+      setContact({ 'street': street, 'city': city, 'state': stateLocation, 'zip': zip });
+      console.log("checkContact OK", { 'street': street, 'city': city, 'state': stateLocation, 'zip': zip });
+    } else {
 
-  //     console.log("checkContact ko", { 'street': street, 'city': city, 'state': stateLocation, 'zip': zip })
-  //     validate = false;
-  //   }
+      console.log("checkContact ko", { 'street': street, 'city': city, 'state': stateLocation, 'zip': zip })
+      validate = false;
+    }
 
-  //   if (checkOnBoarding) {
+    if (checkOnBoarding) {
 
-  //     setOnboarding({ 'startDate': startDate, 'department': department });
-  //     console.log("checkOnBoarding OK", { 'startDate': startDate, 'department': department });
-  //   } else {
+      setOnboarding({ 'startDate': startDate, 'department': department });
+      console.log("checkOnBoarding OK", { 'startDate': startDate, 'department': department });
+    } else {
 
-  //     console.log("checkOnBoarding ko", { 'startDate': startDate, 'department': department })
-  //     validate = false;
-  //   }
+      console.log("checkOnBoarding ko", { 'startDate': startDate, 'department': department })
+      validate = false;
+    }
 
-  //   return validate;
+    return validate;
 
-  // }
+  }
 
-  // function Handle_Submit(e) {
-  //   e.preventDefault();
+  function Handle_Submit(e) {
+    e.preventDefault();
 
-  //   if (checkForm()) {
-  //     console.log(firstName, lastName, birthDate, street, city, stateLocation, zip, startDate, department)
-  //     dispatch(add_infos({ 'firstName': infos.firstName, 'lastName': infos.lastName, 'birthDate': infos.birthDate }));
-  //     console.log("dispatch infos", infos);
-  //     dispatch(add_contact({ 'street': contact.street, 'city': contact.city, 'state': contact.state, 'zip': contact.zip }));
-  //     console.log("dispatch contact", contact);
-  //     dispatch(add_onboarding({ 'startDate': onBoarding.startDate, 'department': onBoarding.department }));
-  //     console.log("dispatch onBoarding", onBoarding);
+    if (checkForm()) {
+      console.log(firstName, lastName, birthDate, street, city, stateLocation, zip, startDate, department)
+      dispatch(add_infos({ 'firstName': infos.firstName, 'lastName': infos.lastName, 'birthDate': infos.birthDate }));
+      console.log("dispatch infos", infos);
+      dispatch(add_contact({ 'street': contact.street, 'city': contact.city, 'state': contact.state, 'zip': contact.zip }));
+      console.log("dispatch contact", contact);
+      dispatch(add_onboarding({ 'startDate': onBoarding.startDate, 'department': onBoarding.department }));
+      console.log("dispatch onBoarding", onBoarding);
 
-  //     //Fonction de vérification des éléments de formulaire a implémenter
+      //Fonction de vérification des éléments de formulaire a implémenter
 
-  //     dispatch(add_employee({ 'infos': infos, 'contact': contact, 'onBoarding': onBoarding }));
-
-  //     console.log("submit");
-  //   }
-  // }
+      dispatch(add_employee({ 'infos': infos, 'contact': contact, 'onBoarding': onBoarding }));
+      setShow(true);
+      console.log("submit");
+    }
+  }
   return (
+    <>
     <main>
-      {/* <h1 className={style.page_Title}>Create Employees</h1>
+      <h1 className={style.page_Title}>Create Employees</h1>
 
       <form onSubmit={Handle_Submit} className={style.form}>
         <div className={style.container_infos}>
@@ -243,54 +245,16 @@ export default function CreateUserPage() {
         <button className={style.submit_button} type="submit">
           save
         </button>
-      </form> */}
-      <Modale
-        MessageText="test"
-
-
-        //Background_Container
-        bgContainerPos="fixed"
-        bgContainerZIndex="1"
-        bgContainerWidth="100%"
-        bgContainerHeight="100%"
-        bgContainerColor="rgba(25,250,0,0.4)"
-        bgContainerOpacity="1"
-
-        //Modale_Container
-        ModaleContainerDisplay="flex"
-        ModaleContainerPos="fixed"
-        ModaleContainerZIndex="1"
-        ModaleContainerWidth="100%"
-        ModaleContainerHeight="100%"
-        ModaleContainerColor="rgba(0,0,0,0.4)"
-        ModaleContainerOpacity="1"
-
-        //Modale_Content
-        ModaleContentDisplay="flex"
-        ModaleContentPos="fixed"
-        ModaleContentZIndex="1"
-        ModaleContentWidth="100%"
-        ModaleContentHeight="100%"
-        ModaleContentColor="rgba(0,0,0,0.4)"
-        ModaleContentOpacity="1"
-
-        //Modale_Message
-        ModaleCloseButtonDisplay="flex"
-        ModaleCloseButtonPos="fixed"
-        ModaleCloseButtonZIndex="1"
-        ModaleCloseButtonWidth="100%"
-        ModaleCloseButtonHeight="100%"
-        ModaleCloseButtonColor="rgba(0,0,0,0.4)"
-        ModaleCloseButtonOpacity="1"
-
-        //Modale_CloseButtonContent
-        ModaleCloseButtonContentDisplay="flex"
-        ModaleCloseButtonContentZIndex="1"
-        ModaleCloseButtonContentWidth="100%"
-        ModaleCloseButtonContentHeight="100%"
-        ModaleCloseButtonContentColor="rgba(250,0,0,0.4)"
-        ModaleCloseButtonContentOpacity="1"
-      />
+      </form>
+      
     </main>
+    <Modale
+        
+        Show = {show}
+
+
+        
+      />
+      </>
   );
 }
