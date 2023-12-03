@@ -35,8 +35,8 @@ export default function CreateUserPage() {
     setCity(city);
     setZip(zip);
     setStartDate(startDate);
-    setDepartment(selectedDepartment.value);
-    setStateLocation(selectedStateLocation.value);
+    setDepartment(selectedDepartment);
+    setStateLocation(selectedStateLocation);
   }, [
     firstName,
     lastName,
@@ -47,7 +47,7 @@ export default function CreateUserPage() {
     zip,
     startDate,
     department,
-    selectedStateLocation.value,
+    selectedStateLocation,
     selectedDepartment,
   ]);
 
@@ -116,7 +116,21 @@ export default function CreateUserPage() {
       dispatch(add_employee({ 'infos': infos, 'contact': contact, 'onBoarding': onBoarding }));
 
       console.log("submit");
-      setShow(true);
+      setFirstName("");
+      
+      setLastName("");
+      setBirthDate("");
+      setStreet("");
+      setCity("");
+      setStateLocation("");
+      setZip("");
+      setStartDate("");
+      setDepartment("");
+      setContact("");
+      setInfos("");
+      setOnboarding("");setShow(true);
+      
+
     }
   }
   return (
@@ -250,7 +264,7 @@ export default function CreateUserPage() {
       
     </main>
     <Modale
-        Text='ça marche'
+        Text='Employee created!'
         Show={show}
       />
   </>);

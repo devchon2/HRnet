@@ -24,32 +24,41 @@ export default function Modale(
   }, [Text, Show]);
 
 
+
   function handleClose(e) {
     e.preventDefault()
     setShow(false)
+    const inputs = document.querySelectorAll('input')
+  inputs.forEach(input => input.value = '')
   }
- const closeBtn = document.getElementById('closeBtn')
-
- 
-
-const bgClassname = show ? style.bgContainer : style.bgContainerHidden
+  const closeBtn = document.getElementById('closeBtn')
 
 
 
+  const bgClassname = show ? style.bgContainer : style.Hidden
+  const modaleContainerClassname = show ? style.modaleContainer : style.Hidden
+  const contentContainerClassname = show ? style.contentContainer : style.Hidden 
+
+  
+  
 
   return (
-    <div className={bgClassname} >
-      <div className={style.contentContainer}>
+    <>
+      <div className={bgClassname} >
+      </div>
+      <div className={modaleContainerClassname}>
+        <div className={contentContainerClassname}>
 
-       
-        <button id='closeBtn' onClick={handleClose}>               
-        </button>
+          <button id='closeBtn' onClick={handleClose}>
+            &#10006;
+          </button>
           <p>
             {message}
           </p>
-        
 
-      </div>
-    </div>
+        </div>
+
+      </div></>
+
   )
 }
