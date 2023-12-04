@@ -2,48 +2,38 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
 
-const StyledBGContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-  width: 100vw;
-  height: 100vh;
-  background-color: ${(props) => props.BgColor};
-  opacity: ${(props) => props.Opacity};
-  position: absolute;
-  border-radius : ${(props) => props.BorderRadius};
-`;
+
 
 const StyledModaleContainer = styled.div`
   display: flex;
   width: ${(props) =>
-    props.ModaleSize === "small"
+    props.modaleSize === "small"
       ? "30vw"
-      : props.ModaleSize === "medium"
+      : props.modaleSize === "medium"
         ? "50vw"
-        : props.ModaleSize === "large"
+        : props.modaleSize === "large"
           ? "70vw"
-          : props.ModaleSize === "full"
+          : props.modaleSize === "full"
             ? "100vw"
-            : props.ModaleContainerWidth};
+            : props.modaleContainerWidth};
   height: ${(props) =>
-    props.ModaleSize === "small"
+    props.modaleSize === "small"
       ? "30vh"
-      : props.ModaleSize === "medium"
+      : props.modaleSize === "medium"
         ? "50vh"
-        : props.ModaleSize === "large"
+        : props.modaleSize === "large"
           ? "70vh"
-          : props.ModaleSize === "full"
+          : props.modaleSize === "full"
             ? "100vh"
-            : props.ModaleContainerHeight};
-  background-color: ${(props) => props.ModaleBoxColor};
+            : props.modaleContainerHeight};
+  background-color: ${(props) => props.modaleBoxColor};
   position: absolute;
   top:50%;
   left:50%;
   transform: translate(-50%, -50%);
   opacity: 1;
   z-index: 2;
+  border-radius: ${(props) => props.radius};
 `;
 
 const StyledModaleContent = styled.div`
@@ -79,9 +69,6 @@ const StyledModaleCloseButton = styled.button`
 const StyledModaleCloseButtonContent = styled.p`
   display: flex;
   
-  
-  
-  
   color: ${(props) => props.itemButtonColor};
   font-size: ${(props) => props.itemButtonSize};
 
@@ -93,99 +80,94 @@ const StyledModaleMessage = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  color: ${(props) => props.ModaleMessageColor};
-  font-size: ${(props) => props.ModaleMessageSize};
+  color: ${(props) => props.textColor};
+  font-size: ${(props) => props.textSize};
 
 `;
 
+const StyledBGContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  background-color: ${(props) => props.bg_Color};
+  opacity: ${(props) => props.opacity};
+  position: absolute;
+  border-radius : ${(props) => props.radius};
+`;
+
 export default function Modale({
-  Show = false,
-  BgColor = "black",
-  Opacity = "0.5",
-
-  ModaleSize = "medium",
-  ModaleColor = "white",
-
-
-  ButtonColor = "black",
-  ItemButtonColor = "white",
-  ItemButtonSize = "20px",
-  TextColor = "black",
-  TextSize = "20px",
-  Message = "Employee Created",
+  show = false,
+  bg_Color = "black",
+  opacity = "0.5",
+  radius = "none",
+  modaleSize = "medium",
+  modaleBoxColor = "white",
+  transition = "opacity",
+  buttonColor = "black",
+  itemButtonColor = "white",
+  itemButtonSize = "20px",
+  textColor = "black",
+  textSize = "20px",
+  message = "Employee Created",
 }) {
-  const [show, setShow] = useState(Show);
-  const [modaleSize, setModaleSize] = useState(ModaleSize);
-  const [modaleColor, setModaleColor] = useState(ModaleColor);
-  const [bgColor, setBgColor] = useState(BgColor);
-  const [opacity, setOpacity] = useState(Opacity);
-  const [buttonColor, setButtonColor] = useState(ButtonColor);
-  const [itemButtonColor, setItemButtonColor] = useState(ItemButtonColor);
-  const [itemButtonSize, setItemButtonSize] = useState(ItemButtonSize);
-  const [textColor, setTextColor] = useState(TextColor);
-  const [textSize, setTextSize] = useState(TextSize);
-  const [message, setMessage] = useState(Message);
-
+  const [view, setView] = useState(show);
+  
 
 
   useEffect(() => {
-    setShow(Show);
-    setModaleSize(ModaleSize);
-    setModaleColor(ModaleColor);
-    setBgColor(BgColor);
-    setOpacity(Opacity);
-    setButtonColor(ButtonColor);
-    setItemButtonColor(ItemButtonColor);
-    setItemButtonSize(ItemButtonSize);
-    setTextColor(TextColor);
-    setTextSize(TextSize);
-    setMessage(Message);
+    setView(show);
+    
+  }, [ show]);
 
-  }, [Show, ModaleSize, ModaleColor, BgColor, Opacity, ButtonColor, ItemButtonColor, ItemButtonSize, TextColor, TextSize, Message]);
 
   function handleClose(e) {
 
 
     e.preventDefault();
     console.log("close");
-    setShow(false);
-    const inputs = document.querySelectorAll("input");
-    inputs.forEach(input => input.value = "");
+
+    
+    setView(false);
+    
+
+    
 
 
   }
 
-  if (show) {
-
+  if (view) {
+    
     return (
       <>
         <StyledBGContainer
-          BgColor={bgColor}
-          Opacity={opacity}
-
-
-
+          bg_Color={bg_Color}
+          opacity={opacity}
+          onClick={handleClose}
 
         />
 
         <StyledModaleContainer
-          ModaleSize={modaleSize}
+                    radius={radius}
+                    modaleSize={modaleSize}
+                    modaleBoxColor={modaleBoxColor}
+                    
 
 
         >
           <StyledModaleContent
-            ModaleColor={modaleColor}
+            
 
           >
             <StyledModaleCloseButton
-              ButtonColor={buttonColor}
               onClick={handleClose}
 
             >
 
               <StyledModaleCloseButtonContent
 
-                ItemButtonColor={itemButtonColor} ItemButtonSize={itemButtonSize}
 
 
               >{/* un code ascii qui represente une croix*/}
@@ -197,8 +179,7 @@ export default function Modale({
 
             </StyledModaleCloseButton>
             <StyledModaleMessage
-              ModaleMessageColor={textColor}
-              ModaleMessageSize={textSize}
+              
 
 
             >
