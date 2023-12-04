@@ -1,10 +1,32 @@
 import { useEffect } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useState } from "react";
+
+const bumpAnimation = keyframes`
+0% {
+  scale: 0;
+}
+80% {
+  scale: 1.1;
+}
+100% {
+  scale: 1;
+}
+`
+
+const OpacityAnimation = keyframes`
+from {
+  opacity: 0;
+}
+to {
+  opacity: ${(props) => props.opacity}
+}
+`
 
 
 
 const StyledModaleContainer = styled.div`
+
   display: flex;
   width: ${(props) =>
     props.modaleSize === "small"
@@ -33,6 +55,8 @@ const StyledModaleContainer = styled.div`
   transform: translate(-50%, -50%);
   opacity: 1;
   z-index: 2;
+  animation: ${(props) => props.animation === "opacity" ? OpacityAnimation : props.animation === "bump" ? bumpAnimation : null} 0.5s ease-in-out;
+
   border-radius: ${(props) => props.radius};
 `;
 
@@ -41,6 +65,8 @@ const StyledModaleContent = styled.div`
   width: 100%;
   height: 100%;
   background-color: ${(props) => props.ModaleColor};
+  
+
 `;
 
 const StyledModaleCloseButton = styled.button`
@@ -68,13 +94,12 @@ const StyledModaleCloseButton = styled.button`
 
 const StyledModaleCloseButtonContent = styled.p`
   display: flex;
-  
   color: ${(props) => props.itemButtonColor};
   font-size: ${(props) => props.itemButtonSize};
-
+  font-family: ${(props) => props.textFamily};
 `;
 
-const StyledModaleMessage = styled.div`
+const StyledModaleMessage = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,35 +117,70 @@ const StyledBGContainer = styled.div`
   z-index: 1;
   width: 100vw;
   height: 100vh;
-  background-color: ${(props) => props.bg_Color};
+  background-color: ${(props) => props.Bg_Color};
   opacity: ${(props) => props.opacity};
   position: absolute;
+  
   border-radius : ${(props) => props.radius};
 `;
 
 export default function Modale({
-  show = false,
-  bg_Color = "black",
-  opacity = "0.5",
-  radius = "none",
+  isActive = false,
+  action = null,
+  Bg_Color = "black",
+  Opacity = "0.5",
+  radius = "0",
   modaleSize = "medium",
   modaleBoxColor = "white",
-  transition = "opacity",
+  animation = "opacity",
   buttonColor = "black",
   itemButtonColor = "white",
   itemButtonSize = "20px",
   textColor = "black",
+  textFamily = "arial",
   textSize = "20px",
-  message = "Employee Created",
+  message = "Employee !",
 }) {
-  const [view, setView] = useState(show);
-  
+  const [view, setView] = useState('');
+  const [active, setActive] = useState('');
+  const [mdlSize, setMdlSize] = useState('');
+  const [mdlBoxColor, setMdlBoxColor] = useState('');
+  const [anim, setAnim] = useState('');
+  const [btnColor, setBtnColor] = useState('');
+  const [itmBtnColor, setItmBtnColor] = useState('');
+  const [itmBtnSize, setItmBtnSize] = useState('');
+  const [txtColor, setTxtColor] = useState('');
+  const [txtSize, setTxtSize] = useState('');
+  const [txtFamily, setTxtFamily] = useState('');
+  const [msg, setMsg] = useState('');
+  const [bgColor, setBgColor] = useState('');
+  const [opa, setOpa] = useState('');
+  const [rad, setRad] = useState('');
+
+
 
 
   useEffect(() => {
-    setView(show);
-    
-  }, [ show]);
+    setView(isActive);
+    setActive(isActive);
+    setMdlSize(modaleSize);
+    setMdlBoxColor(modaleBoxColor);
+    setAnim(animation);
+    setBtnColor(buttonColor);
+    setItmBtnColor(itemButtonColor);
+    setItmBtnSize(itemButtonSize);
+    setTxtColor(textColor);
+    setTxtSize(textSize);
+    setTxtFamily(textFamily);
+    setMsg(message);
+    setBgColor(Bg_Color);
+    setOpa(Opacity);
+    setRad(radius);
+
+
+
+
+  }, [ isActive, modaleSize, modaleBoxColor, animation, buttonColor, itemButtonColor, itemButtonSize, textColor, textSize, textFamily, message, Bg_Color, Opacity, radius, action]);
 
 
   function handleClose(e) {
@@ -129,45 +189,55 @@ export default function Modale({
     e.preventDefault();
     console.log("close");
 
-    
-    setView(false);
-    
 
-    
+    setView(false);
+    setActive(false);
+    console.log();
+
+
+
+
 
 
   }
 
   if (view) {
-    
+
     return (
       <>
         <StyledBGContainer
-          bg_Color={bg_Color}
-          opacity={opacity}
+        id="bgContainer"
+        className={active ? "active" : "inactive"}
+          Bg_Color={bgColor}
+          Opacity={opa}
+          animation={anim}
           onClick={handleClose}
 
         />
 
         <StyledModaleContainer
-                    radius={radius}
-                    modaleSize={modaleSize}
-                    modaleBoxColor={modaleBoxColor}
-                    
+          radius={rad}
+          modaleSize={mdlSize}
+          modaleBoxColor={mdlBoxColor}
+
 
 
         >
           <StyledModaleContent
-            
+
 
           >
             <StyledModaleCloseButton
               onClick={handleClose}
+              ButtonColor={btnColor}
+
+
 
             >
 
               <StyledModaleCloseButtonContent
-
+                itemButtonColor={itmBtnColor}
+                itemButtonSize={itmBtnSize}
 
 
               >{/* un code ascii qui represente une croix*/}
@@ -179,11 +249,13 @@ export default function Modale({
 
             </StyledModaleCloseButton>
             <StyledModaleMessage
-              
+              textColor={txtColor}
+              textSize={txtSize}
+              textFamily={txtFamily}
 
 
             >
-              {message}
+              {msg}
             </StyledModaleMessage>
           </StyledModaleContent>
         </StyledModaleContainer>
