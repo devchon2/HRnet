@@ -9,9 +9,8 @@ import { add_onboarding, remove_onboarding } from "../../../Redux/onBoardingSlic
 import { add_employee } from "../../../Redux/dataBaseSlice.js";
 
 
-export default function Form(
-  Show,action
-) {
+export default function Form({ isModaleActive, action }) {
+
   const [firstName, setFirstName] = useState(document.querySelector("input#firstName"));
   const [lastName, setLastName] = useState(document.querySelector("input#lastName"));
   const [birthDate, setBirthDate] = useState(document.querySelector("input#birthDate"));
@@ -23,10 +22,9 @@ export default function Form(
   const [infos, setInfos] = useState('');
   const [onBoarding, setOnboarding] = useState("");
   const [selectedStateLocation, setSelectedStateLocation] = useState(states[0]);
-  const [selectedDepartment, setSelectedDepartment] = useState(departments[0]);  
-  const [stateLocation, setStateLocation] = useState(selectedStateLocation.value);  
+  const [selectedDepartment, setSelectedDepartment] = useState(departments[0]);
+  const [stateLocation, setStateLocation] = useState(selectedStateLocation.value);
   const [department, setDepartment] = useState(selectedDepartment.value);
-  const [view, setView] = useState(Show);
   const [FirstNameErrorCls, setFirstNameErrorCls] = useState(style.hidden);
   const [LastNameErrorCls, setLastNameErrorCls] = useState(style.hidden);
   const [BirthdateErrorCls, setBirthdateErrorCls] = useState(style.hidden);
@@ -35,9 +33,9 @@ export default function Form(
   const [ZipCodeErrorCls, setZipCodeErrorCls] = useState(style.hidden);
   const [StartDateErrorCls, setStartDateErrorCls] = useState(style.hidden);
 
-  
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+ 
   useEffect(() => {
     setFirstName(document.querySelector("input#firstName").value);
     setLastName(document.querySelector("input#lastName").value);
@@ -51,253 +49,315 @@ export default function Form(
     setOnboarding({ 'startDate': startDate, 'department': department });
     setStateLocation(selectedStateLocation.value);
     setDepartment(selectedDepartment.value);
-    setView(Show);
     
-    
-  }, [selectedStateLocation, selectedDepartment, firstName, lastName, birthDate, street, city, stateLocation, zip, startDate, department, Show]);
+  }, [selectedStateLocation, selectedDepartment, firstName, lastName, birthDate, street, city, stateLocation, zip, startDate, department, isModaleActive, ]);
 
-  function checkFields(){
-    const textRegEx = /^[a-zA-Z]+$/;
-      const zipRegEx = /^[0-9]{5}$/;
-      const dateRegEx = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
-      textRegEx.test(firstName) ? setFirstNameErrorCls(style.hidden) : setFirstNameErrorCls(style.error_Message);
-      textRegEx.test(lastName) ? setLastNameErrorCls(style.hidden) : setLastNameErrorCls(style.error_Message);
-      dateRegEx.test(birthDate) ? setBirthdateErrorCls(style.hidden) : setBirthdateErrorCls(style.error_Message);
-      textRegEx.test(street) ? setStreetErrorCls(style.hidden) : setStreetErrorCls(style.error_Message);
-      textRegEx.test(city) ? setCityErrorCls(style.hidden) : setCityErrorCls(style.error_Message);
-      zipRegEx.test(zip) ? setZipCodeErrorCls(style.hidden) : setZipCodeErrorCls(style.error_Message);
-      dateRegEx.test(startDate) ? setStartDateErrorCls(style.hidden) : setStartDateErrorCls(style.error_Message);
+  function CalculatedBirthdate(birthdate) {
+    console.log("CalculatedBirthdate");
+
+    const today = Number(new Date().getDate());
+    const thisMonth = Number(new Date().getMonth());
+    const thisYear = Number(new Date().getFullYear());
+
+    const birthday = Number(birthdate.getDate());
+    const birthmonth = Number(birthdate.getMonth());
+    const birthyear = Number(birthdate.getFullYear());
+
+    
+      const notYearAged = (thisYear - birthyear) < 18;
+      const notMonthAged = (thisMonth - birthmonth) < 0;
+      const notDayAged = (today - birthday) > 0;
+
+
+      if (notYearAged) {
+        console.log('NotAged')
+        return false;
+
+      }
+
+      if (notMonthAged) {
+        console.log("notMonthAged");
+        return false;
+      } 
+
+      if (notDayAged) {
+          console.log("today < birthday");
+          return false;
+        }
+      return true;
+  }
+
+  function checkFields() {
+    console.log("checkFields");
+    const streetRegex = /^[a-zA-Z0-9\s,'-]*$/;
+    const textRegEx = /^[a-zA-Z'-]+$/;
+    const zipRegEx = /^[0-9]{5}(?:-[0-9]{4})?$/;
+    const dateRegEx = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
+
+    let validate = true;
+    const errorClass = style.error_Message
+    const validClass = style.hidden;
+
+    const elements = [{
+      element: firstName,
+      test: textRegEx.test(firstName),
+      act: setFirstNameErrorCls,
+    }, {
+      element: lastName,
+      test: textRegEx.test(lastName),
+      act: setLastNameErrorCls,
+
+    }, {
+      element: birthDate,
+      test: (dateRegEx.test(birthDate) && CalculatedBirthdate(new Date(birthDate))),
+      act: setBirthdateErrorCls,
+
+    }, {
+      element: street,
+      test: streetRegex.test(street),
+      act: setStreetErrorCls,
+
+    }, {
+      element: city,
+      test: textRegEx.test(city),
+      act: setCityErrorCls,
+
+    }, {
+      element: zip,
+      test: zipRegEx.test(zip),
+      act: setZipCodeErrorCls,
+
+    }, {
+      element: startDate,
+      test: dateRegEx.test(startDate),
+      act: setStartDateErrorCls,
+    }
+    ]
+
+    console.log('boucle sur elements');
+    elements.forEach(el => {
+      const { element, act,test } = el;
+
+      if (test && element.length > 2) {
+        act(validClass)
+      } else {
+        act(errorClass)
+        validate = false;
+      }
+      console.log('fin boucle sur elements');
+    })    
+    return validate;
+
   }
 
   function checkForm() {
+    console.log("checkForm");
 
-      
-      
-    checkFields();
-      
-      
-      const infosDatas = [firstName, lastName, birthDate];
-      const contactDatas = [street, city, stateLocation, zip];
-      const onBoardingDatas = [startDate, department];
-      const checkInfos = infosDatas.every(element => element !== "");
-      const checkContact = contactDatas.every(element => element !== "");
-      const checkOnBoarding = onBoardingDatas.every(element => element !== "");
-      let validate = true;
-  
-      console.log("checkForm", checkInfos, checkContact, checkOnBoarding)
-  
-      if (checkInfos) {
-  
-        setInfos({ 'firstName': infosDatas[0], 'lastName': infosDatas[1], 'birthDate': infosDatas[2] });
-        console.log("checkInfos OK", { 'firstName': infosDatas[0], 'lastName': infosDatas[1], 'birthDate': infosDatas[2] });
-      } else {
-  
-        validate = false;
-        console.log("checkInfos ko", { 'firstName': infosDatas[0], 'lastName': infosDatas[1], 'birthDate': infosDatas[2]  })
-      }
-  
-      if (checkContact) {
-  
-        console.log("checkContact", contact);
-        setContact({ 'street': contactDatas[0], 'city': contactDatas[1], 'state': contactDatas[2], 'zip': contactDatas[3] });
-        console.log("checkContact OK", { 'street': contactDatas[0], 'city': contactDatas[1], 'state': contactDatas[2], 'zip': contactDatas[3] });
-      } else {
-  
-        console.log("checkContact ko", { 'street': contactDatas[0], 'city': contactDatas[1], 'state': contactDatas[2], 'zip': contactDatas[3] })
-        validate = false;
-      }
-  
-      if (checkOnBoarding) {
-  
-        setOnboarding({ 'startDate': onBoardingDatas[0], 'department': onBoardingDatas[1] });
-        console.log("checkOnBoarding OK", { 'startDate': startDate, 'department': department });
-      } else {
-  
-        console.log("checkOnBoarding ko", { 'startDate': startDate, 'department': department })
-        validate = false;
-      }
-  
-      return validate;
-  
-    }
-
-    function resetForm() {
-      
+    const infosDatas = [firstName, lastName, birthDate];
+    const contactDatas = [street, city, stateLocation, zip];
+    const onBoardingDatas = [startDate, department];
     
-      dispatch(add_infos({ 'firstName': '', 'lastName': '', 'birthDate': ''}));
-        dispatch(remove_infos());
-        dispatch(remove_contact());
-        dispatch(remove_onboarding());
-        const inputs = document.querySelectorAll("input");
-        inputs.forEach((input) => {
-          input.value = "";
-        });
-        setSelectedStateLocation(states[0]);
-        setSelectedDepartment(departments[0]);
+
+    if (checkFields()) {
+      console.log("checkForm checkFields");
+
+      
+        setInfos({ 'firstName': infosDatas[0], 'lastName': infosDatas[1], 'birthDate': infosDatas[2] });
+        console.log('setInfos');
+      
+        setContact({ 'street': contactDatas[0], 'city': contactDatas[1], 'state': contactDatas[2], 'zip': contactDatas[3] });
+        console.log('setContact');
+
+        setOnboarding({ 'startDate': onBoardingDatas[0], 'department': onBoardingDatas[1] });
+        console.log('setOnboarding');
+      
+      return true;
+   }
+  return false;
   }
+
+  function resetForm() {
+
+
+    dispatch(add_infos({ 'firstName': '', 'lastName': '', 'birthDate': '' }));
+    dispatch(remove_infos());
+    dispatch(remove_contact());
+    dispatch(remove_onboarding());
+    const inputs = document.querySelectorAll("input");
+    inputs.forEach((input) => {
+      input.value = "";
+    });
+    setSelectedStateLocation(states[0]);
+    setSelectedDepartment(departments[0]);
+  }
+
+  function migrateToState() {
+    console.log("migrateToState");
+
+    dispatch(add_infos(infos));
+    dispatch(add_contact(contact));
+    dispatch(add_onboarding(onBoarding));
+    
+    dispatch(add_employee({ infos: infos, 'contact': contact, 'onBoarding': onBoarding }));
+    
+    return true;
+  }
+
+  function closeModale() {
+    if (isModaleActive) {
+      resetForm();
+      action(false);
+    }}
+
+
 
   function Handle_Submit(e) {
     e.preventDefault();
-    
-    
-    
+
     if (checkForm()) {
-      console.log({'infos': infos, 'contact': contact, 'onBoarding': onBoarding})
-      dispatch(add_infos(infos));
-      console.log("dispatch infos", infos);
-      dispatch(add_contact(contact));
-      console.log("dispatch contact", contact);
-      dispatch(add_onboarding(onBoarding));
-      console.log("dispatch onBoarding", onBoarding);
+      console.log("Handle_Submit");
+      migrateToState();
+      action(true)
+    }  
+  }
 
-
-      dispatch(add_employee({ infos: infos, 'contact': contact, 'onBoarding': onBoarding }));
-      setView(true);
-      console.log(action);
-      console.log("submit");
-      
-      }
-    }
-    
 
   return (
     <form onSubmit={Handle_Submit} className={style.form}>
-        <div className={style.container_infos}>
-          <div className={style.container_employee_infos}>
-            <h2>Employee</h2>
+      <div className={style.container_infos}>
+        <div className={style.container_employee_infos}>
+          <h2>Employee</h2>
 
-            <div className={style.form_group}>
-              <label htmlFor="firstName">First Name</label>
-              <input
-                onChange={(e) => setFirstName(e.target.value)}
-                type="text"
-                id="firstName"
-                name="firstName"
-              />
-              <p id='firstNameError' className={FirstNameErrorCls}>FirstName required!</p>
-            </div>
-
-            <div className={style.form_group}>
-              <label htmlFor="lastName">Last Name</label>
-              <input
-                onChange={(e) => setLastName(e.target.value)}
-                type="text"
-                id="lastName"
-                name="lastName"
-              />
-                            <p id='lastNameError' className={LastNameErrorCls}>LastName required!</p>
-
-            </div>
-
-            <div className={style.form_group}>
-              <label htmlFor="birthDate">Birth Date</label>
-              <input
-                onChange={(e) => {
-                  setBirthDate(e.target.value);
-                }}
-
-                type="date"
-                id="birthDate"
-                name="birthDate"
-              />
-                            <p id='birthdateError' className={BirthdateErrorCls}>BirthDate required!</p>
-
-            </div>
+          <div className={style.form_group}>
+            <label htmlFor="firstName">First Name</label>
+            <input
+              onChange={(e) => setFirstName(e.target.value)}
+              type="text"
+              id="firstName"
+              name="firstName"
+            />
+            <p id='firstNameError' className={FirstNameErrorCls}>FirstName required!</p>
           </div>
 
-          <div className={style.container_contact_infos}>
-            <h2>contact</h2>
+          <div className={style.form_group}>
+            <label htmlFor="lastName">Last Name</label>
+            <input
+              onChange={(e) => setLastName(e.target.value)}
+              type="text"
+              id="lastName"
+              name="lastName"
+            />
+            <p id='lastNameError' className={LastNameErrorCls}>LastName required!</p>
 
-            <div className={style.form_group}>
-              <label htmlFor="Street">Street</label>
-              <input
-                onChange={(e) => setStreet(e.target.value)}
-                type="text"
-                id="Street"
-                name="Street"
-              />
-                            <p id='streetError' className={StreetErrorCls}>Street required!</p>
+          </div>
 
-            </div>
+          <div className={style.form_group}>
+            <label htmlFor="birthDate">Birth Date</label>
+            <input
+              onChange={(e) => {
+                setBirthDate(e.target.value);
+              }}
 
-            <div className={style.form_group}>
-              <label htmlFor="City">City</label>
-              <input
-                onChange={(e) => setCity(e.target.value)}
-                type="text"
-                id="City"
-                name="City"
-              />
-                            <p id='CityError' className={CityErrorCls}>City required!</p>
+              type="date"
+              id="birthDate"
+              name="birthDate"
+            />
+            <p id='birthdateError' className={BirthdateErrorCls}>BirthDate required!</p>
 
-            </div>
-
-            <div className={style.form_group}>
-              <label htmlFor="selectStates">State</label>
-              <Select
-                type="text"
-                value={selectedStateLocation}
-
-                onChange={setSelectedStateLocation}
-                placeholder={states[0].value}
-                name="selectStates"
-                inputId="selectStates"
-                options={states}
-              />            </div>
-
-            <div className={style.form_group}>
-              <label htmlFor="Zip">Zip Code</label>
-              <input
-                onChange={(e) => setZip(e.target.value)}
-                type="text"
-                id="Zip"
-                name="Zip"
-              />
-                            <p id='ZipCodeError' className={ZipCodeErrorCls}>ZipCode required!</p>
-
-            </div>
           </div>
         </div>
-        <div className={style.container_corps_infos}>
-          <h2>Onboarding</h2>
-          <div className={style.onboardingGroup}>
-            <div className={style.form_group}>
-              <label htmlFor="startDate">Start Date</label>
-              <input
-                onChange={(e) => setStartDate(e.target.value)}
-                type="date"
-                id="startDate"
-                name="startDate"
-              />
-              <p id='StartDateError' className={StartDateErrorCls}>Start Date required!</p>
 
-            </div>
-            <div className={style.form_group}>
-              <label htmlFor="department">Department</label>
-              <Select
-                type="text"
-                value={selectedDepartment}
-                styles={{
-                  control: (baseStyles) => ({
-                    ...baseStyles,
-                    borderColor: 'orange',
-                  }),
-                }}
-                onChange={setSelectedDepartment}
-                options={departments}
-                placeholder={departments[0].value}
-                inputId={"department"}
-                name="department"
-              />
+        <div className={style.container_contact_infos}>
+          <h2>contact</h2>
 
-            </div>
+          <div className={style.form_group}>
+            <label htmlFor="Street">Street</label>
+            <input
+              onChange={(e) => setStreet(e.target.value)}
+              type="text"
+              id="Street"
+              name="Street"
+            />
+            <p id='streetError' className={StreetErrorCls}>Street required!</p>
+
+          </div>
+
+          <div className={style.form_group}>
+            <label htmlFor="City">City</label>
+            <input
+              onChange={(e) => setCity(e.target.value)}
+              type="text"
+              id="City"
+              name="City"
+            />
+            <p id='CityError' className={CityErrorCls}>City required!</p>
+
+          </div>
+
+          <div className={style.form_group}>
+            <label htmlFor="selectStates">State</label>
+            <Select
+              type="text"
+              value={selectedStateLocation}
+
+              onChange={setSelectedStateLocation}
+              placeholder={states[0].value}
+              name="selectStates"
+              inputId="selectStates"
+              options={states}
+            />            </div>
+
+          <div className={style.form_group}>
+            <label htmlFor="Zip">Zip Code</label>
+            <input
+              onChange={(e) => setZip(e.target.value)}
+              type="text"
+              id="Zip"
+              name="Zip"
+            />
+            <p id='ZipCodeError' className={ZipCodeErrorCls}>ZipCode required!</p>
+
           </div>
         </div>
-        <button className={style.submit_button} type="submit">
-          save
-        </button>
-      </form>
+      </div>
+      <div className={style.container_corps_infos}>
+        <h2>Onboarding</h2>
+        <div className={style.onboardingGroup}>
+          <div className={style.form_group}>
+            <label htmlFor="startDate">Start Date</label>
+            <input
+              onChange={(e) => setStartDate(e.target.value)}
+              type="date"
+              id="startDate"
+              name="startDate"
+            />
+            <p id='StartDateError' className={StartDateErrorCls}>Start Date required!</p>
+
+          </div>
+          <div className={style.form_group}>
+            <label htmlFor="department">Department</label>
+            <Select
+              type="text"
+              value={selectedDepartment}
+              styles={{
+                control: (baseStyles) => ({
+                  ...baseStyles,
+                  borderColor: 'orange',
+                }),
+              }}
+              onChange={setSelectedDepartment}
+              options={departments}
+              placeholder={departments[0].value}
+              inputId={"department"}
+              name="department"
+            />
+
+          </div>
+        </div>
+      </div>
+      <button className={style.submit_button} type="submit">
+        save
+      </button>
+    </form>
   )
 }
-
-

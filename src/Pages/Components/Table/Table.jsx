@@ -1,8 +1,7 @@
 import jsonDatas from '../../../utils/mockDatas.json';
 import { useState, useEffect, useMemo } from 'react';
-
 import { useReactTable } from '@tanstack/react-table';
-
+import { ErrorBoundary } from "react-error-boundary";
 
 export default function EmployeeTable() {
   const [datas, setDatas] = useState(jsonDatas);
@@ -53,12 +52,16 @@ export default function EmployeeTable() {
 
 
   return (
-    <table>
+    <ErrorBoundary>
+      
+      <table>
       <thead>
 
       </thead>
 
     </table>
+    </ErrorBoundary>
+    
 
   )
 }

@@ -125,8 +125,8 @@ const StyledBGContainer = styled.div`
 `;
 
 export default function Modale({
-  isActive = false,
-  action = null,
+  isActive,
+  action,
   Bg_Color = "black",
   Opacity = "0.5",
   radius = "0",
@@ -139,9 +139,9 @@ export default function Modale({
   textColor = "black",
   textFamily = "arial",
   textSize = "20px",
-  message = "Employee !",
+  message = "Employee Created !",
 }) {
-  const [view, setView] = useState('');
+  const [view, setView] = useState(isActive);
   const [active, setActive] = useState('');
   const [mdlSize, setMdlSize] = useState('');
   const [mdlBoxColor, setMdlBoxColor] = useState('');
@@ -194,11 +194,6 @@ export default function Modale({
     setActive(false);
     console.log();
 
-
-
-
-
-
   }
 
   if (view) {
@@ -219,8 +214,6 @@ export default function Modale({
           radius={rad}
           modaleSize={mdlSize}
           modaleBoxColor={mdlBoxColor}
-
-
 
         >
           <StyledModaleContent

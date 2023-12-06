@@ -8,7 +8,6 @@ return (
   <main>
 
     <h1 className={style.page_Title}>Database</h1>
-
     
 
   </main>

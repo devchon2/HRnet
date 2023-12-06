@@ -5,7 +5,6 @@ const dataBaseSlice = createSlice({
   initialState: [],
   reducers: {
     add_employee: (state, action) => {
-      console.log('action.payload add employee', action.payload)
       state.push({'infos': action.payload.infos, 'contact': action.payload.contact, 'onboarding': action.payload.onBoarding });
     },
     remove_employee: (state) => {
