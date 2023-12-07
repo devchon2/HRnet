@@ -9,7 +9,7 @@ import { add_onboarding, remove_onboarding } from "../../../Redux/onBoardingSlic
 import { add_employee } from "../../../Redux/dataBaseSlice.js";
 
 
-export default function Form({ isModaleActive, action }) {
+export default function Form({ isActive, setValidateForm }) {
 
   const [firstName, setFirstName] = useState(document.querySelector("input#firstName"));
   const [lastName, setLastName] = useState(document.querySelector("input#lastName"));
@@ -32,7 +32,7 @@ export default function Form({ isModaleActive, action }) {
   const [CityErrorCls, setCityErrorCls] = useState(style.hidden);
   const [ZipCodeErrorCls, setZipCodeErrorCls] = useState(style.hidden);
   const [StartDateErrorCls, setStartDateErrorCls] = useState(style.hidden);
-
+  const [validated, setValidated] = useState(false);
 
   const dispatch = useDispatch();
  
@@ -49,8 +49,14 @@ export default function Form({ isModaleActive, action }) {
     setOnboarding({ 'startDate': startDate, 'department': department });
     setStateLocation(selectedStateLocation.value);
     setDepartment(selectedDepartment.value);
+    setValidated(isActive);
+
+    if (validated) {
+      resetForm();
+      setValidateForm(false);
+    }
     
-  }, [selectedStateLocation, selectedDepartment, firstName, lastName, birthDate, street, city, stateLocation, zip, startDate, department, isModaleActive, ]);
+  }, [isActive, firstName, lastName, birthDate, street, city, zip, startDate, selectedStateLocation, selectedDepartment, stateLocation, department, setValidateForm]);
 
   function CalculatedBirthdate(birthdate) {
     console.log("CalculatedBirthdate");
@@ -204,9 +210,8 @@ export default function Form({ isModaleActive, action }) {
   }
 
   function closeModale() {
-    if (isModaleActive) {
+    if (validated) {
       resetForm();
-      action(false);
     }}
 
 
@@ -217,10 +222,12 @@ export default function Form({ isModaleActive, action }) {
     if (checkForm()) {
       console.log("Handle_Submit");
       migrateToState();
-      action(true)
+      setValidateForm(true)
     }  
+
   }
 
+  
 
   return (
     <form onSubmit={Handle_Submit} className={style.form}>
