@@ -1,12 +1,14 @@
 import style from "./Form.module.css";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import Select from "react-select";
 import { departments, states } from "../../../utils/utils.js"
 import { add_infos, remove_infos } from "../../../Redux/InfosSlice.js";
 import { add_contact, remove_contact } from "../../../Redux/contactSlice.js";
 import { add_onboarding, remove_onboarding } from "../../../Redux/onBoardingSlice.js";
 import { add_employee } from "../../../Redux/dataBaseSlice.js";
+import SelectStates from "../Select/CustomSelect.jsx";
+import SelectDepartments from "../Select/SelectDepartments.jsx";
+import CustomSelect from "../Select/CustomSelect.jsx";
 
 
 export default function Form({ isActive, setValidateForm }) {
@@ -327,16 +329,9 @@ export default function Form({ isActive, setValidateForm }) {
 
           <div className={style.form_group}>
             <label htmlFor="selectStates">State</label>
-            <Select
-              type="text"
-              value={selectedStateLocation}
-
-              onChange={setSelectedStateLocation}
-              placeholder={states[0].value}
-              name="selectStates"
-              inputId="selectStates"
-              options={states}
-            />            </div>
+            <CustomSelect Id='selectStates' element={selectedStateLocation} setElement={setSelectedStateLocation} options={states} />
+            
+            </div>
 
           <div className={style.form_group}>
             <label htmlFor="Zip">Zip Code</label>
@@ -367,22 +362,7 @@ export default function Form({ isActive, setValidateForm }) {
           </div>
           <div className={style.form_group}>
             <label htmlFor="department">Department</label>
-            <Select
-              type="text"
-              value={selectedDepartment}
-              styles={{
-                control: (baseStyles) => ({
-                  ...baseStyles,
-                  borderColor: 'orange',
-                }),
-              }}
-              onChange={setSelectedDepartment}
-              options={departments}
-              placeholder={departments[0].value}
-              inputId={"department"}
-              name="department"
-            />
-
+            <CustomSelect Id='department'  element={selectedDepartment} setElement={setSelectedDepartment}options={departments} />
           </div>
         </div>
       </div>
