@@ -25,16 +25,13 @@ export default function CreateUserPage() {
   return (
     <>
       <main>
+        
         <h1 className={style.page_Title}>Create Employees</h1>
-
         <Form isActive={activeModale} setValidateForm={setValidateForm} />
-
+      
       </main>
-      <Modale
-        isActive={validateForm}
-        setActiveModale={setActiveModale}
-
-      />
+      
+      <Modale isActive={validateForm} setActiveModale={setActiveModale} />
     </>
   );
 }

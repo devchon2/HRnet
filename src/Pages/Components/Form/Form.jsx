@@ -58,38 +58,32 @@ export default function Form({ isActive, setValidateForm }) {
     
   }, [isActive, firstName, lastName, birthDate, street, city, zip, startDate, selectedStateLocation, selectedDepartment, stateLocation, department, setValidateForm]);
 
-  function CalculatedBirthdate(birthdate) {
+  function CalculatedBirthdate(birthDate, startDate) {
     console.log("CalculatedBirthdate");
+    console.log(birthDate);
+    console.log(startDate);
+    const RequiredAge = 18;
+    const onBoardingDate = Number(new Date(startDate).getDate());
+    const onBoardingMonth = Number(new Date(startDate).getMonth());
+    const onBoardingYear = Number( new Date(startDate).getFullYear());
 
-    const today = Number(new Date().getDate());
-    const thisMonth = Number(new Date().getMonth());
-    const thisYear = Number(new Date().getFullYear());
-
-    const birthday = Number(birthdate.getDate());
-    const birthmonth = Number(birthdate.getMonth());
-    const birthyear = Number(birthdate.getFullYear());
+    const birthday = Number(new Date(birthDate).getDate());
+    const birthmonth = Number(new Date(birthDate).getMonth());
+    const birthyear = Number(new Date(birthDate).getFullYear());
 
     
-      const notYearAged = (thisYear - birthyear) < 18;
-      const notMonthAged = (thisMonth - birthmonth) < 0;
-      const notDayAged = (today - birthday) > 0;
+      const notYearAged = (onBoardingYear - birthyear) < 18;
+      const notMonthAged = (onBoardingMonth - birthmonth) < 0;
+      const notDayAged = (onBoardingDate - birthday) > 0;
 
 
-      if (notYearAged) {
-        console.log('NotAged')
+      if (notYearAged || notMonthAged || notDayAged) {
+        console.log('NotAged');
+        window.alert(`Employee does meet the required Age to onboarding: ${RequiredAge}`);
         return false;
 
       }
 
-      if (notMonthAged) {
-        console.log("notMonthAged");
-        return false;
-      } 
-
-      if (notDayAged) {
-          console.log("today < birthday");
-          return false;
-        }
       return true;
   }
 
@@ -106,52 +100,60 @@ export default function Form({ isActive, setValidateForm }) {
 
     const elements = [{
       element: firstName,
-      test: textRegEx.test(firstName),
+      tests: [textRegEx.test(firstName)],
       act: setFirstNameErrorCls,
     }, {
       element: lastName,
-      test: textRegEx.test(lastName),
+      tests: [textRegEx.test(lastName)],
       act: setLastNameErrorCls,
 
     }, {
       element: birthDate,
-      test: (dateRegEx.test(birthDate) && CalculatedBirthdate(new Date(birthDate))),
+      tests: [dateRegEx.test(birthDate),CalculatedBirthdate(birthDate, startDate)],
       act: setBirthdateErrorCls,
 
     }, {
       element: street,
-      test: streetRegex.test(street),
+      tests: [streetRegex.test(street)],
       act: setStreetErrorCls,
 
     }, {
       element: city,
-      test: textRegEx.test(city),
+      tests: [textRegEx.test(city)],
       act: setCityErrorCls,
 
     }, {
       element: zip,
-      test: zipRegEx.test(zip),
+      tests: [zipRegEx.test(zip)],
       act: setZipCodeErrorCls,
 
     }, {
       element: startDate,
-      test: dateRegEx.test(startDate),
+      tests: [dateRegEx.test(startDate)],
       act: setStartDateErrorCls,
     }
     ]
 
     console.log('boucle sur elements');
     elements.forEach(el => {
-      const { element, act,test } = el;
+      const { element, act,tests } = el;
+      tests.forEach((test,index) => {
+        
+        
+        if (test && element.length > 2) {
+          act(validClass)
+        } else  {
+          act(errorClass)
+          validate = false;
+          console.log('boucle sur test');
+        console.log(test);
+        console.log(index);
+        console.log(element);
+        }
 
-      if (test && element.length > 2) {
-        act(validClass)
-      } else {
-        act(errorClass)
-        validate = false;
-      }
       console.log('fin boucle sur elements');
     })    
+    });
     return validate;
 
   }
@@ -209,10 +211,7 @@ export default function Form({ isActive, setValidateForm }) {
     return true;
   }
 
-  function closeModale() {
-    if (validated) {
-      resetForm();
-    }}
+ 
 
 
 
