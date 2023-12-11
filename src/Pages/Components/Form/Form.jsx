@@ -6,8 +6,6 @@ import { add_infos, remove_infos } from "../../../Redux/InfosSlice.js";
 import { add_contact, remove_contact } from "../../../Redux/contactSlice.js";
 import { add_onboarding, remove_onboarding } from "../../../Redux/onBoardingSlice.js";
 import { add_employee } from "../../../Redux/dataBaseSlice.js";
-import SelectStates from "../Select/CustomSelect.jsx";
-import SelectDepartments from "../Select/SelectDepartments.jsx";
 import CustomSelect from "../Select/CustomSelect.jsx";
 
 
@@ -301,7 +299,7 @@ export default function Form({ isActive, setValidateForm }) {
         </div>
 
         <div className={style.container_contact_infos}>
-          <h2>contact</h2>
+          <h2>Contact</h2>
 
           <div className={style.form_group}>
             <label htmlFor="Street">Street</label>

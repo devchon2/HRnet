@@ -13,7 +13,7 @@
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
-  padding: 10px;
+  padding: 10px 0 ;
 }
 
 .container_infos {
@@ -109,3 +109,13 @@
 .hidden {
   display: none;
 }
+
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  font-size:1vw;
+  border: 1px solid lightGrey;
+}
+
+

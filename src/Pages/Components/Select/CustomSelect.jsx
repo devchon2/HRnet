@@ -19,10 +19,10 @@ export default function CustomSelect({Id,options,element, setElement}) {
         outline: "none",
         color: "#000",
         backgroundColor: "#fff",
-        borderRadius: "0",
-        minHeight:"18px",
-        height:"18px",
-        fontSize:"16px",
+        borderRadius: "5px",
+        minHeight:"1.2vw",
+        fontSize:"1vw",
+        padding: "0.6vw 0",
 
         "&:focus": {
           outline: "none",
@@ -33,21 +33,20 @@ export default function CustomSelect({Id,options,element, setElement}) {
         border: "none",
         outline: "none",
         boxShadow: "none",
-        minHeight:"18px",
-        height:"100%",
         borderRadius: "0",
         fontWeight:"500",
-        fontSize:"16px",
-
+        fontSize:"1vw",
+        minHeight:"1.2vw",
         "&:hover": {
           border: "none",
         },
       }),
       indicatorsContainer: (provided) => ({
         ...provided,
-        height:"18px",
+        height:"1vw",
         color: "#000",
-        padding: "8px 0px 8px 16px"
+        padding: "0.5vw 0 0.5vw 1vw"
+
       }),
       indicatorSeparator: (provided, state) => ({
         ...provided,
@@ -55,23 +54,24 @@ export default function CustomSelect({Id,options,element, setElement}) {
       }),
       valueContainer: (provided, state) => ({
         ...provided,
-        padding: "2px 0",
-        fontSize:"16px",
+        padding: " 0",
+        fontSize:"1vw",
 
         
       }),
       singleValue: (provided, state) => ({
         ...provided,
-        height:"100px",
         margin:"0",
-        fontSize:"16px",
+        fontSize:"1vw",
+        padding: "0px 0px 0px 5px",
 
       }),
       input: (provided, state) => ({
         ...provided,
         height:"100%",
         margin:"0",
-        fontSize:"16px",
+        fontSize:"1vw",
+
 
         
       }),
