@@ -83,7 +83,7 @@ export default function CustomSelect({Id,options,element, setElement}) {
               htmlFor={Id}
               type="text"
               value={selected}
-              
+              menuPlacement="auto"
               onChange={setElement}
               placeholder={options[0].value}
               name="selectState"
