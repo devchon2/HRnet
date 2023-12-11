@@ -72,9 +72,9 @@ export default function Form({ isActive, setValidateForm }) {
     const birthyear = Number(new Date(birthDate).getFullYear());
 
     
-      const notYearAged = (onBoardingYear - birthyear) < 18;
-      const notMonthAged = (onBoardingMonth - birthmonth) < 0;
-      const notDayAged = (onBoardingDate - birthday) > 0;
+      const notYearAged = (onBoardingYear - birthyear) <18 || (onBoardingYear - birthyear) > 100;
+      const notMonthAged = (onBoardingMonth - birthmonth) < 0 || (onBoardingMonth - birthmonth) > 12;
+      const notDayAged =  (onBoardingDate - birthday) < -31 || (onBoardingDate - birthday) > 0;
 
 
       if (notYearAged || notMonthAged || notDayAged) {
