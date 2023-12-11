@@ -56,7 +56,7 @@ export default function Form({ isActive, setValidateForm }) {
       setValidateForm(false);
     }
     
-  }, [isActive, firstName, lastName, birthDate, street, city, zip, startDate, selectedStateLocation, selectedDepartment, stateLocation, department, setValidateForm]);
+  }, [isActive, firstName, lastName, birthDate, street, city, zip, startDate, selectedStateLocation, selectedDepartment, stateLocation, department, setValidateForm,]);
 
   function CalculatedBirthdate(birthDate, startDate) {
     console.log("CalculatedBirthdate");
@@ -184,6 +184,31 @@ export default function Form({ isActive, setValidateForm }) {
   return false;
   }
 
+  function resetState() {
+    setFirstName(document.querySelector("input#firstName").value);
+    setLastName(document.querySelector("input#lastName").value);
+    setBirthDate(document.querySelector("input#birthDate").value);
+    setStreet(document.querySelector("input#Street").value);
+    setCity(document.querySelector("input#City").value);
+    setZip(document.querySelector("input#Zip").value);
+    setStartDate(document.querySelector("input#startDate").value);
+    setContact('');
+    setInfos('');
+    setOnboarding('');
+    setSelectedStateLocation(states[0]);
+    setSelectedDepartment(departments[0]);
+    setStateLocation(selectedStateLocation.value);
+    setDepartment(selectedDepartment.value);
+    setFirstNameErrorCls(style.hidden);
+    setLastNameErrorCls(style.hidden);
+    setBirthdateErrorCls(style.hidden);
+    setStreetErrorCls(style.hidden);
+    setCityErrorCls(style.hidden);
+    setZipCodeErrorCls(style.hidden);
+    setStartDateErrorCls(style.hidden);
+    setValidated(false);
+    setValidateForm(false);}
+
   function resetForm() {
 
 
@@ -195,8 +220,8 @@ export default function Form({ isActive, setValidateForm }) {
     inputs.forEach((input) => {
       input.value = "";
     });
-    setSelectedStateLocation(states[0]);
-    setSelectedDepartment(departments[0]);
+    resetState();
+
   }
 
   function migrateToState() {
