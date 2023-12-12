@@ -7,6 +7,7 @@ import { add_contact, remove_contact } from "../../../Redux/contactSlice.js";
 import { add_onboarding, remove_onboarding } from "../../../Redux/onBoardingSlice.js";
 import { add_employee } from "../../../Redux/dataBaseSlice.js";
 import CustomSelect from "../Select/CustomSelect.jsx";
+import DateTimePicker from "../DateTimePicker/DateTimePicker.jsx";
 
 
 export default function Form({ isActive, setValidateForm }) {
@@ -284,15 +285,7 @@ export default function Form({ isActive, setValidateForm }) {
 
           <div className={style.form_group}>
             <label htmlFor="birthDate">Birth Date</label>
-            <input
-              onChange={(e) => {
-                setBirthDate(e.target.value);
-              }}
-
-              type="date"
-              id="birthDate"
-              name="birthDate"
-            />
+            <DateTimePicker id='birthDate' element={birthDate} setElement={setBirthDate}  />
             <p id='birthdateError' className={BirthdateErrorCls}>BirthDate required!</p>
 
           </div>

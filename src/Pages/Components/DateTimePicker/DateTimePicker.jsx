@@ -1,14 +1,51 @@
-import DatePicker from 'react-datepicker';
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useState } from 'react';
+import { useEffect, useState } from "react";
+import { registerLocale } from  "react-datepicker";
+import en from 'date-fns/locale/es';
+import style from "./DateTimePicker.module.css";
+
+registerLocale('en', en)
 
 
-export default function DateTimePicker() {
-  
+export default function DateTimePicker({ id, setElement, element  }) {
+  const [startDate, setStartDate] = useState(new Date(element));
 
-  const [startDate, setStartDate] = useState(new Date());
+  useEffect(() => {
+setElement(startDate)  }, [startDate]);
+ 
+
   return (
-    <DatePicker selected={startDate} locale='en-US' showIcon onChange={(date) => setStartDate(date)}
+    <DatePicker
+    
+
+      id={id}
+      placeholderText="Select Date"
+      selected={startDate}
+      locale="en"
+      styles={
+        {
+          width: "100%",
+          height:"1vw",
+          border: "none",
+          outline: "none",
+          color: "#000",
+          backgroundColor: "#fff",
+          borderRadius: "5px",
+          minHeight: "1.2vw",
+          fontSize: "1vw",
+          padding: "0.6vw 0",
+          "&:focus": {
+            outline: "none",
+          },
+        }
+        
+      }
+      showIcon
+      onChange={(date) => {
+        console.log(date);
+        setStartDate(date);}
+      }
     />
   );
-};
+}
