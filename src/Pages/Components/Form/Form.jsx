@@ -64,21 +64,24 @@ export default function Form({ isActive, setValidateForm }) {
     console.log(birthDate);
     console.log(startDate);
     const RequiredAge = 18;
-    const onBoardingDate = Number(new Date(startDate).getDate());
+    const onBoardingDay = Number(new Date(startDate).getDay());
     const onBoardingMonth = Number(new Date(startDate).getMonth());
     const onBoardingYear = Number( new Date(startDate).getFullYear());
 
-    const birthday = Number(new Date(birthDate).getDate());
+    const birthday = Number(new Date(birthDate).getDay());
     const birthmonth = Number(new Date(birthDate).getMonth());
     const birthyear = Number(new Date(birthDate).getFullYear());
 
     
       const notYearAged = (onBoardingYear - birthyear) <18 || (onBoardingYear - birthyear) > 100;
       const notMonthAged = (onBoardingMonth - birthmonth) < 0 || (onBoardingMonth - birthmonth) > 12;
-      const notDayAged =  (onBoardingDate - birthday) < -31 || (onBoardingDate - birthday) > 0;
+      const notDayAged =  (onBoardingDay - birthday) < -31 || (onBoardingDay - birthday) > 0;
+
+      console.log('startDate',onBoardingYear,onBoardingMonth,onBoardingDay)
+      console.log('birthdate',birthyear,birthmonth,birthday)
 
 
-      if (notYearAged || notMonthAged || notDayAged) {
+      if (notYearAged || (!notYearAged && notMonthAged && notDayAged)) {
         console.log('NotAged');
         window.alert(`Employee does meet the required Age to onboarding: ${RequiredAge}`);
         return false;
@@ -93,7 +96,7 @@ export default function Form({ isActive, setValidateForm }) {
     const streetRegex = /^[a-zA-Z0-9\s,'-]*$/;
     const textRegEx = /^[a-zA-Z'-]+$/;
     const zipRegEx = /^[0-9]{5}(?:-[0-9]{4})?$/;
-    const dateRegEx = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
+    const dateRegEx = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
 
     let validate = true;
     const errorClass = style.error_Message
@@ -246,7 +249,7 @@ export default function Form({ isActive, setValidateForm }) {
 
     if (checkForm()) {
       console.log("Handle_Submit");
-      migrateToState();
+      if (migrateToState())
       setValidateForm(true)
     }  
 
@@ -284,7 +287,7 @@ export default function Form({ isActive, setValidateForm }) {
           </div>
 
           <div className={style.form_group}>
-            <label htmlFor="birthDate">Birth Date</label>
+            <label htmlFor="birthDate">Date of birth</label>
             <DateTimePicker id='birthDate' element={birthDate} setElement={setBirthDate}  />
             <p id='birthdateError' className={BirthdateErrorCls}>BirthDate required!</p>
 
@@ -320,7 +323,7 @@ export default function Form({ isActive, setValidateForm }) {
 
           <div className={style.form_group}>
             <label htmlFor="selectStates">State</label>
-            <CustomSelect Id='selectStates' element={selectedStateLocation} setElement={setSelectedStateLocation} options={states} />
+            <CustomSelect id='selectStates' element={selectedStateLocation} setElement={setSelectedStateLocation} options={states} />
             
             </div>
 
@@ -342,18 +345,15 @@ export default function Form({ isActive, setValidateForm }) {
         <div className={style.onboardingGroup}>
           <div className={style.form_group}>
             <label htmlFor="startDate">Start Date</label>
-            <input
-              onChange={(e) => setStartDate(e.target.value)}
-              type="date"
-              id="startDate"
-              name="startDate"
-            />
+             <DateTimePicker id='startDate' element={startDate} setElement={setStartDate}  />
+                   
+            
             <p id='StartDateError' className={StartDateErrorCls}>Start Date required!</p>
 
           </div>
           <div className={style.form_group}>
             <label htmlFor="department">Department</label>
-            <CustomSelect Id='department'  element={selectedDepartment} setElement={setSelectedDepartment}options={departments} />
+            <CustomSelect id='department'  element={selectedDepartment} setElement={setSelectedDepartment}options={departments} />
           </div>
         </div>
       </div>
