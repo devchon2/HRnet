@@ -10,6 +10,7 @@ const infosSlice = createSlice({
   },
   reducers: {
     add_infos: (state, action) => {
+      console.log('ATTENTION PAYLOAD',action.payload);
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
       state.birthDate = action.payload.birthDate; 
