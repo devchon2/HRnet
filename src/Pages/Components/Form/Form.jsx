@@ -1,134 +1,63 @@
 import style from "./Form.module.css";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { departments, states } from "../../../utils/utils.js";
+import { departments, states } from "../../../utils/utils.js"
 import { add_infos, remove_infos } from "../../../Redux/InfosSlice.js";
 import { add_contact, remove_contact } from "../../../Redux/contactSlice.js";
-import {
-  add_onboarding,
-  remove_onboarding,
-} from "../../../Redux/onBoardingSlice.js";
+import { add_onboarding, remove_onboarding } from "../../../Redux/onBoardingSlice.js";
 import { add_employee } from "../../../Redux/dataBaseSlice.js";
 import CustomSelect from "../Select/CustomSelect.jsx";
 import DateTimePicker from "../DateTimePicker/DateTimePicker.jsx";
 
+
 export default function Form({ isActive, setValidateForm }) {
-  const [form, setForm] = useState({
-    formInputs: {
-      contact: {
-        street: document.querySelector("input#Street"),
-        city: document.querySelector("input#City"),
-        state: document.querySelector("input#selectStates"),
-        zip: document.querySelector("input#Zip"),
-      },
-      infos: {
-        firstName: document.querySelector("input#firstName"),
-        lastName: document.querySelector("input#lastName"),
-        birthDate: document.querySelector("input#birthDate"),
-      },
-      onBoarding: {
-        startDate: document.querySelector("input#startDate"),
-        department: document.querySelector("input#department"),
-      },
-    },
-    formState: {
-      ismodalActive: isActive,
-      validated: false,
 
-      FirstNameErrorCls: style.hidden,
-      LastNameErrorCls: style.hidden,
-      BirthdateErrorCls: style.hidden,
-      StreetErrorCls: style.hidden,
-      CityErrorCls: style.hidden,
-      ZipCodeErrorCls: style.hidden,
-      StartDateErrorCls: style.hidden,
-    },
-  });
-
-  const { contact, infos, onBoarding } = form.formInputs;
-  const { street, city, state, zip } = contact;
-  const { firstName, lastName, birthDate } = infos;
-  const { startDate, department } = onBoarding;
-
-  console.log("form", form);
-  console.log("contact", contact);
-  console.log("infos", infos);
-  console.log("onBoarding", onBoarding);
-  console.log("state", state);
-
+  const [firstName, setFirstName] = useState(document.querySelector("input#firstName"));
+  const [lastName, setLastName] = useState(document.querySelector("input#lastName"));
+  const [birthDate, setBirthDate] = useState(document.querySelector("input#birthDate"));
+  const [street, setStreet] = useState(document.querySelector("input#Street"));
+  const [city, setCity] = useState(document.querySelector("input#City"));
+  const [zip, setZip] = useState(document.querySelector("input#Zip"));
+  const [startDate, setStartDate] = useState(document.querySelector("input#startDate"));
+  const [contact, setContact] = useState('');
+  const [infos, setInfos] = useState('');
+  const [onBoarding, setOnboarding] = useState("");
+  const [selectedStateLocation, setSelectedStateLocation] = useState(states[0]);
+  const [selectedDepartment, setSelectedDepartment] = useState(departments[0]);
+  const [stateLocation, setStateLocation] = useState(selectedStateLocation.value);
+  const [department, setDepartment] = useState(selectedDepartment.value);
+  const [FirstNameErrorCls, setFirstNameErrorCls] = useState(style.hidden);
+  const [LastNameErrorCls, setLastNameErrorCls] = useState(style.hidden);
+  const [BirthdateErrorCls, setBirthdateErrorCls] = useState(style.hidden);
+  const [StreetErrorCls, setStreetErrorCls] = useState(style.hidden);
+  const [CityErrorCls, setCityErrorCls] = useState(style.hidden);
+  const [ZipCodeErrorCls, setZipCodeErrorCls] = useState(style.hidden);
+  const [StartDateErrorCls, setStartDateErrorCls] = useState(style.hidden);
+  const [validated, setValidated] = useState(false);
 
   const dispatch = useDispatch();
-
+ 
   useEffect(() => {
-    setForm({
-      formInputs: {
-        contact: {
-          street: document.querySelector("input#Street"),
-          city: document.querySelector("input#City"),
-          state: document.querySelector("input#selectStates"),
-          zip: document.querySelector("input#Zip"),
-        },
-        infos: {
-          firstName: document.querySelector("input#firstName"),
-          lastName: document.querySelector("input#lastName"),
-          birthDate: document.querySelector("input#birthDate"),
-        },
-        onBoarding: {
-          startDate: document.querySelector("input#startDate"),
-          department: document.querySelector("input#department"),
-        },
-      },
-      formState: {
-        ismodalActive: isActive,
+    setFirstName(document.querySelector("input#firstName").value);
+    setLastName(document.querySelector("input#lastName").value);
+    setBirthDate(document.querySelector("input#birthDate").value);
+    setStreet(document.querySelector("input#Street").value);
+    setCity(document.querySelector("input#City").value);
+    setZip(document.querySelector("input#Zip").value);
+    setStartDate(document.querySelector("input#startDate").value);
+    setContact({ 'street': street, 'city': city, 'state': stateLocation, 'zip': zip });
+    setInfos({ 'firstName': firstName, 'lastName': lastName, 'birthDate': birthDate });
+    setOnboarding({ 'startDate': startDate, 'department': department });
+    setStateLocation(selectedStateLocation.value);
+    setDepartment(selectedDepartment.value);
+    setValidated(isActive);
 
-        FirstNameErrorCls: style.hidden,
-        LastNameErrorCls: style.hidden,
-        BirthdateErrorCls: style.hidden,
-        StreetErrorCls: style.hidden,
-        CityErrorCls: style.hidden,
-        ZipCodeErrorCls: style.hidden,
-        StartDateErrorCls: style.hidden,
-        validated: false,
-      },
-    });
-
-    
-
-    if (form.formState.validated) {
+    if (validated) {
       resetForm();
       setValidateForm(false);
     }
-  }, [isActive, form.formState.validated ]);
-
-  const {
-    ismodalActive,
-    validated,
-    FirstNameErrorCls,
-    LastNameErrorCls,
-    BirthdateErrorCls,
-    StreetErrorCls,
-    CityErrorCls,
-    ZipCodeErrorCls,
-    StartDateErrorCls,
-  } = form.formState;
-
-  
-
-  console.log("forminput", form);
-
-  function setElement(element, value) {
-    try {
-      setForm({
-        ...form,
-        formInputs: {
-          ...form.formInputs,
-          [element]: value,
-        },
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
+    
+  }, [isActive, firstName, lastName, birthDate, street, city, zip, startDate, selectedStateLocation, selectedDepartment, stateLocation, department, setValidateForm,]);
 
   function CalculatedBirthdate(birthDate, startDate) {
     console.log("CalculatedBirthdate");
@@ -137,31 +66,29 @@ export default function Form({ isActive, setValidateForm }) {
     const RequiredAge = 18;
     const onBoardingDay = Number(new Date(startDate).getDay());
     const onBoardingMonth = Number(new Date(startDate).getMonth());
-    const onBoardingYear = Number(new Date(startDate).getFullYear());
+    const onBoardingYear = Number( new Date(startDate).getFullYear());
 
     const birthday = Number(new Date(birthDate).getDay());
     const birthmonth = Number(new Date(birthDate).getMonth());
     const birthyear = Number(new Date(birthDate).getFullYear());
 
-    const notYearAged =
-      onBoardingYear - birthyear < 18 || onBoardingYear - birthyear > 100;
-    const notMonthAged =
-      onBoardingMonth - birthmonth < 0 || onBoardingMonth - birthmonth > 12;
-    const notDayAged =
-      onBoardingDay - birthday < -31 || onBoardingDay - birthday > 0;
+    
+      const notYearAged = (onBoardingYear - birthyear) <18 || (onBoardingYear - birthyear) > 100;
+      const notMonthAged = (onBoardingMonth - birthmonth) < 0 || (onBoardingMonth - birthmonth) > 12;
+      const notDayAged =  (onBoardingDay - birthday) < -31 || (onBoardingDay - birthday) > 0;
 
-    console.log("startDate", onBoardingYear, onBoardingMonth, onBoardingDay);
-    console.log("birthdate", birthyear, birthmonth, birthday);
+      console.log('startDate',onBoardingYear,onBoardingMonth,onBoardingDay)
+      console.log('birthdate',birthyear,birthmonth,birthday)
 
-    if (notYearAged || (!notYearAged && notMonthAged && notDayAged)) {
-      console.log("NotAged");
-      window.alert(
-        `Employee does meet the required Age to onboarding: ${RequiredAge}`
-      );
-      return false;
-    }
 
-    return true;
+      if (notYearAged || (!notYearAged && notMonthAged && notDayAged)) {
+        console.log('NotAged');
+        window.alert(`Employee does meet the required Age to onboarding: ${RequiredAge}`);
+        return false;
+
+      }
+
+      return true;
   }
 
   function checkFields() {
@@ -172,119 +99,124 @@ export default function Form({ isActive, setValidateForm }) {
     const dateRegEx = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
 
     let validate = true;
-    const errorClass = style.error_Message;
+    const errorClass = style.error_Message
     const validClass = style.hidden;
 
-    const elements = [
-      {
-        element: firstName,
-        tests: [textRegEx.test(firstName)],
-        act: setElement,
-      },
-      {
-        element: lastName,
-        tests: [textRegEx.test(lastName)],
-        act: setElement,
-      },
-      {
-        element: birthDate,
-        tests: [dateRegEx.test(birthDate)],
-        act: setElement,
-      },
-      {
-        element: street,
-        tests: [streetRegex.test(street)],
-        act: setElement,
-      },
-      {
-        element: city,
-        tests: [textRegEx.test(city)],
-        act: setElement,
-      },
-      {
-        element: zip,
-        tests: [zipRegEx.test(zip)],
-        act: setElement,
-      },
-      {
-        element: startDate,
-        tests: [dateRegEx.test(startDate)],
-        act: setElement,
-      },
-      {
-        element: department,
-        tests: [department.length > 0],
-        act: setElement,
-      },
-      { element: state, tests: [state.length > 0], act: setElement },
-    ];
+    const elements = [{
+      element: firstName,
+      tests: [textRegEx.test(firstName)],
+      act: setFirstNameErrorCls,
+    }, {
+      element: lastName,
+      tests: [textRegEx.test(lastName)],
+      act: setLastNameErrorCls,
 
-    console.log("boucle sur elements");
-    elements.forEach((el) => {
-      const { element, act, tests } = el;
-      tests.forEach((test, index) => {
+    }, {
+      element: birthDate,
+      tests: [dateRegEx.test(birthDate),CalculatedBirthdate(birthDate, startDate)],
+      act: setBirthdateErrorCls,
+
+    }, {
+      element: street,
+      tests: [streetRegex.test(street)],
+      act: setStreetErrorCls,
+
+    }, {
+      element: city,
+      tests: [textRegEx.test(city)],
+      act: setCityErrorCls,
+
+    }, {
+      element: zip,
+      tests: [zipRegEx.test(zip)],
+      act: setZipCodeErrorCls,
+
+    }, {
+      element: startDate,
+      tests: [dateRegEx.test(startDate)],
+      act: setStartDateErrorCls,
+    }
+    ]
+
+    console.log('boucle sur elements');
+    elements.forEach(el => {
+      const { element, act,tests } = el;
+      tests.forEach((test,index) => {
+        
+        
         if (test && element.length > 2) {
-          act(validClass);
-        } else {
-          act(errorClass);
+          act(validClass)
+        } else  {
+          act(errorClass)
           validate = false;
+          console.log('boucle sur test');
+        console.log(test);
+        console.log(index);
+        console.log(element);
         }
 
-        console.log("fin boucle sur elements");
-      });
+      console.log('fin boucle sur elements');
+    })    
     });
     return validate;
+
   }
 
   function checkForm() {
     console.log("checkForm");
-    let validate = true;
+
     const infosDatas = [firstName, lastName, birthDate];
-    const contactDatas = [street, city, state, zip];
+    const contactDatas = [street, city, stateLocation, zip];
     const onBoardingDatas = [startDate, department];
+    
 
     if (checkFields()) {
-      if (!CalculatedBirthdate(birthDate, startDate)) {
-        validate = false;
-      }
+      console.log("checkForm checkFields");
 
-      setForm({
-        ...form,
-        formInputs: {
-          infos: infosDatas,
-          contact: contactDatas,
-          onBoarding: onBoardingDatas,
-        },
-        formState: {
-          ...form.formState,
-          validated: true,
-        },
-      });
-    }
-    return validate;
+      
+        setInfos({ 'firstName': infosDatas[0], 'lastName': infosDatas[1], 'birthDate': infosDatas[2] });
+        console.log('setInfos');
+      
+        setContact({ 'street': contactDatas[0], 'city': contactDatas[1], 'state': contactDatas[2], 'zip': contactDatas[3] });
+        console.log('setContact');
+
+        setOnboarding({ 'startDate': onBoardingDatas[0], 'department': onBoardingDatas[1] });
+        console.log('setOnboarding');
+      
+      return true;
+   }
+  return false;
   }
 
   function resetState() {
-    console.log("resetState");
-    setForm({
-      ...form,
-      formState: {
-        ...form.formState,
-        FirstNameErrorCls: style.hidden,
-        LastNameErrorCls: style.hidden,
-        BirthdateErrorCls: style.hidden,
-        StreetErrorCls: style.hidden,
-        CityErrorCls: style.hidden,
-        ZipCodeErrorCls: style.hidden,
-        StartDateErrorCls: style.hidden,
-        validated: false,
-      },
-    });
-  }
+    setFirstName(document.querySelector("input#firstName").value);
+    setLastName(document.querySelector("input#lastName").value);
+    setBirthDate(document.querySelector("input#birthDate").value);
+    setStreet(document.querySelector("input#Street").value);
+    setCity(document.querySelector("input#City").value);
+    setZip(document.querySelector("input#Zip").value);
+    setStartDate(document.querySelector("input#startDate").value);
+    setContact('');
+    setInfos('');
+    setOnboarding('');
+    setSelectedStateLocation(states[0]);
+    setSelectedDepartment(departments[0]);
+    setStateLocation(selectedStateLocation.value);
+    setDepartment(selectedDepartment.value);
+    setFirstNameErrorCls(style.hidden);
+    setLastNameErrorCls(style.hidden);
+    setBirthdateErrorCls(style.hidden);
+    setStreetErrorCls(style.hidden);
+    setCityErrorCls(style.hidden);
+    setZipCodeErrorCls(style.hidden);
+    setStartDateErrorCls(style.hidden);
+    setValidated(false);
+    setValidateForm(false);}
 
   function resetForm() {
-    console.log("resetForm");
-    dispatch(add_infos({ firstName: "", lastName: "", birthDate: "" }));
+
+
+    dispatch(add_infos({ 'firstName': '', 'lastName': '', 'birthDate': '' }));
     dispatch(remove_infos());
     dispatch(remove_contact());
     dispatch(remove_onboarding());
@@ -293,32 +225,37 @@ export default function Form({ isActive, setValidateForm }) {
       input.value = "";
     });
     resetState();
+
   }
 
   function migrateToState() {
     console.log("migrateToState");
 
-    dispatch(add_infos({infos: form.formInputs.infos,contact: form.formInputs.contact,onBoarding: form.formInputs.onBoarding}));
-    dispatch(add_contact(form.formInputs.contact));
-    dispatch(add_onboarding(form.formInputs.onBoarding));
-
-    dispatch(
-      add_employee({
-        infos: form.formInputs.infos,
-        contact: form.formInputs.contact,
-        onBoarding: form.formInputs.onBoarding,
-      })
-    );
+    dispatch(add_infos(infos));
+    dispatch(add_contact(contact));
+    dispatch(add_onboarding(onBoarding));
+    
+    dispatch(add_employee({ infos: infos, 'contact': contact, 'onBoarding': onBoarding }));
+    
+    return true;
   }
+
+ 
+
+
 
   function Handle_Submit(e) {
     e.preventDefault();
 
     if (checkForm()) {
-      migrateToState();
-      setValidateForm(true);
-    }
+      console.log("Handle_Submit");
+      if (migrateToState())
+      setValidateForm(true)
+    }  
+
   }
+
+  
 
   return (
     <form onSubmit={Handle_Submit} className={style.form}>
@@ -329,39 +266,31 @@ export default function Form({ isActive, setValidateForm }) {
           <div className={style.form_group}>
             <label htmlFor="firstName">First Name</label>
             <input
-              onChange={(e) => setElement(firstName, e.target.value)}
+              onChange={(e) => setFirstName(e.target.value)}
               type="text"
               id="firstName"
               name="firstName"
             />
-            <p id="firstNameError" className={FirstNameErrorCls}>
-              FirstName required!
-            </p>
+            <p id='firstNameError' className={FirstNameErrorCls}>FirstName required!</p>
           </div>
 
           <div className={style.form_group}>
             <label htmlFor="lastName">Last Name</label>
             <input
-              onChange={(e) => setElement(lastName, e.target.value)}
+              onChange={(e) => setLastName(e.target.value)}
               type="text"
               id="lastName"
               name="lastName"
             />
-            <p id="lastNameError" className={LastNameErrorCls}>
-              LastName required!
-            </p>
+            <p id='lastNameError' className={LastNameErrorCls}>LastName required!</p>
+
           </div>
 
           <div className={style.form_group}>
             <label htmlFor="birthDate">Date of birth</label>
-            <DateTimePicker
-              id="birthDate"
-              element={birthDate}
-              setElement={setElement}
-            />
-            <p id="birthdateError" className={BirthdateErrorCls}>
-              BirthDate required!
-            </p>
+            <DateTimePicker id='birthDate' element={birthDate} setElement={setBirthDate}  />
+            <p id='birthdateError' className={BirthdateErrorCls}>BirthDate required!</p>
+
           </div>
         </div>
 
@@ -371,50 +300,43 @@ export default function Form({ isActive, setValidateForm }) {
           <div className={style.form_group}>
             <label htmlFor="Street">Street</label>
             <input
-              onChange={(e) => setElement(street, e.target.value)}
+              onChange={(e) => setStreet(e.target.value)}
               type="text"
               id="Street"
               name="Street"
             />
-            <p id="streetError" className={StreetErrorCls}>
-              Street required!
-            </p>
+            <p id='streetError' className={StreetErrorCls}>Street required!</p>
+
           </div>
 
           <div className={style.form_group}>
             <label htmlFor="City">City</label>
             <input
-              onChange={(e) => setElement(city, e.target.value)}
+              onChange={(e) => setCity(e.target.value)}
               type="text"
               id="City"
               name="City"
             />
-            <p id="CityError" className={CityErrorCls}>
-              City required!
-            </p>
+            <p id='CityError' className={CityErrorCls}>City required!</p>
+
           </div>
 
           <div className={style.form_group}>
             <label htmlFor="selectStates">State</label>
-            <CustomSelect
-              id="selectStates"
-              element={state}
-              setElement={(e) => setElement(state, e.target.value)}
-              options={states}
-            />
-          </div>
+            <CustomSelect id='selectStates' element={selectedStateLocation} setElement={setSelectedStateLocation} options={states} />
+            
+            </div>
 
           <div className={style.form_group}>
             <label htmlFor="Zip">Zip Code</label>
             <input
-              onChange={(e) => setElement(zip, e.target.value)}
+              onChange={(e) => setZip(e.target.value)}
               type="text"
               id="Zip"
               name="Zip"
             />
-            <p id="ZipCodeError" className={ZipCodeErrorCls}>
-              ZipCode required!
-            </p>
+            <p id='ZipCodeError' className={ZipCodeErrorCls}>ZipCode required!</p>
+
           </div>
         </div>
       </div>
@@ -423,24 +345,15 @@ export default function Form({ isActive, setValidateForm }) {
         <div className={style.onboardingGroup}>
           <div className={style.form_group}>
             <label htmlFor="startDate">Start Date</label>
-            {/* <DateTimePicker
-              id="startDate"
-              element={startDate}
-              setElement={(e) => setElement('startDatestartDate',e.target.value)}
-            /> */}
+             <DateTimePicker id='startDate' element={startDate} setElement={setStartDate}  />
+                   
+            
+            <p id='StartDateError' className={StartDateErrorCls}>Start Date required!</p>
 
-            <p id="StartDateError" className={StartDateErrorCls}>
-              Start Date required!
-            </p>
           </div>
           <div className={style.form_group}>
             <label htmlFor="department">Department</label>
-            <CustomSelect
-              id="department"
-              element={form.formInputs.onBoarding.department}
-              setElement={(e) => setElement("department", e.target.value)}
-              options={departments}
-            />
+            <CustomSelect id='department'  element={selectedDepartment} setElement={setSelectedDepartment}options={departments} />
           </div>
         </div>
       </div>
@@ -448,5 +361,5 @@ export default function Form({ isActive, setValidateForm }) {
         save
       </button>
     </form>
-  );
+  )
 }

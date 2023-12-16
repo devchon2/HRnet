@@ -3,15 +3,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 import { registerLocale } from  "react-datepicker";
 import en from 'date-fns/locale/es';
+import style from "./DateTimePicker.module.css";
 
 registerLocale('en', en)
 
 
-export default function DateTimePicker({ id, setElement  }) {
-  const [startDate, setStartDate] = useState('');
+export default function DateTimePicker({ id, setElement, element  }) {
+  const [startDate, setStartDate] = useState(new Date(element));
 
   useEffect(() => {
-setElement(startDate,startDate)  }, [startDate]);
+setElement(startDate)  }, [startDate]);
  
 
   return (
