@@ -1,11 +1,12 @@
 .form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
   order: 0;
   width: 100%;
   color: lightGrey;
   font-weight: bold;
+  margin: 100px;
 }
 
 .form_group{
@@ -17,46 +18,88 @@
 }
 
 .container_infos {
+  order:1;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
-  padding: 25px 50px;
+  
+  
 }
+
+.employee_Group{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+}
+
 
 .container_employee_infos {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   background-color: #022138;
   opacity: 0.8;
-  width: 50%;
-  margin: 25px;
-  padding: 50px;
-  height:80%;
+  width: 45%;
+  padding: 20px;
   border: 1px solid lightGrey;
   border-radius: 10px;
+}
+
+.container_employee_infos h2 {
+  -webkit-writing-mode: vertical-rl;
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+  -webkit-text-orientation: mixed;
+  text-orientation: mixed;
+  
+  text-align: end
+
 }
 
 .container_contact_infos {
   display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
+  justify-content: space-between;
   background-color: #022138;
-  width: 50%;
-  height:80%;
-  margin: 25px;
-  padding: 50px;
+  opacity: 0.8;
+  width: 45%;
+  padding: 20px;
   border: 1px solid lightGrey;
   border-radius: 10px;
+}
+
+.contact_Group{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+}
+
+.container_contact_infos h2 {
+  -webkit-writing-mode: vertical-rl;
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+  -webkit-text-orientation: mixed;
+  text-orientation: mixed;
+  
+  text-align: end
+
+}
+
+.container_button {
+  display: flex;
+  order:2;
+  justify-content: center;
+  width: 100%;
 }
 
 .container_corps_infos {
   display: flex;
   justify-content: space-between;
   background-color: #022138;
-  margin: 0 25px;
-  padding: 50px 50px 50px 0;
-  width:88%;
+  padding:20px;
+  width: 100%;
   border: 1px solid lightGrey;
   border-radius: 10px;
 }
@@ -84,7 +127,7 @@
   writing-mode: vertical-rl;
   -webkit-text-orientation: mixed;
   text-orientation: mixed;
-  width:5%;
+  
   text-align: end
 
 }

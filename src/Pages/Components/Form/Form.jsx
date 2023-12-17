@@ -11,17 +11,21 @@ import DateTimePicker from "../DateTimePicker/DateTimePicker.jsx";
 
 
 export default function Form({ isActive, setValidateForm }) {
-
-  const [firstName, setFirstName] = useState(document.querySelector("input#firstName"));
-  const [lastName, setLastName] = useState(document.querySelector("input#lastName"));
-  const [birthDate, setBirthDate] = useState(document.querySelector("input#birthDate"));
-  const [street, setStreet] = useState(document.querySelector("input#Street"));
-  const [city, setCity] = useState(document.querySelector("input#City"));
-  const [zip, setZip] = useState(document.querySelector("input#Zip"));
-  const [startDate, setStartDate] = useState(document.querySelector("input#startDate"));
+ const maxAge = 70;
+  const minAge = 18;
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [birthDate, setBirthDate] = useState(new Date() );
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [zip, setZip] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  
+  const [maxDate, setMaxDate] = useState(new Date().getFullYear() + maxAge);
+  const [minDate, setMinDate] = useState(new Date().getFullYear() - minAge);
   const [contact, setContact] = useState('');
   const [infos, setInfos] = useState('');
-  const [onBoarding, setOnboarding] = useState("");
+  const [onBoarding, setOnboarding] = useState('');
   const [selectedStateLocation, setSelectedStateLocation] = useState(states[0]);
   const [selectedDepartment, setSelectedDepartment] = useState(departments[0]);
   const [stateLocation, setStateLocation] = useState(selectedStateLocation.value);
@@ -38,13 +42,11 @@ export default function Form({ isActive, setValidateForm }) {
   const dispatch = useDispatch();
  
   useEffect(() => {
-    setFirstName(document.querySelector("input#firstName").value);
-    setLastName(document.querySelector("input#lastName").value);
-    setBirthDate(document.querySelector("input#birthDate").value);
-    setStreet(document.querySelector("input#Street").value);
-    setCity(document.querySelector("input#City").value);
-    setZip(document.querySelector("input#Zip").value);
-    setStartDate(document.querySelector("input#startDate").value);
+    
+    setMaxDate(new Date().getFullYear() + maxAge);
+    setMinDate(new Date().getFullYear() - minAge);
+    
+
     setContact({ 'street': street, 'city': city, 'state': stateLocation, 'zip': zip });
     setInfos({ 'firstName': firstName, 'lastName': lastName, 'birthDate': birthDate });
     setOnboarding({ 'startDate': startDate, 'department': department });
@@ -189,13 +191,13 @@ export default function Form({ isActive, setValidateForm }) {
   }
 
   function resetState() {
-    setFirstName(document.querySelector("input#firstName").value);
-    setLastName(document.querySelector("input#lastName").value);
-    setBirthDate(document.querySelector("input#birthDate").value);
-    setStreet(document.querySelector("input#Street").value);
-    setCity(document.querySelector("input#City").value);
-    setZip(document.querySelector("input#Zip").value);
-    setStartDate(document.querySelector("input#startDate").value);
+    setFirstName('');
+    setLastName('');
+    setBirthDate('');
+    setStreet('');
+    setCity('');
+    setZip('');
+    setStartDate('');
     setContact('');
     setInfos('');
     setOnboarding('');
@@ -220,10 +222,7 @@ export default function Form({ isActive, setValidateForm }) {
     dispatch(remove_infos());
     dispatch(remove_contact());
     dispatch(remove_onboarding());
-    const inputs = document.querySelectorAll("input");
-    inputs.forEach((input) => {
-      input.value = "";
-    });
+    
     resetState();
 
   }
@@ -259,10 +258,28 @@ export default function Form({ isActive, setValidateForm }) {
 
   return (
     <form onSubmit={Handle_Submit} className={style.form}>
+      <div className={style.container_corps_infos}>
+        <h2>Onboarding</h2>
+        <div className={style.onboarding_Group}>
+          <div className={style.form_group}>
+            <label htmlFor="startDate">Start Date</label>
+             <DateTimePicker id='startDate' element={startDate} setElement={setStartDate}  />
+                   
+            
+            <p id='StartDateError' className={StartDateErrorCls}>Start Date required!</p>
+
+          </div>
+          <div className={style.form_group}>
+            <label htmlFor="department">Department</label>
+            <CustomSelect id='department'  element={selectedDepartment} setElement={setSelectedDepartment}options={departments} />
+          </div>
+        </div>
+      </div>
+      
       <div className={style.container_infos}>
         <div className={style.container_employee_infos}>
           <h2>Employee</h2>
-
+          <div className={ style.employee_Group}>
           <div className={style.form_group}>
             <label htmlFor="firstName">First Name</label>
             <input
@@ -292,11 +309,12 @@ export default function Form({ isActive, setValidateForm }) {
             <p id='birthdateError' className={BirthdateErrorCls}>BirthDate required!</p>
 
           </div>
+          </div>
         </div>
 
         <div className={style.container_contact_infos}>
           <h2>Contact</h2>
-
+        <div className={style.contact_Group} >
           <div className={style.form_group}>
             <label htmlFor="Street">Street</label>
             <input
@@ -339,27 +357,15 @@ export default function Form({ isActive, setValidateForm }) {
 
           </div>
         </div>
-      </div>
-      <div className={style.container_corps_infos}>
-        <h2>Onboarding</h2>
-        <div className={style.onboardingGroup}>
-          <div className={style.form_group}>
-            <label htmlFor="startDate">Start Date</label>
-             <DateTimePicker id='startDate' element={startDate} setElement={setStartDate}  />
-                   
-            
-            <p id='StartDateError' className={StartDateErrorCls}>Start Date required!</p>
-
-          </div>
-          <div className={style.form_group}>
-            <label htmlFor="department">Department</label>
-            <CustomSelect id='department'  element={selectedDepartment} setElement={setSelectedDepartment}options={departments} />
-          </div>
         </div>
-      </div>
-      <button className={style.submit_button} type="submit">
+       
+      </div> <div className={style.container_button}>
+        <button className={style.submit_button} type="submit">
         save
       </button>
+      </div>
+      
+      
     </form>
   )
 }
