@@ -17,8 +17,12 @@ export default function CreateUserPage() {
       
     } else {
       setActiveModale(false);
-    }    
-  }, [validateForm]);
+    }   
+    
+    if (activeModale) {
+      setValidateForm(false);
+    }
+  }, [validateForm, activeModale]);
 
    
 

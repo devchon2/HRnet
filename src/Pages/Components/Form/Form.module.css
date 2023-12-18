@@ -112,9 +112,8 @@
 }
 
 .onboarding_Group .form_group {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  position: relative;
+  justify-content: center;
   align-items: center;
   width: 30%;
   padding: 10px;
@@ -142,6 +141,7 @@
 
 .error_Message {
   display: flex;
+  position: relative  ;
   justify-content: flex-end;
   color: red;
   font-weight: 500;
@@ -155,6 +155,9 @@
 
 input {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 10px;
   border-radius: 5px;
   font-size:1vw;

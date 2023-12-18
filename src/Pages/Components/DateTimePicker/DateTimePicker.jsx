@@ -3,17 +3,24 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 import { registerLocale } from  "react-datepicker";
 import en from 'date-fns/locale/es';
-import style from "./DateTimePicker.module.css";
+import "./DateTimePicker.module.css";
 
 registerLocale('en', en)
 
 
-export default function DateTimePicker({ id, setElement, element  }) {
-  const [startDate, setStartDate] = useState(new Date(element));
+export default function DateTimePicker({ id, setElement, element, minDate, maxDate  }) {
+  const [dateParams, setDateParams] = useState(element);
+  
 
   useEffect(() => {
-setElement(startDate)  }, [startDate]);
- 
+    setDateParams(element);
+  }
+  , [element]);
+
+  console.log('dateParams', dateParams)
+  console.log('element', element)
+  
+
 
   return (
     <DatePicker
@@ -21,8 +28,10 @@ setElement(startDate)  }, [startDate]);
 
       id={id}
       placeholderText="Select Date"
-      selected={startDate}
+      selected={dateParams}
       locale="en"
+      minDate={minDate ? minDate : null}
+      maxDate={maxDate ? maxDate : null}
       styles={
         {
           width: "100%",
@@ -42,10 +51,7 @@ setElement(startDate)  }, [startDate]);
         
       }
       showIcon
-      onChange={(date) => {
-        console.log(date);
-        setStartDate(date);}
-      }
+      onChange={(date) => setElement(new Date(date))}
     />
   );
 }
