@@ -122,7 +122,8 @@ const StyledBGContainer = styled.div`
 `;
 
 export default function Modale({
-  isActive,
+  onClose,
+  isValidateForm,
   setActiveModale,
   Bg_Color = "black",
   Opacity = "0.5",
@@ -138,7 +139,7 @@ export default function Modale({
   textSize = "20px",
   message = "Employee Created !",
 }) {
-  const [view, setView] = useState(isActive);
+  const [view, setView] = useState(isValidateForm);
   const [active, setActive] = useState(view);
   const [mdlSize, setMdlSize] = useState("");
   const [mdlBoxColor, setMdlBoxColor] = useState("");
@@ -156,8 +157,8 @@ export default function Modale({
 
   useEffect(() => {
 
-    setView(isActive);
-    setActive(isActive);
+    setView(isValidateForm);
+    setActive(isValidateForm);
     setMdlSize(modaleSize);
     setMdlBoxColor(modaleboxcolor);
     setAnim(animation);
@@ -171,8 +172,12 @@ export default function Modale({
     setBgColor(Bg_Color);
     setOpa(Opacity);
     setRad(radius);
+    setActiveModale(isValidateForm)
+
+    
+
   }, [
-    isActive,
+    isValidateForm,
     modaleSize,
     modaleboxcolor,
     animation,
@@ -186,6 +191,7 @@ export default function Modale({
     Bg_Color,
     Opacity,
     radius,
+    setActiveModale,
     
   ]);
 
@@ -194,8 +200,9 @@ export default function Modale({
     console.log("close");
     setActive(false);
     setView(false);
-    setActiveModale(false)
-    console.log('active', active,'view', view, 'isActive', isActive);
+    setActiveModale(false);
+    onClose(true)
+    console.log('active', active,'view', view, 'isValidateForm', isValidateForm);
   }
 
   if (!active) {

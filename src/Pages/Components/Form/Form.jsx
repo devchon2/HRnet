@@ -7,7 +7,7 @@
 
 import style from "./Form.module.css";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
 import { departments, states } from "../../../utils/utils.js";
 import { add_infos, remove_infos } from "../../../Redux/InfosSlice.js";
 import { add_contact, remove_contact } from "../../../Redux/contactSlice.js";
@@ -18,6 +18,7 @@ import {
 import { add_employee } from "../../../Redux/dataBaseSlice.js";
 import CustomSelect from "../Select/CustomSelect.jsx";
 import DateTimePicker from "../DateTimePicker/DateTimePicker.jsx";
+import store from "../../../Redux/store.js"
 
 // Main functional component for the onboarding form
 
@@ -30,7 +31,7 @@ import DateTimePicker from "../DateTimePicker/DateTimePicker.jsx";
  * @param {function} props.setValidateForm - Callback function to set the form validation status.
  * @returns {JSX.Element} The form component.
  */
-export default function Form({ isActive, setValidateForm }) {
+export default function Form({ isModaleActive, setValidateForm,setNeedClose, needClose }) {
   // Constants for age limits
   const maxAge = 70;
   const minAge = 18;
@@ -44,14 +45,16 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
 
+  
+
   // Calculating maximum and minimum permissible dates
   let date = new Date(startDate);
 
-  let maxBirthDate = new Date(startDate);
-  maxBirthDate.setFullYear(startDate.getFullYear() - maxAge);
-
   let minBirthDate = new Date(startDate);
-  minBirthDate.setFullYear(date.getFullYear() - minAge);
+  minBirthDate.setFullYear(startDate.getFullYear() - maxAge);
+
+  let maxBirthDate = new Date(startDate);
+  maxBirthDate.setFullYear(date.getFullYear() - minAge);
 
   let minStartDate = new Date(startDate);
   minStartDate.setFullYear(date.getFullYear() - 1);
@@ -59,15 +62,12 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
   let maxStartDate = new Date(startDate);
   maxStartDate.setFullYear(date.getFullYear() + 1);
 
-  const minBirth = new Date(maxBirthDate);
-  const maxBirth = new Date(minBirthDate);
-  const maxOnboard = new Date(maxStartDate).getFullYear() - 1;
-  const minOnboard = new Date(minStartDate).getFullYear() + 1;
+  
 
   // State hooks for managing different sections of the form
-  const [contact, setContact] = useState("");
-  const [infos, setInfos] = useState("");
-  const [onBoarding, setOnboarding] = useState("");
+  const [contact, setContact] = useState({ street: "", city: "", zip: "", state: ""});
+  const [infos, setInfos] = useState({ firstName: "", lastName: "", birthDate: "" });
+  const [onBoarding, setOnboarding] = useState({ startDate: "", department: "" });
 
   // State hooks for managing selections in CustomSelect components
   const [selectedStateLocation, setSelectedStateLocation] = useState(states[0]);
@@ -96,36 +96,37 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
 
   // Effect hook for handling updates to form state
   useEffect(() => {
-    // Calculating maximum and minimum permissible dates
+    
 
-    setStreet(street);
-    setCity(city);
-    setZip(zip);
-
-    setFirstName(firstName);
-    setLastName(lastName);
-    setBirthDate(birthDate);
-
-    setStartDate(startDate);
-    setDepartment(department);
-
-    // Updating selections for state and department
-    setStateLocation(selectedStateLocation.value);
-    setDepartment(selectedDepartment.value);
-
-    // Updating form sections with current state
-    setContact({ street: street, city: city, state: stateLocation, zip: zip });
     setInfos({
       firstName: firstName,
       lastName: lastName,
       birthDate: birthDate,
     });
-    setOnboarding({ startDate: startDate, department: department });
 
-    // Handling form validation state
-    setValidated(isActive);
-  }, [
-    isActive,
+    setContact({
+      street: street,
+      city: city,
+      state: stateLocation,
+      zip: zip,
+    });
+
+    setOnboarding({ startDate: startDate, department: department 
+    });
+
+    
+    
+
+      if (needClose) {
+        console.log('isClosed', needClose);
+        resetForm();
+        setValidateForm(false);
+        setNeedClose(false)
+        
+    }
+    
+    }, [
+    isModaleActive,
     firstName,
     lastName,
     birthDate,
@@ -138,11 +139,11 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
     stateLocation,
     department,
     validated,
+    needClose,
   ]);
 
   // Function for validating age
   function CalculatedBirthdate(birthDate, startDate) {
-    const RequiredAge = 18;
     const onBoardingDay = Number(new Date(startDate).getDay());
     const onBoardingMonth = Number(new Date(startDate).getMonth());
     const onBoardingYear = Number(new Date(startDate).getFullYear());
@@ -274,9 +275,9 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
     setStartDate(new Date());    
     setBirthDate(new Date(new Date().setFullYear(startDate.getFullYear() - 18)));
 
-    setContact("");
-    setInfos("");
-    setOnboarding("");
+    setContact({ street: "", city: "", zip: "", state: ""});
+    setInfos({ firstName: "", lastName: "", birthDate: "" });
+    setOnboarding({ startDate: "", department: "" });
     setSelectedStateLocation(states[0]);
     setSelectedDepartment(departments[0]);
     setStateLocation(selectedStateLocation.value);
@@ -290,38 +291,47 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
     setStartDateErrorCls(style.hidden);
     setValidated(false);
     setValidateForm(false);
-  }
-
-  function resetForm() {
-    dispatch(add_infos({ firstName: "", lastName: "", birthDate: "" }));
     dispatch(remove_infos());
     dispatch(remove_contact());
     dispatch(remove_onboarding());
+  }
 
+  function resetForm() {
+    const inputs = document.querySelectorAll("input");
+    inputs.forEach((input) => {
+      input.value = "";
+    });
+    
     resetState();
   }
 
   function migrateToState() {
     console.log("migrateToState");
 
-    dispatch(add_infos(infos));
-    dispatch(add_contact(contact));
-    dispatch(add_onboarding(onBoarding));
+    dispatch(add_infos({ firstName: infos.firstName, lastName: infos.lastName, birthDate: JSON.stringify(infos.birthDate) }));
+    dispatch(add_contact({ street: contact.street, city: contact.city, state: contact.state, zip: contact.zip }));
+    dispatch(add_onboarding({ startDate: `${onBoarding.startDate}`, department: onBoarding.department }));
+
+
+    const employee = store.getState().employee;
+    const infosSelector = employee.infos;
+    const contactSelector = employee.contact;
+    const onboardingSelector = employee.onboarding;
 
     dispatch(
-      add_employee({ infos: infos, contact: contact, onBoarding: onBoarding })
+      add_employee({ infos: {...infosSelector}, contact: {...contactSelector}, onBoarding: {...onboardingSelector}})
     );
 
-    return true;
   }
 
   function Handle_Submit(e) {
     e.preventDefault();
 
     if (checkForm()) {
-      migrateToState();
+      migrateToState()
       setValidateForm(true);
-    }
+    
+  }
   }
 
   return (
@@ -391,8 +401,8 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
                 
                 element={birthDate}
                 setElement={setBirthDate}
-                minDate={minBirth}
-                maxDate={maxBirth}
+                minDate={minBirthDate}
+                maxDate={maxBirthDate}
               />
               <p id="birthdateError" className={BirthdateErrorCls}>
                 BirthDate required!

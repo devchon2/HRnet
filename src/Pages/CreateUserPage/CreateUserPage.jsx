@@ -8,6 +8,8 @@ import Form from "../Components/Form/Form.jsx";
 export default function CreateUserPage() {
   const [validateForm, setValidateForm] = useState(false);
   const [activeModale, setActiveModale] = useState(false);
+  const [needClose, setNeedClose] = useState('');
+  
 
   
  
@@ -15,15 +17,11 @@ export default function CreateUserPage() {
     if (validateForm) {
       setActiveModale(true);
       
-    } else {
-      setActiveModale(false);
-    }   
-    
-    if (activeModale) {
-      setValidateForm(false);
     }
-  }, [validateForm, activeModale]);
-
+    
+    
+    
+  }, [validateForm ]);
    
 
   return (
@@ -31,11 +29,11 @@ export default function CreateUserPage() {
       <main>
         
         <h1 className={style.page_Title}>Create Employees</h1>
-        <Form isActive={activeModale} setValidateForm={setValidateForm} />
+        <Form isModaleActive={activeModale} setValidateForm={setValidateForm} setNeedClose={setNeedClose} needClose={needClose} />
       
       </main>
       
-      <Modale isActive={validateForm} setActiveModale={setActiveModale} />
+      <Modale onClose={setNeedClose} isValidateForm={validateForm} setActiveModale={setActiveModale} />
     </>
   );
 }
