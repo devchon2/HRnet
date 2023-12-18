@@ -17,10 +17,6 @@ export default function DateTimePicker({ id, setElement, element, minDate, maxDa
   }
   , [element]);
 
-  console.log('dateParams', dateParams)
-  console.log('element', element)
-  
-
 
   return (
     <DatePicker
@@ -32,6 +28,9 @@ export default function DateTimePicker({ id, setElement, element, minDate, maxDa
       locale="en"
       minDate={minDate ? minDate : null}
       maxDate={maxDate ? maxDate : null}
+      
+      showYearDropdown
+      scrollableYearDropdown
       styles={
         {
           width: "100%",

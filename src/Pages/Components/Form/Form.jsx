@@ -38,11 +38,31 @@ export default function Form({ isActive, setValidateForm }) {
   // State hooks for handling form inputs
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [birthDate, setBirthDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
+const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(startDate.getFullYear() - 18)));
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
+
+  // Calculating maximum and minimum permissible dates
+  let date = new Date(startDate);
+
+  let maxBirthDate = new Date(startDate);
+  maxBirthDate.setFullYear(startDate.getFullYear() - maxAge);
+
+  let minBirthDate = new Date(startDate);
+  minBirthDate.setFullYear(date.getFullYear() - minAge);
+
+  let minStartDate = new Date(startDate);
+  minStartDate.setFullYear(date.getFullYear() - 1);
+
+  let maxStartDate = new Date(startDate);
+  maxStartDate.setFullYear(date.getFullYear() + 1);
+
+  const minBirth = new Date(maxBirthDate);
+  const maxBirth = new Date(minBirthDate);
+  const maxOnboard = new Date(maxStartDate).getFullYear() - 1;
+  const minOnboard = new Date(minStartDate).getFullYear() + 1;
 
   // State hooks for managing different sections of the form
   const [contact, setContact] = useState("");
@@ -104,7 +124,6 @@ export default function Form({ isActive, setValidateForm }) {
 
     // Handling form validation state
     setValidated(isActive);
-    
   }, [
     isActive,
     firstName,
@@ -140,9 +159,7 @@ export default function Form({ isActive, setValidateForm }) {
       onBoardingDay - birthday < -31 || onBoardingDay - birthday > 0;
 
     if (notYearAged || (!notYearAged && notMonthAged && notDayAged)) {
-      window.alert(
-        `Employee does meet the required Age to onboarding: ${RequiredAge}`
-      );
+      
       return false;
     }
 
@@ -224,40 +241,39 @@ export default function Form({ isActive, setValidateForm }) {
   }
 
   function checkForm() {
-    
-
     if (checkFields()) {
-      if (CalculatedBirthdate(birthDate, startDate)){
+      
+        setInfos({
+          firstName: firstName,
+          lastName: lastName,
+          birthDate: birthDate,
+        });
 
-      setInfos({
-        firstName: firstName,
-        lastName: lastName,
-        birthDate: birthDate,
-      });
+        setContact({
+          street: street,
+          city: city,
+          state: stateLocation,
+          zip: zip,
+        });
 
-      setContact({
-        street: street,
-        city: city,
-        state: stateLocation,
-        zip: zip,
-      });
+        setOnboarding({ startDate: startDate, department: department });
 
-      setOnboarding({ startDate: startDate, department: department });
+        return true;
+      
+    }
 
-      return true;
-      }}
-
-    return false
+    return false;
   }
 
   function resetState() {
     setFirstName("");
     setLastName("");
-    setBirthDate(new Date());
     setStreet("");
     setCity("");
     setZip("");
-    setStartDate(new Date());
+    setStartDate(new Date());    
+    setBirthDate(new Date(new Date().setFullYear(startDate.getFullYear() - 18)));
+
     setContact("");
     setInfos("");
     setOnboarding("");
@@ -319,6 +335,8 @@ export default function Form({ isActive, setValidateForm }) {
               id="startDate"
               element={startDate}
               setElement={setStartDate}
+              minDate={minStartDate}
+              maxDate={maxStartDate}
             />
 
             <p id="StartDateError" className={StartDateErrorCls}>
@@ -370,10 +388,11 @@ export default function Form({ isActive, setValidateForm }) {
               <label htmlFor="birthDate">Date of birth</label>
               <DateTimePicker
                 id="birthDate"
-                minDate={""}
-                maxDate={""}
+                
                 element={birthDate}
                 setElement={setBirthDate}
+                minDate={minBirth}
+                maxDate={maxBirth}
               />
               <p id="birthdateError" className={BirthdateErrorCls}>
                 BirthDate required!
