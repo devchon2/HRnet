@@ -1,7 +1,7 @@
 import { useEffect,useState } from "react";
 import styled, { keyframes, css } from "styled-components";
 
-const bumpAnimation = keyframes`
+const bumpAnimation =(scale) => keyframes`
 0% {
   transform: scale(0.5);
 }
@@ -9,7 +9,7 @@ const bumpAnimation = keyframes`
   transform: scale(1.3);
 }
 100% {
-  transform: scale(1);
+  transform: ${scale};
 }`;
 
 const OpacityAnimation = (opacity) => keyframes`
@@ -50,7 +50,7 @@ const StyledModaleContainer = styled.div`
   transform: translate(-50%, -50%);
   opacity: 1;
   z-index: 2;
-  animation: ${(props) => props.$animation === 'opacity' ? css`${OpacityAnimation(props.$opacity)} 0.8s ease-in-out` : 'none' };
+  animation: ${(props) => props.$modaleanimation === 'opacity' ? css`${OpacityAnimation(props.$opacity)} 0.8s ease-in-out` : 'none' };
   
 
 
@@ -76,7 +76,7 @@ const StyledModaleCloseButton = styled.button`
   padding: 5px;
   width: 30px;
   height: 30px;
-  background-color: ${(props) => props.$buttoncolor};
+  background-color: ${(props) => props.$itembgcolor};
   position: absolute;
   border-radius: 50%;
   border: none;
@@ -84,6 +84,7 @@ const StyledModaleCloseButton = styled.button`
   cursor: pointer;
   top: -10px;
   right: -10px;
+  color: ${(props) => props.$itembtncolor};
 
   &:hover {
     transform: scale(1.1);
@@ -120,6 +121,11 @@ const StyledModaleBtn = styled.button`
   padding: ${(props) => props.$padding};
   background-color: ${(props) => props.$btnbgcolor};
   cursor: ${(props) => props.$cursor};
+  &:hover {
+    transition: 0.5s;
+    transform: scale(1.1);
+  }
+
 
 `;
 
@@ -133,7 +139,8 @@ const StyledBGContainer = styled.div`
   background-color: ${(props) => props.$bg_color};
   opacity: ${(props) => props.$opacity};
   position: absolute;
-  animation: ${(props) => props.$animation === 'opacity' ? css`${OpacityAnimation(props.$opacity)} 0.8s ease-in-out` : css`${bumpAnimation} 0.8s ease-in-out` }
+  scale: 1;
+  animation: ${(props) => props.$bganimation === 'opacity' ? css`${OpacityAnimation(props.$opacity)} 0.8s ease-in-out` : props.$bganimation === 'bump' ? css`${bumpAnimation} 2s ease-in-out` : 'none' }
   border-radius: ${(props) => props.$radius};
 `;
 
@@ -155,13 +162,15 @@ export default function Modale({
   btOnClick,
   isValidateForm,
   setActiveModale,
-  Bg_Color = "black",
-  Opacity = "0.5",
+  bg_Color = "black",
+  opacity = "0.5",
   radius = "0",
   modaleSize = "medium",
-  modaleboxcolor = "white",
-  animation = "bump",
+  modaleBoxColor = "white",
+  bgAnimation = "bump",
+  modaleAnimation = 'opacity',
   itemButtonColor = "white",
+  itemColor = "black",
   itemButtonSize = "20px",
   textColor = "black",
   textFamily = "arial",
@@ -172,16 +181,17 @@ export default function Modale({
   const [view, setView] = useState(isValidateForm);
   const [active, setActive] = useState(view);
   const [mdlSize, setMdlSize] = useState(modaleSize);
-  const [mdlBoxColor, setMdlBoxColor] = useState(modaleboxcolor);
-  const [anim, setAnim] = useState(animation);
+  const [mdlBoxColor, setMdlBoxColor] = useState(modaleBoxColor);
+  const [bgAnim, setBgAnim] = useState(bgAnimation);
+  const [mdlAnim, setMdlAnim] = useState(modaleAnimation);
   const [itmBtnColor, setItmBtnColor] = useState(itemButtonColor);
   const [itmBtnSize, setItmBtnSize] = useState(itemButtonSize);
   const [txtColor, setTxtColor] = useState(textColor);
   const [txtSize, setTxtSize] = useState(textSize);
   const [txtFamily, setTxtFamily] = useState(textFamily);
   const [msg, setMsg] = useState(message);
-  const [bgColor, setBgColor] = useState(Bg_Color);
-  const [opa, setOpa] = useState(Opacity);
+  const [bgColor, setBgColor] = useState(bg_Color);
+  const [opa, setOpa] = useState(opacity);
   const [rad, setRad] = useState(radius);
   const [btn, setBtn] = useState(showButton);
   const [btnColor, setBtnColor] = useState(buttonColor);
@@ -197,6 +207,7 @@ export default function Modale({
   const [btnCursor, setBtnCursor] = useState(buttonCursor);
   const [btnContent, setBtnContent] = useState(buttonContent);
   const [btnClick, setBtnClick] = useState(btOnClick);
+  const [itmColor, setItmColor] = useState(itemColor);
 
 
 
@@ -209,8 +220,9 @@ if (showButton) {
     setView(isValidateForm);
     setActive(isValidateForm);
     setMdlSize(modaleSize);
-    setMdlBoxColor(modaleboxcolor);
-    setAnim(animation);
+    setMdlBoxColor(modaleBoxColor);
+    setBgAnim(bgAnimation);
+    setMdlAnim(modaleAnimation)
     setBtnColor(buttonColor);
     setItmBtnColor(itemButtonColor);
     setItmBtnSize(itemButtonSize);
@@ -218,8 +230,8 @@ if (showButton) {
     setTxtSize(textSize);
     setTxtFamily(textFamily);
     setMsg(message);
-    setBgColor(Bg_Color);
-    setOpa(Opacity);
+    setBgColor(bg_Color);
+    setOpa(opacity);
     setRad(radius);
     setActiveModale(isValidateForm)
     setBtnContent(buttonContent)
@@ -235,32 +247,14 @@ if (showButton) {
     setBtnBgColor(buttonBgColor)
     setBtnCursor(buttonCursor)
     setBtnClick(btOnClick)
-
-
-
-
-    
-
-
-    
+    setBgAnim(bgAnimation)
+    setMdlAnim(modaleAnimation)
+    setItmColor(itemColor)
 
   }, [
-    isValidateForm,
-    modaleSize,
-    modaleboxcolor,
-    animation,
-    buttonColor,
-    itemButtonColor,
-    itemButtonSize,
-    textColor,
-    textSize,
-    textFamily,
-    message,
-    Bg_Color,
-    Opacity,
-    radius,
-    setActiveModale,
+    showButton,
     buttonContent,
+    buttonColor,
     buttonWidth,
     buttonHeight,
     buttonContentColor,
@@ -271,8 +265,23 @@ if (showButton) {
     buttonPadding,
     buttonBgColor,
     buttonCursor,
-    showButton,
-    btOnClick,    
+    btOnClick,
+    isValidateForm,
+    modaleSize,
+    modaleBoxColor,
+    bgAnimation,
+    modaleAnimation,
+    itemButtonColor,
+    itemButtonSize,
+    textColor,
+    textSize,
+    textFamily,
+    message,
+    bg_Color,
+    opacity,
+    radius,
+    setActiveModale,
+    itemColor,
   ]);
 
   function handleClose(e) {
@@ -294,7 +303,7 @@ if (showButton) {
           id="bgContainer"
           $bg_color={bgColor}
           $opacity={opa}
-          $animation={anim}
+          $bganimation={bgAnim}
           onClick={handleClose}
         />
 
@@ -302,16 +311,18 @@ if (showButton) {
           $radius={rad}
           $modalesize={mdlSize}
           $modaleboxcolor={mdlBoxColor}
-          $animation='opacity'
+          $modaleanimation={mdlAnim}
         >
           <StyledModaleContent>
             <StyledModaleCloseButton
               onClick={handleClose}
-              $buttoncolor={btnColor}
+              $itembgcolor={itmBtnColor}
             >
               <StyledModaleCloseButtonContent
-                $itembuttoncolor={itmBtnColor}
+                $itembuttoncolor={btnColor}
                 $itembuttonsize={itmBtnSize}
+                $itemcolor={itmColor}
+                
               >
                 {/* un code ascii qui represente une croix*/}
                 &#10006;
