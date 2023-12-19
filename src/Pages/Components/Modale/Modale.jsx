@@ -62,6 +62,11 @@ const StyledModaleContent = styled.div`
   width: 100%;
   height: 100%;
   background-color: ${(props) => props.$modalecolor};
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+
 `;
 
 const StyledModaleCloseButton = styled.button`
@@ -101,6 +106,22 @@ const StyledModaleMessage = styled.p`
   color: ${(props) => props.$textcolor};
   font-size: ${(props) => props.$textsize};
 `;
+const StyledModaleBtn = styled.button`
+  display: ${(props) => props.$btn ? 'flex' : 'none'};
+  justify-content: center;
+  align-items: center;
+  width: ${(props) => props.$btnwidth};
+  height: ${(props) => props.$btnheight};
+  color: ${(props) => props.$btncontentcolor};
+  font-size: ${(props) => props.$btntextsize};
+  border-radius: ${(props) => props.$radius};
+  border: ${(props) => props.$btnborder};
+  margin: ${(props) => props.$btnmargin};
+  padding: ${(props) => props.$padding};
+  background-color: ${(props) => props.$btnbgcolor};
+  cursor: ${(props) => props.$cursor};
+
+`;
 
 const StyledBGContainer = styled.div`
   display: flex;
@@ -117,7 +138,21 @@ const StyledBGContainer = styled.div`
 `;
 
 export default function Modale({
+  showButton = false,
+  buttonContent = 'ok',
+  buttonColor = 'black',
+  buttonWidth = '100px',
+  buttonHeight = '50px',
+  buttonContentColor = 'white',
+  buttonTextSize = '20px',
+  buttonBorder = 'none',
+  buttonRadius = '0px',
+  buttonMargin = '0px',
+  buttonPadding = '0px',
+  buttonBgColor = 'transparent',
+  buttonCursor = 'pointer',
   onClose,
+  btOnClick,
   isValidateForm,
   setActiveModale,
   Bg_Color = "black",
@@ -126,32 +161,51 @@ export default function Modale({
   modaleSize = "medium",
   modaleboxcolor = "white",
   animation = "bump",
-  buttonColor = "black",
   itemButtonColor = "white",
   itemButtonSize = "20px",
   textColor = "black",
   textFamily = "arial",
   textSize = "20px",
   message = "Employee Created !",
+
 }) {
   const [view, setView] = useState(isValidateForm);
   const [active, setActive] = useState(view);
-  const [mdlSize, setMdlSize] = useState("");
-  const [mdlBoxColor, setMdlBoxColor] = useState("");
-  const [anim, setAnim] = useState("");
-  const [btnColor, setBtnColor] = useState("");
-  const [itmBtnColor, setItmBtnColor] = useState("");
-  const [itmBtnSize, setItmBtnSize] = useState("");
-  const [txtColor, setTxtColor] = useState("");
-  const [txtSize, setTxtSize] = useState("");
-  const [txtFamily, setTxtFamily] = useState("");
-  const [msg, setMsg] = useState("");
-  const [bgColor, setBgColor] = useState("");
-  const [opa, setOpa] = useState("");
-  const [rad, setRad] = useState("");
+  const [mdlSize, setMdlSize] = useState(modaleSize);
+  const [mdlBoxColor, setMdlBoxColor] = useState(modaleboxcolor);
+  const [anim, setAnim] = useState(animation);
+  const [itmBtnColor, setItmBtnColor] = useState(itemButtonColor);
+  const [itmBtnSize, setItmBtnSize] = useState(itemButtonSize);
+  const [txtColor, setTxtColor] = useState(textColor);
+  const [txtSize, setTxtSize] = useState(textSize);
+  const [txtFamily, setTxtFamily] = useState(textFamily);
+  const [msg, setMsg] = useState(message);
+  const [bgColor, setBgColor] = useState(Bg_Color);
+  const [opa, setOpa] = useState(Opacity);
+  const [rad, setRad] = useState(radius);
+  const [btn, setBtn] = useState(showButton);
+  const [btnColor, setBtnColor] = useState(buttonColor);
+  const [btnWidth, setBtnWidth] = useState(buttonWidth);
+  const [btnHeight, setBtnHeight] = useState(buttonHeight);
+  const [btnContentColor, setBtnContentColor] = useState(buttonContentColor);
+  const [btnTextSize, setBtnTextSize] = useState(buttonTextSize);
+  const [btnBorder, setBtnBorder] = useState(buttonBorder);
+  const [btnRadius, setBtnRadius] = useState(buttonRadius);
+  const [btnMargin, setBtnMargin] = useState(buttonMargin);
+  const [btnPadding, setBtnPadding] = useState(buttonPadding);
+  const [btnBgColor, setBtnBgColor] = useState(buttonBgColor);
+  const [btnCursor, setBtnCursor] = useState(buttonCursor);
+  const [btnContent, setBtnContent] = useState(buttonContent);
+  const [btnClick, setBtnClick] = useState(btOnClick);
+
+
+
+
 
   useEffect(() => {
-
+if (showButton) {
+      setBtn(true)
+    };
     setView(isValidateForm);
     setActive(isValidateForm);
     setMdlSize(modaleSize);
@@ -168,6 +222,25 @@ export default function Modale({
     setOpa(Opacity);
     setRad(radius);
     setActiveModale(isValidateForm)
+    setBtnContent(buttonContent)
+    setBtnColor(buttonColor)
+    setBtnWidth(buttonWidth)
+    setBtnHeight(buttonHeight)
+    setBtnContentColor(buttonContentColor)
+    setBtnTextSize(buttonTextSize)
+    setBtnBorder(buttonBorder)
+    setBtnRadius(buttonRadius)
+    setBtnMargin(buttonMargin)
+    setBtnPadding(buttonPadding)
+    setBtnBgColor(buttonBgColor)
+    setBtnCursor(buttonCursor)
+    setBtnClick(btOnClick)
+
+
+
+
+    
+
 
     
 
@@ -187,7 +260,19 @@ export default function Modale({
     Opacity,
     radius,
     setActiveModale,
-    
+    buttonContent,
+    buttonWidth,
+    buttonHeight,
+    buttonContentColor,
+    buttonTextSize,
+    buttonBorder,
+    buttonRadius,
+    buttonMargin,
+    buttonPadding,
+    buttonBgColor,
+    buttonCursor,
+    showButton,
+    btOnClick,    
   ]);
 
   function handleClose(e) {
@@ -239,6 +324,8 @@ export default function Modale({
             >
               {msg}
             </StyledModaleMessage>
+            <StyledModaleBtn  onClick={btnClick ? btnClick : handleClose } $btn={btn} $btnwidth={btnWidth} $btnheight={btnHeight} $btncontentcolor={btnContentColor} $btntextsize={btnTextSize} $btnborder={btnBorder} $radius={btnRadius} $btnmargin={btnMargin} $padding={btnPadding} $btnbgcolor={btnBgColor} $cursor={btnCursor}
+             >{btnContent}</StyledModaleBtn>
           </StyledModaleContent>
         </StyledModaleContainer>
       </>
