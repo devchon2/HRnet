@@ -1,71 +1,63 @@
+import React, { useState, useEffect } from "react";
 
-
-
-import React, { useState, useEffect } from 'react';
-import { useReactTable, flexRender } from '@tanstack/react-table';
-import { columnDef } from './Columns.js';
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
+import {
+  TableContainer,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  Paper,
+} from "@mui/material";
 
 export default function EmployeeTable() {
-  const list = useSelector(state => state.database);
-  console.log("list", list);
-  const [datas, setDatas] = useState(list);
-  const [columns, setColumns] = useState(columnDef);
+  const list = useSelector((state) => state.database);
 
-
+  const [ datas, setDatas ] = useState(list);
 
   useEffect(() => {
     setDatas(list);
-    setColumns(columnDef);
-  }, [list,]);
+  }
+  , [list]);
 
-
-  const tableInstance = useReactTable({
-    columns: columns,
-    data: datas,
-  });
-
-  console.log("columns", columns);
-  console.log("datas", datas);
-  console.log("tableInstance", tableInstance);
+  console.log(datas);
+  console.log(list);
 
 
   return (
-
-    <div>
-      <table >
-        <thead>
-          {tableInstance.getHeaderGroups().map(headerEl => {
-            return <tr key={headerEl.id} > {headerEl.headers.map(columnEl => {
-              return <th key={columnEl.id}>
-                {flexRender(
-                  columnEl.column.columnDef.header,
-                  columnEl.getContext()
-                )}
-              </th>
-            })}
-            </tr>
-          }
-          )}
-        </thead>
-        {/* <tbody>
-          {tableInstance.getRow().map( rowEl => {
-
-             return <tr key={rowEl.id} > 
-             {console.log("rowEl", rowEl)}
-              {
-             rowEl.cells.map((cellEl) => {             
-               return <td key={cellEl.id}>
-                 {flexRender(
-                   cellEl.column.columnDef.cell,
-                   cellEl.getContext()
-                 )}
-                 </td>
-             })}
-             </tr>
-          })}
-        </tbody>         */}
-      </table>
-    </div>
-  )
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableCell>First Name</TableCell>
+          <TableCell>Last Name</TableCell>
+          <TableCell>Start Date</TableCell>
+          <TableCell>Department</TableCell>
+          <TableCell>Date of Birth</TableCell>
+          <TableCell>Street</TableCell>
+          <TableCell>city</TableCell>
+          <TableCell>State</TableCell>
+          <TableCell>Zip Code</TableCell>
+        </TableHead>
+        <TableBody>
+          {datas.map((row) => (
+            <TableRow
+              key={row.id}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell>{row.infos.firstName}</TableCell>
+              <TableCell>{row.infos.lastName}</TableCell>
+              <TableCell>{row.onboarding.startDate}</TableCell>
+              <TableCell>{row.onboarding.department}</TableCell>
+              <TableCell>{row.infos.dateoofbirth}</TableCell>
+              <TableCell>{row.contact.street}</TableCell>
+              <TableCell>{row.contact.city}</TableCell>
+              <TableCell>{row.contact.state}</TableCell>
+              <TableCell>{row.contact.zipcode}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 }

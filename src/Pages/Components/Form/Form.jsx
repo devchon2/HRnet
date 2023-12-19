@@ -118,7 +118,6 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
     
 
       if (needClose) {
-        console.log('isClosed', needClose);
         resetForm();
         setValidateForm(false);
         setNeedClose(false)
@@ -168,7 +167,6 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
   }
 
   function checkFields() {
-    console.log("checkFields");
     const streetRegex = /^[a-zA-Z0-9\s,'-]*$/;
     const textRegEx = /^[a-zA-Z'-]+$/;
     const zipRegEx = /^[0-9]{5}(?:-[0-9]{4})?$/;
@@ -225,15 +223,12 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
       },
     ];
 
-    console.log("boucle sur elements");
     elements.forEach((el) => {
       const { element, act, tests } = el;
       if (!tests && element.length < 2) {
-        console.log("element ne passe pas le test", el.type, element, tests);
         act(errorClass);
         validate = false;
       } else {
-        console.log("element passe le test", el.type, element, tests);
 
         act(validClass);
       }
@@ -306,7 +301,6 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
   }
 
   function migrateToState() {
-    console.log("migrateToState");
 
     dispatch(add_infos({ firstName: infos.firstName, lastName: infos.lastName, birthDate: JSON.stringify(infos.birthDate) }));
     dispatch(add_contact({ street: contact.street, city: contact.city, state: contact.state, zip: contact.zip }));
@@ -347,6 +341,8 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
               setElement={setStartDate}
               minDate={minStartDate}
               maxDate={maxStartDate}
+              fixedHeight={true}
+
             />
 
             <p id="StartDateError" className={StartDateErrorCls}>
@@ -398,7 +394,7 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
               <label htmlFor="birthDate">Date of birth</label>
               <DateTimePicker
                 id="birthDate"
-                
+                fixedHeight={true}
                 element={birthDate}
                 setElement={setBirthDate}
                 minDate={minBirthDate}

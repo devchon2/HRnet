@@ -5,12 +5,11 @@ export default function ShowUserPage() {
   
 
 return (
-  <main>
+  <main className={style.main}>
 
     <h1 className={style.page_Title}>Database</h1>
-    <div className={style.table_Container}>
+    
       <EmployeeTable />
-    </div>
 
   </main>
 )

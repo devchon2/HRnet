@@ -1,24 +1,23 @@
 import { useEffect,useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 const bumpAnimation = keyframes`
 0% {
-  scale: 0;
+  transform: scale(0.5);
 }
 80% {
-  scale: 1.1;
+  transform: scale(1.3);
 }
 100% {
-  scale: 1;
-}
-`;
+  transform: scale(1);
+}`;
 
-const opacityAnimation = keyframes`
+const OpacityAnimation = (opacity) => keyframes`
 from {
   opacity: 0;
 }
 to {
-  opacity: ${(props) => props.$opacity}
+  opacity: ${opacity};
 }
 `;
 
@@ -51,13 +50,9 @@ const StyledModaleContainer = styled.div`
   transform: translate(-50%, -50%);
   opacity: 1;
   z-index: 2;
-  animation: ${(props) =>
-      props.$animation === "opacity"
-        ? opacityAnimation
-        : props.$animation === "bump"
-        ? bumpAnimation
-        : null}
-    2s ease-in-out;
+  animation: ${(props) => props.$animation === 'opacity' ? css`${OpacityAnimation(props.$opacity)} 0.8s ease-in-out` : 'none' };
+  
+
 
   border-radius: ${(props) => props.$radius};
 `;
@@ -86,7 +81,7 @@ const StyledModaleCloseButton = styled.button`
   right: -10px;
 
   &:hover {
-    scale: 1.1;
+    transform: scale(1.1);
   }
 `;
 
@@ -117,7 +112,7 @@ const StyledBGContainer = styled.div`
   background-color: ${(props) => props.$bg_color};
   opacity: ${(props) => props.$opacity};
   position: absolute;
-
+  animation: ${(props) => props.$animation === 'opacity' ? css`${OpacityAnimation(props.$opacity)} 0.8s ease-in-out` : css`${bumpAnimation} 0.8s ease-in-out` }
   border-radius: ${(props) => props.$radius};
 `;
 
@@ -197,12 +192,10 @@ export default function Modale({
 
   function handleClose(e) {
     e.preventDefault();
-    console.log("close");
     setActive(false);
     setView(false);
     setActiveModale(false);
     onClose(true)
-    console.log('active', active,'view', view, 'isValidateForm', isValidateForm);
   }
 
   if (!active) {
@@ -224,6 +217,7 @@ export default function Modale({
           $radius={rad}
           $modalesize={mdlSize}
           $modaleboxcolor={mdlBoxColor}
+          $animation='opacity'
         >
           <StyledModaleContent>
             <StyledModaleCloseButton
