@@ -33,8 +33,8 @@ export default function CreateUserPage() {
       
       </main>
       
-      <Modale onClose={setNeedClose} isValidateForm={validateForm} setActiveModale={setActiveModale} modaleboxcolor="green" radius='20px' 
-        buttonMargin="25px" btnOnClick={setActiveModale} showButton />
+      <Modale onClose={setNeedClose} animation="bump" isValidateForm={validateForm} setActiveModale={setActiveModale} modaleboxcolor="green" radius='20px' 
+        buttonMargin="25px" btnOnClick={setActiveModale} showButton buttonContentColor="black" buttonBorder="2px solid black" buttonCursor="pointer" buttonRadius="25px;"  />
     </>
   );
 }

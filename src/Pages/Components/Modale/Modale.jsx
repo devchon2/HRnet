@@ -214,9 +214,7 @@ export default function Modale({
 
 
   useEffect(() => {
-if (showButton) {
-      setBtn(true)
-    };
+
     setView(isValidateForm);
     setActive(isValidateForm);
     setMdlSize(modaleSize);
@@ -250,6 +248,7 @@ if (showButton) {
     setBgAnim(bgAnimation)
     setMdlAnim(modaleAnimation)
     setItmColor(itemColor)
+    setBtn(showButton)
 
   }, [
     showButton,
