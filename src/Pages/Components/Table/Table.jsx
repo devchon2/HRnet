@@ -18,19 +18,19 @@ import JSONDatas from "../../../utils/mockDatas.json"
 export default function EmployeeTable() {
   const list = useSelector((state) => state.database);
 
-  const [datas, setDatas] = useState(list);
+  const [datas, setDatas] = useState(JSONDatas);
 
   useEffect(() => {
-    setDatas(list);
+    setDatas(JSONDatas);
   }
-  , [list]);
+  , [JSONDatas]);
 
   return (
     <>
     <TableContainer component={Paper} className={style.tableContainer}>
           <Pagination defaultPage={3}  />
 
-      <Table sx={{ minWidth: 650 }} aria-label="simple table" className={style.table}>      
+      <Table sx={{ minWidth: 650 }}stickyHeader aria-label="simple table" className={style.table}>      
         <TableHead  className={style.MuiTableHead}>
           <TableRow className={style.MuiTableRow} >
             <TableCell className={style.MuiTableCell} >First Name</TableCell>
