@@ -70,7 +70,7 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
   const [onBoarding, setOnboarding] = useState({ startDate: "", department: "" });
 
   // State hooks for managing selections in CustomSelect components
-  const [selectedStateLocation, setSelectedStateLocation] = useState(states[0]);
+  const [selectedStateLocation, setSelectedStateLocation] = useState((states[0]));
   const [selectedDepartment, setSelectedDepartment] = useState(departments[0]);
 
   // State hooks for internal management of form state
@@ -99,22 +99,22 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
     
 
     setInfos({
-      firstName: firstName,
-      lastName: lastName,
-      birthDate: birthDate,
+      firstName: firstName.toUpperCase(),
+      lastName: lastName.toUpperCase(),
+      birthDate: ConvertDate(birthDate),
     });
 
     setContact({
-      street: street,
-      city: city,
+      street: street.toUpperCase(),
+      city: city.toUpperCase(),
       state: stateLocation,
       zip: zip,
     });
 
-    setOnboarding({ startDate: startDate, department: department 
+    setOnboarding({ 
+      startDate: ConvertDate(startDate), 
+      department: department.toUpperCase() 
     });
-
-    
     
 
       if (needClose) {
@@ -140,6 +140,13 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
     validated,
     needClose,
   ]);
+
+function ConvertDate(date) {
+  let formattedDate =  date.getMonth()  + '/' + date.getDate() + '/' + date.getFullYear();
+  return formattedDate;
+}
+
+
 
   // Function for validating age
   function CalculatedBirthdate(birthDate, startDate) {
@@ -302,9 +309,9 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
 
   function migrateToState() {
 
-    dispatch(add_infos({ firstName: infos.firstName, lastName: infos.lastName, birthDate: JSON.stringify(infos.birthDate) }));
+    dispatch(add_infos({ firstName: infos.firstName, lastName: infos.lastName, birthDate:infos.birthDate }));
     dispatch(add_contact({ street: contact.street, city: contact.city, state: contact.state, zip: contact.zip }));
-    dispatch(add_onboarding({ startDate: `${onBoarding.startDate}`, department: onBoarding.department }));
+    dispatch(add_onboarding({ startDate: onBoarding.startDate, department: onBoarding.department }));
 
 
     const employee = store.getState().employee;

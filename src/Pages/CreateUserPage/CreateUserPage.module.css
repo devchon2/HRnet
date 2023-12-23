@@ -1,6 +1,6 @@
 main {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   flex-grow: 1;
   position: relative;
   max-height: 100%;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import style from "./CreateUserPage.module.css";
-import Modale from "../Components/Modale/Modale.jsx";
 import Form from "../Components/Form/Form.jsx";
+import TinyModale from "../Components/Modale/TinyModale.jsx";
 
 
 
@@ -33,8 +33,8 @@ export default function CreateUserPage() {
       
       </main>
       
-      <Modale onClose={setNeedClose} animation="bump" isValidateForm={validateForm} setActiveModale={setActiveModale} modaleboxcolor="green" radius='20px' 
-        buttonMargin="25px" btnOnClick={setActiveModale} showButton buttonContentColor="black" buttonBorder="2px solid black" buttonCursor="pointer" buttonRadius="25px;"  />
+      <TinyModale  onClose={setNeedClose} isValidateForm={validateForm} setActiveModale={setActiveModale} modaleboxcolor="green" radius='20px' 
+        buttonMargin="25px" btnOnClick={setActiveModale} showButton={false}  buttonTextContent="yeeeahhh" buttonRadius="50px" bgAnimation="fade" />
     </>
   );
 }

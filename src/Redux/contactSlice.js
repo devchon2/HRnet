@@ -14,9 +14,7 @@ const contactSlice = createSlice({
     add_contact: (state, action) => {
         state.street = action.payload.street;
         state.city = action.payload.city;
-        const splitChars = action.payload.state.split('');
-        const initials = splitChars[0] + splitChars[1].toUpperCase();
-        state.state = initials;
+        state.state = action.payload.state;
         state.zip = action.payload.zip;
     },
 
