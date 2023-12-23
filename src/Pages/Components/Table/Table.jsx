@@ -12,6 +12,7 @@ import {
   Pagination,
   TableFooter,
   capitalize,
+  TablePagination,
 } from "@mui/material";
 import JSONDatas from "../../../utils/mockDatas.json"
 
@@ -28,11 +29,11 @@ export default function EmployeeTable() {
   return (
     <>
     <TableContainer component={Paper} className={style.tableContainer}>
-          <Pagination defaultPage={3}  />
 
-      <Table sx={{ minWidth: 650 }}stickyHeader aria-label="simple table" className={style.table}>      
-        <TableHead  className={style.MuiTableHead}>
-          <TableRow className={style.MuiTableRow} >
+      <Table sx={{ minWidth: 650 }} stickyHeader aria-label="simple table" className={style.table}>      
+        <TableHead  className={style.MuiTableHead}>    <TablePagination rowsPerPage={10} page={0} count={10}   />
+
+          <TableRow className={style.MuiTableRowHead} >
             <TableCell className={style.MuiTableCell} >First Name</TableCell>
             <TableCell className={style.MuiTableCell}>Last Name</TableCell>
             <TableCell className={style.MuiTableCell}>Start Date</TableCell>
@@ -44,14 +45,14 @@ export default function EmployeeTable() {
             <TableCell className={style.MuiTableCell}>Zip Code</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody  className={style.MuiTableBody}>
           {datas.map((row,index) => {
             console.log(row)
             return (
             
-            <TableRow
+            <TableRow 
               key={index + JSONDatas.indexOf(row)}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              
             >
               <TableCell >{capitalize(row.infos.firstName) }</TableCell>
               <TableCell>{capitalize(row.infos.lastName)}</TableCell>
@@ -65,10 +66,10 @@ export default function EmployeeTable() {
             </TableRow>
           )})}
         </TableBody>
+      
+      </Table>
       <TableFooter>
       </TableFooter>  
-      </Table>
-      
     </TableContainer></>
   );
 }
