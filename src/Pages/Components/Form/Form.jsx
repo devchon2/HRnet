@@ -99,21 +99,21 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
     
 
     setInfos({
-      firstName: firstName.toUpperCase(),
-      lastName: lastName.toUpperCase(),
+      firstName: firstName,
+      lastName: lastName,
       birthDate: ConvertDate(birthDate),
     });
 
     setContact({
-      street: street.toUpperCase(),
-      city: city.toUpperCase(),
+      street: street,
+      city: city,
       state: stateLocation,
       zip: zip,
     });
 
     setOnboarding({ 
       startDate: ConvertDate(startDate), 
-      department: department.toUpperCase() 
+      department: department 
     });
     
 

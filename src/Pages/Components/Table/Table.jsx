@@ -11,6 +11,7 @@ import {
   Paper,
   Pagination,
   TableFooter,
+  capitalize,
 } from "@mui/material";
 import JSONDatas from "../../../utils/mockDatas.json"
 
@@ -38,7 +39,7 @@ export default function EmployeeTable() {
             <TableCell className={style.MuiTableCell}>Department</TableCell>
             <TableCell className={style.MuiTableCell}>Date of Birth</TableCell>
             <TableCell className={style.MuiTableCell}>Street</TableCell>
-            <TableCell className={style.MuiTableCell}>city</TableCell>
+            <TableCell className={style.MuiTableCell}>City</TableCell>
             <TableCell className={style.MuiTableCell}>State</TableCell>
             <TableCell className={style.MuiTableCell}>Zip Code</TableCell>
           </TableRow>
@@ -52,15 +53,15 @@ export default function EmployeeTable() {
               key={index + JSONDatas.indexOf(row)}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell >{row.infos.firstName }</TableCell>
-              <TableCell>{row.infos.lastName}</TableCell>
+              <TableCell >{capitalize(row.infos.firstName) }</TableCell>
+              <TableCell>{capitalize(row.infos.lastName)}</TableCell>
               <TableCell>{row.onboarding.startDate}</TableCell>
-              <TableCell>{row.onboarding.department}</TableCell>
+              <TableCell>{capitalize(row.onboarding.department)}</TableCell>
               <TableCell>{row.infos.birthDate}</TableCell>
-              <TableCell>{row.contact.street}</TableCell>
-              <TableCell>{row.contact.city}</TableCell>
-              <TableCell>{row.contact.state.abbreviation}</TableCell>
-              <TableCell>{row.contact.zip}</TableCell>
+              <TableCell>{capitalize(row.contact.street)}</TableCell>
+              <TableCell>{capitalize(row.contact.city)}</TableCell>
+              <TableCell>{capitalize(row.contact.state.abbreviation)}</TableCell>
+              <TableCell>{capitalize(row.contact.zip)}</TableCell>
             </TableRow>
           )})}
         </TableBody>
