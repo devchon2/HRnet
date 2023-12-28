@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import style from "./CreateUserPage.module.css";
 import Form from "../Components/Form/Form.jsx";
-import TinyModale from "../Components/Modale/TinyModale.jsx";
+import TinyModale from 'tinymodalebyrchon'
+
 
 
 

@@ -5,7 +5,7 @@ import {
 } from "material-react-table";
 import JSONDatas from "../../../utils/mockDatas.json";
 import style from "./Table.module.css";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 
 
@@ -14,7 +14,7 @@ export default function EmployeesTable() {
 
 
 
-  const flated = JSONDatas.flatMap((item) => {
+  const flated = JSONDatas.flatMap((item) => { //flat the data
     const { infos, contact, onboarding } = item;
     const { firstName, lastName, birthDate,  } = infos;
     const { street, city, state , zip } = contact;
@@ -97,13 +97,9 @@ export default function EmployeesTable() {
   const table = useMaterialReactTable({
     columns,
     data: flated,
-    enableColumnDragging: true,
-    enableColumnFilter: true,
-    enableColumnSorting: true,
-    enableRowSelect: true,
-    enableRowExpand: true,
-    enablePagination: true,
-    enableColumnResize: true,
+    enableStickyFooter: true,
+    enableStickyHeader: true,
+    debugAll: true
   
 
   });
