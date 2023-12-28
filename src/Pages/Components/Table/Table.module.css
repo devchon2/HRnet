@@ -1,36 +1,38 @@
+
+
 .tableContainer{
   margin: 4vw;
   overflow: auto;
   border: 1px solid black;
   border-radius: 5px;
-  max-height: 90%;
   background-color: transparent;
 }
 
 .tableContainer::-webkit-scrollbar { width: 0  }
 
+.MuiPaper-root{
+  height:auto;
+}
 
 .MuiTableBody{
   overflow: auto;
   max-height: 90%;
+  background-color:white;
 }
 
-.MuiTableHead{
-  background-color: #3f51b5;
-  color: white;
-}
+
 
 .MuiTableRowHead{
-  background-color: transparent !important;
-  color: white;
+  background-color: white !important;
+  color: black;
 }
 
 .MuiTableRowHead th{
-background-color: transparent;
+background-color: #001c30;
   color: white;
 }
 
 .MuiTableRow{
   background-color: white;
-  color: black;
+  color: white;
 }

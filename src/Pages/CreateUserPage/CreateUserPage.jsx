@@ -16,7 +16,6 @@ export default function CreateUserPage() {
   useEffect(() => {
     if (validateForm) {
       setActiveModale(true);
-      
     }
     
     
@@ -34,7 +33,7 @@ export default function CreateUserPage() {
       </main>
       
       <TinyModale  onClose={setNeedClose} isValidateForm={validateForm} setActiveModale={setActiveModale} modaleboxcolor="green" radius='20px' 
-        buttonMargin="25px" btnOnClick={setActiveModale} showButton={false}  buttonTextContent="yeeeahhh" buttonRadius="50px" bgAnimation="fade" />
+        buttonMargin="25px" btnOnClick={setActiveModale} showButton={true}  buttonTextContent="yeeeahhh" buttonRadius="50px" bgAnimation="fade" />
     </>
   );
 }

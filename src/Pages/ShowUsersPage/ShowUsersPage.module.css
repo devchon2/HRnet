@@ -2,6 +2,7 @@
   max-width: 100%;
   display:flex;
   flex-direction:row-reverse;
+  justify-content:center;
   flex-grow:1;
   padding: 25px 0 25px 25px;
   overflow:hidden;
@@ -9,7 +10,7 @@
 
 .page_Title {
   position:absolute;
-  display: flex;
+  right:0;
   -webkit-writing-mode: vertical-rl;
   -ms-writing-mode: tb-rl;
   writing-mode: vertical-rl;
@@ -20,6 +21,7 @@
   width: 5%;
   text-align: center;
   height: 100%;
+  padding:10px;
   color:lightGrey;
 }
 

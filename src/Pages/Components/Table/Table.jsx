@@ -1,75 +1,112 @@
-import React, { useState, useEffect } from "react";
+import React, { useMemo } from "react";
+import {
+  MaterialReactTable,
+  useMaterialReactTable
+} from "material-react-table";
+import JSONDatas from "../../../utils/mockDatas.json";
 import style from "./Table.module.css";
 import { useSelector } from "react-redux";
-import {
-  TableContainer,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-  Paper,
-  Pagination,
-  TableFooter,
-  capitalize,
-  TablePagination,
-} from "@mui/material";
-import JSONDatas from "../../../utils/mockDatas.json"
 
-export default function EmployeeTable() {
-  const list = useSelector((state) => state.database);
 
-  const [datas, setDatas] = useState(JSONDatas);
 
-  useEffect(() => {
-    setDatas(JSONDatas);
-  }
-  , [JSONDatas]);
+export default function EmployeesTable() {
+  // const JSONDatas = useSelector((state) => state.database);
 
-  return (
-    <>
-    <TableContainer component={Paper} className={style.tableContainer}>
 
-      <Table sx={{ minWidth: 650 }} stickyHeader aria-label="simple table" className={style.table}>      
-        <TableHead  className={style.MuiTableHead}>    <TablePagination rowsPerPage={10} page={0} count={10}   />
 
-          <TableRow className={style.MuiTableRowHead} >
-            <TableCell className={style.MuiTableCell} >First Name</TableCell>
-            <TableCell className={style.MuiTableCell}>Last Name</TableCell>
-            <TableCell className={style.MuiTableCell}>Start Date</TableCell>
-            <TableCell className={style.MuiTableCell}>Department</TableCell>
-            <TableCell className={style.MuiTableCell}>Date of Birth</TableCell>
-            <TableCell className={style.MuiTableCell}>Street</TableCell>
-            <TableCell className={style.MuiTableCell}>City</TableCell>
-            <TableCell className={style.MuiTableCell}>State</TableCell>
-            <TableCell className={style.MuiTableCell}>Zip Code</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody  className={style.MuiTableBody}>
-          {datas.map((row,index) => {
-            console.log(row)
-            return (
-            
-            <TableRow 
-              key={index + JSONDatas.indexOf(row)}
-              
-            >
-              <TableCell >{capitalize(row.infos.firstName) }</TableCell>
-              <TableCell>{capitalize(row.infos.lastName)}</TableCell>
-              <TableCell>{row.onboarding.startDate}</TableCell>
-              <TableCell>{capitalize(row.onboarding.department)}</TableCell>
-              <TableCell>{row.infos.birthDate}</TableCell>
-              <TableCell>{capitalize(row.contact.street)}</TableCell>
-              <TableCell>{capitalize(row.contact.city)}</TableCell>
-              <TableCell>{capitalize(row.contact.state.abbreviation)}</TableCell>
-              <TableCell>{capitalize(row.contact.zip)}</TableCell>
-            </TableRow>
-          )})}
-        </TableBody>
+  const flated = JSONDatas.flatMap((item) => {
+    const { infos, contact, onboarding } = item;
+    const { firstName, lastName, birthDate,  } = infos;
+    const { street, city, state , zip } = contact;
+    const { abbreviation } = state;
+    const { startDate,department} = onboarding;
+    return {
+      firstName,
+      lastName,
+      birthDate,
+      department,
+      street,
+      city,
+      abbreviation,
+      zip,
+      startDate
+    };
+  });
+
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: "firstName", //simple recommended way to define a column
+        header: "First Name",
+        muiTableHeadCellProps: { sx: { color: "green" } }, //custom props
+        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render
+      },
+      {
+        accessorKey: "lastName",
+        header: "Last Name",
+        muiTableHeadCellProps: { sx: { color: "blue" } },
+        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render
+      },
+      {
+        accessorKey: "startDate",
+        header: "Start Date",
+        muiTableHeadCellProps: { sx: { color: "red" } },
+        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render
+      },
+      {
+        accessorKey: "department",
+        header: "Department",
+        muiTableHeadCellProps: { sx: { color: "purple" } },
+        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
+      },
+      {
+        accessorKey: "birthDate",
+        header: "Date of Birth",
+        muiTableHeadCellProps: { sx: { color: "purple" } },
+        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
+      },
+      {
+        accessorKey: "street",
+        header: "Street",
+        muiTableHeadCellProps: { sx: { color: "purple" } },
+        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
+      },
+      {
+        accessorKey: "city",
+        header: "City",
+        muiTableHeadCellProps: { sx: { color: "purple" } },
+        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
+      },
+      {
+        accessorKey: "abbreviation",
+        header: "State",
+        muiTableHeadCellProps: { sx: { color: "purple" } },
+        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
+      },
+      {
+        accessorKey: "zip",
+        header: "Zip Code",
+        muiTableHeadCellProps: { sx: { color: "purple" } },
+        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
+      },
       
-      </Table>
-      <TableFooter>
-      </TableFooter>  
-    </TableContainer></>
+    ],
+    []
   );
+
+  const table = useMaterialReactTable({
+    columns,
+    data: flated,
+    enableColumnDragging: true,
+    enableColumnFilter: true,
+    enableColumnSorting: true,
+    enableRowSelect: true,
+    enableRowExpand: true,
+    enablePagination: true,
+    enableColumnResize: true,
+  
+
+  });
+
+  return <MaterialReactTable rowsp className={style.tableContainer} table={table} />;
 }
