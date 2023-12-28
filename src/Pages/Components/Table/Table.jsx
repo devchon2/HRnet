@@ -1,92 +1,69 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
   MaterialReactTable,
   useMaterialReactTable
 } from "material-react-table";
-import JSONDatas from "../../../utils/mockDatas.json";
 import style from "./Table.module.css";
-// import { useSelector } from "react-redux";
 
 
 
-export default function EmployeesTable() {
-  // const JSONDatas = useSelector((state) => state.database);
-
-
-
-  const flated = JSONDatas.flatMap((item) => { //flat the data
-    const { infos, contact, onboarding } = item;
-    const { firstName, lastName, birthDate,  } = infos;
-    const { street, city, state , zip } = contact;
-    const { abbreviation } = state;
-    const { startDate,department} = onboarding;
-    return {
-      firstName,
-      lastName,
-      birthDate,
-      department,
-      street,
-      city,
-      abbreviation,
-      zip,
-      startDate
-    };
-  });
+export default function EmployeesTable({datas}) {
+  
 
   const columns = useMemo(
     () => [
       {
         accessorKey: "firstName", //simple recommended way to define a column
         header: "First Name",
-        muiTableHeadCellProps: { sx: { color: "green" } }, //custom props
+        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
         Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render
       },
       {
         accessorKey: "lastName",
         header: "Last Name",
-        muiTableHeadCellProps: { sx: { color: "blue" } },
+        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
         Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render
       },
       {
         accessorKey: "startDate",
         header: "Start Date",
-        muiTableHeadCellProps: { sx: { color: "red" } },
+        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
         Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render
       },
       {
         accessorKey: "department",
         header: "Department",
-        muiTableHeadCellProps: { sx: { color: "purple" } },
+        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
         Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
       },
       {
         accessorKey: "birthDate",
         header: "Date of Birth",
-        muiTableHeadCellProps: { sx: { color: "purple" } },
+        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
         Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
       },
       {
         accessorKey: "street",
         header: "Street",
-        muiTableHeadCellProps: { sx: { color: "purple" } },
+        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
         Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
       },
       {
         accessorKey: "city",
         header: "City",
-        muiTableHeadCellProps: { sx: { color: "purple" } },
+        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
         Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
       },
       {
         accessorKey: "abbreviation",
         header: "State",
-        muiTableHeadCellProps: { sx: { color: "purple" } },
+        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
         Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
       },
       {
         accessorKey: "zip",
         header: "Zip Code",
-        muiTableHeadCellProps: { sx: { color: "purple" } },
+        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
         Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
       },
       
@@ -96,13 +73,14 @@ export default function EmployeesTable() {
 
   const table = useMaterialReactTable({
     columns,
-    data: flated,
+    data: datas,
     enableStickyFooter: true,
     enableStickyHeader: true,
-    debugAll: true
+    enableHiding: false,
+    enableColumnFilters: false,
   
 
   });
 
-  return <MaterialReactTable rowsp className={style.tableContainer} table={table} />;
+  return <MaterialReactTable  className={style.tableContainer} table={table} />;
 }
