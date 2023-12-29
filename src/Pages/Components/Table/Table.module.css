@@ -1,40 +1,5 @@
-
-
 .tableContainer{
-  margin: 4vw;
-  overflow: auto;
-  border: 1px solid black;
-  border-radius: 5px;
-  background-color: transparent;
-  max-height: 90%;
-}
-
-.tableContainer::-webkit-scrollbar { 
-  width: 0  }
-
-.MuiPaper{
-  height:unset !important;
-}
-
-.MuiTableBody{
-  overflow: auto;
-  max-height: 90%;
-  background-color:white;
-}
-
-
-
-.MuiTableRowHead{
-  background-color: white !important;
-  color: black;
-}
-
-.MuiTableRowHead th{
-background-color: #001c30;
-  color: white;
-}
-
-.MuiTableRow{
-  background-color: white;
-  color: white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }

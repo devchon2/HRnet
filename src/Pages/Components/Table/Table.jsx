@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import {
   MaterialReactTable,
   useMaterialReactTable
@@ -78,6 +78,7 @@ export default function EmployeesTable({datas}) {
     enableStickyHeader: true,
     enableHiding: false,
     enableColumnFilters: false,
+    enableDensityToggle: false,
   
 
   });

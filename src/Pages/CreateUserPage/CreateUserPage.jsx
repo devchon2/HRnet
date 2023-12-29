@@ -26,7 +26,7 @@ export default function CreateUserPage() {
 
   return (
     <>
-      <main>
+      <main className={style.main}>
         
         <h1 className={style.page_Title}>Create Employees</h1>
         <Form isModaleActive={activeModale} setValidateForm={setValidateForm} setNeedClose={setNeedClose} needClose={needClose}  />
