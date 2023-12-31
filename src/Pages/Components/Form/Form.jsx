@@ -9,13 +9,13 @@ import style from "./Form.module.css";
 import { useState, useEffect } from "react";
 import { useDispatch} from "react-redux";
 import { departments, states } from "../../../utils/utils.js";
-import { add_infos, remove_infos } from "../../../Redux/InfosSlice.js";
-import { add_contact, remove_contact } from "../../../Redux/contactSlice.js";
+import { add_infos, remove_infos } from "../../../Redux/EmployeesSlices/InfosSlice.js";
+import { add_contact, remove_contact } from "../../../Redux/EmployeesSlices/contactSlice.js";
 import {
   add_onboarding,
   remove_onboarding,
-} from "../../../Redux/onBoardingSlice.js";
-import { add_employee } from "../../../Redux/dataBaseSlice.js";
+} from "../../../Redux/EmployeesSlices/onBoardingSlice.js";
+import { add_employee } from "../../../Redux/databaseSlice/dataBaseSlice.js";
 import CustomSelect from "../Select/CustomSelect.jsx";
 import DateTimePicker from "../DateTimePicker/DateTimePicker.jsx";
 import store from "../../../Redux/store.js"
@@ -230,15 +230,16 @@ function ConvertDate(date) {
       },
     ];
 
-    elements.forEach((el) => {
-      const { element, act, tests } = el;
-      if (!tests && element.length < 2) {
-        act(errorClass);
-        validate = false;
+    elements.map((el) => {
+      
+      if (!el.tests && el.element.length < 2) {
+        el.act(errorClass);
+         validate = false;
       } else {
 
-        act(validClass);
+        el.act(validClass);
       }
+      return null;
     });
     return validate;
   }
@@ -299,10 +300,8 @@ function ConvertDate(date) {
   }
 
   function resetForm() {
-    const inputs = document.querySelectorAll("input");
-    inputs.forEach((input) => {
-      input.value = "";
-    });
+    const inputs = Array.from(document.querySelectorAll("input"));
+    inputs.map(input => input.value = "" );
     
     resetState();
   }

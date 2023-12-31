@@ -108,6 +108,7 @@ export default function EmployeesTable({datas}) {
       color:'white',
       fontSize: '1.5vh',
       fontWeight: 'bold',
+      textTransform: 'capitalize',
       
     }},
 
@@ -117,6 +118,8 @@ export default function EmployeesTable({datas}) {
       textWrap: 'nowrap',
       height: '1vw',
       fontSize: '1.15vh',
+      textTransform: 'capitalize',
+
     },
     },
     
