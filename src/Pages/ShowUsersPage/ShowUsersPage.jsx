@@ -27,7 +27,6 @@ export default function ShowUserPage() {
       startDate
     };
   });    
-  console.log('flated',flated)
 
 
 return (

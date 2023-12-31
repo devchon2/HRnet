@@ -4,7 +4,7 @@ import {
   useMaterialReactTable
 } from "material-react-table";
 import style from "./Table.module.css";
-
+import { createTheme, ThemeProvider } from "@mui/material";
 
 
 export default function EmployeesTable({datas}) {
@@ -77,11 +77,62 @@ export default function EmployeesTable({datas}) {
     enableStickyFooter: true,
     enableStickyHeader: true,
     enableHiding: false,
-    enableColumnFilters: false,
+    enableColumnFiltersModes: true,
     enableDensityToggle: false,
-  
+    enablePagination: true,
+    enableToolbar: false,
+    enableFullScreenToggle: false,
+    manualPagination:false, //optional custom manual pagination
+    manualSortBy: false, //optional custom manual sort by
+    enableColumnFilters: false, //optional custom column filters
+    
 
+    muiTablePaperProps: { //optional custom mui table paper props
+      elevation: 4, 
+      sx: {
+        border: '1px solid #001c30',
+        boxShadow: '20px 20px 20px -20px white',
+        borderRadius: '15px',
+        maxHeight:'95%',
+        maxWidth:'65vw',
+        margin:'auto',
+      },
+    },
+    
+
+    
+
+    
+    muiTableHeadCellProps: { //optional custom mui table head cell props
+      sx: {
+      color:'white',
+      fontSize: '1.5vh',
+      fontWeight: 'bold',
+      
+    }},
+
+
+    muiTableBodyCellProps: { //optional custom mui table body cell props
+      sx: {
+      textWrap: 'nowrap',
+      height: '1vw',
+      fontSize: '1.15vh',
+    },
+    },
+    
   });
 
-  return <MaterialReactTable  className={style.tableContainer} table={table} />;
-}
+  return (
+  <ThemeProvider theme={ createTheme({
+    palette: {
+      primary: {
+        main: "#001c30",
+      },
+      secondary: {
+        main: "#001c30",
+      },
+    },
+  })}>
+  <MaterialReactTable  className={style.tableContainer} table={table} />
+  </ThemeProvider>
+)}

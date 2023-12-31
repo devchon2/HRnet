@@ -12,7 +12,7 @@ const infosSlice = createSlice({
     add_infos: (state, action) => {
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
-      state.birthDate = action.payload.birthDate; 
+      state.birthDate = action.payload.startDate;
     },
     remove_infos: (state) => {
       state.firstName = "";

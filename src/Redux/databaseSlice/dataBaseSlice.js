@@ -2,24 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const dataBaseSlice = createSlice({
   name: "EmployeeList",
-  initialState: [
-    {
-      "infos": {
-        'firstName': '',
-        'lastName': '',
-        'birthDate': '',
-      },
-      "contact": {
-        'street': '',
-        'city': '',
-        'state': '',
-        'zipCode': '',
-      },
-      "onboarding": {
-        'startDate': '',
-        'department': '',
-      }
-    }],
+  initialState: [],
   reducers: {
     add_employee: (state, action) => {
       state.push({ 'infos': action.payload.infos, 'contact': action.payload.contact, 'onboarding': action.payload.onBoarding });

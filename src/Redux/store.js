@@ -1,8 +1,8 @@
 import {configureStore, combineReducers  } from '@reduxjs/toolkit'
-import infos from './InfosSlice'
-import onBoardingSlice from './onBoardingSlice.js'
-import contactSlice from './contactSlice.js'
-import database from './dataBaseSlice.js'
+import infos from './EmployeesSlices/InfosSlice.js'
+import onBoardingSlice from './EmployeesSlices/onBoardingSlice.js'
+import contactSlice from './EmployeesSlices/contactSlice.js'
+import database from './databaseSlice/dataBaseSlice.js'
 
 const employee = combineReducers({
   infos:infos,
