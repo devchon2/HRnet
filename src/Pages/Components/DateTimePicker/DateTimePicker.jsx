@@ -3,7 +3,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 import { registerLocale } from "react-datepicker";
 import en from "date-fns/locale/es";
-import "./DateTimePicker.module.css";
 import style from "./DateTimePicker.module.css";
 registerLocale("en", en); //register the locale for the datepicker
 
@@ -45,7 +44,10 @@ export default function DateTimePicker({
         onChange={(date) => setElement(new Date(date))}  // Handler for date changes.
         showIcon
         calendarIconClassname={style.CalendarIcon}
-        
+        calendarClassName={style.CalendarContainer} // Custom styles for the calendar popup.
+        CalendarContainer={style.CalendarContainer} // Custom styles for the calendar popup.
+        showPopperArrow={false} // Hide the arrow for the calendar popup.
+
         />
       
     );

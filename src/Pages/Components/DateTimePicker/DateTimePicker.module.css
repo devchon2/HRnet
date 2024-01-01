@@ -1,8 +1,14 @@
-.CalendarIcon{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height:100%;
-    padding: 0 5px !important;
-}
+.CalendarIcon {
+        position: absolute;
+        right: 0;  
+        height:1vw;
+        width:2vw;
+        margin-top:0.5vw;
+        
+    
+    }
+
+
+
+
 
