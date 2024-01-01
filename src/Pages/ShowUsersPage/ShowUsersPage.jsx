@@ -1,11 +1,11 @@
 import style from './ShowUsersPage.module.css'
 import EmployeesTable from '../Components/Table/Table.jsx'
-import { useSelector } from 'react-redux'
-  // import JSONDatas from '../../utils/mockDatas.json'
+// import { useSelector } from 'react-redux'
+  import JSONDatas from '../../utils/mockDatas.json'
 
 
 export default function ShowUserPage() {
-  const JSONDatas = useSelector((state) => state.database);
+  // const JSONDatas = useSelector((state) => state.database);
 
   
 

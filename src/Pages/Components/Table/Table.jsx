@@ -4,7 +4,6 @@ import {
   useMaterialReactTable
 } from "material-react-table";
 import style from "./Table.module.css";
-import { createTheme, ThemeProvider } from "@mui/material";
 
 
 export default function EmployeesTable({datas}) {
@@ -27,8 +26,19 @@ export default function EmployeesTable({datas}) {
       {
         accessorKey: "startDate",
         header: "Start Date",
+        sortingFn: (rowA, rowB ) => {
+          console.log(rowA.original.startDate)
+          console.log(rowB.original.startDate)
+          const dateASplitted = rowA.original.startDate.split('/');
+          const dateBSplitted = rowB.original.startDate.split('/');
+          const dateA = new Date(dateASplitted[2], dateASplitted[1], dateASplitted[0]);
+          const dateB = new Date(dateBSplitted[2], dateBSplitted[1], dateBSplitted[0]);
+          return dateA - dateB;
+
+        },
         muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
         Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render
+
       },
       {
         accessorKey: "department",
@@ -39,6 +49,18 @@ export default function EmployeesTable({datas}) {
       {
         accessorKey: "birthDate",
         header: "Date of Birth",
+        filterVariant: 'date',
+        format: (date) => new Date(date),
+        sortingFn: (rowA, rowB ) => {
+          console.log(rowA.original.startDate)
+          console.log(rowB.original.startDate)
+          const dateASplitted = rowA.original.startDate.split('/');
+          const dateBSplitted = rowB.original.startDate.split('/');
+          const dateA = new Date(dateASplitted[2], dateASplitted[1], dateASplitted[0]);
+          const dateB = new Date(dateBSplitted[2], dateBSplitted[1], dateBSplitted[0]);
+          return dateA - dateB;
+
+        },
         muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
         Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
       },
@@ -126,16 +148,7 @@ export default function EmployeesTable({datas}) {
   });
 
   return (
-  <ThemeProvider theme={ createTheme({
-    palette: {
-      primary: {
-        main: "#001c30",
-      },
-      secondary: {
-        main: "#001c30",
-      },
-    },
-  })}>
+  
   <MaterialReactTable  className={style.tableContainer} table={table} />
-  </ThemeProvider>
+  
 )}

@@ -7,10 +7,16 @@
 
 import style from "./Form.module.css";
 import { useState, useEffect } from "react";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { departments, states } from "../../../utils/utils.js";
-import { add_infos, remove_infos } from "../../../Redux/EmployeesSlices/InfosSlice.js";
-import { add_contact, remove_contact } from "../../../Redux/EmployeesSlices/contactSlice.js";
+import {
+  add_infos,
+  remove_infos,
+} from "../../../Redux/EmployeesSlices/InfosSlice.js";
+import {
+  add_contact,
+  remove_contact,
+} from "../../../Redux/EmployeesSlices/contactSlice.js";
 import {
   add_onboarding,
   remove_onboarding,
@@ -18,7 +24,7 @@ import {
 import { add_employee } from "../../../Redux/databaseSlice/dataBaseSlice.js";
 import CustomSelect from "../Select/CustomSelect.jsx";
 import DateTimePicker from "../DateTimePicker/DateTimePicker.jsx";
-import store from "../../../Redux/store.js"
+import store from "../../../Redux/store.js";
 
 // Main functional component for the onboarding form
 
@@ -31,7 +37,12 @@ import store from "../../../Redux/store.js"
  * @param {function} props.setValidateForm - Callback function to set the form validation status.
  * @returns {JSX.Element} The form component.
  */
-export default function Form({ isModaleActive, setValidateForm,setNeedClose, needClose }) {
+export default function Form({
+  isModaleActive,
+  setValidateForm,
+  setNeedClose,
+  needClose,
+}) {
   // Constants for age limits
   const maxAge = 70;
   const minAge = 18;
@@ -40,12 +51,12 @@ export default function Form({ isModaleActive, setValidateForm,setNeedClose, nee
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [startDate, setStartDate] = useState(new Date());
-const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(startDate.getFullYear() - 18)));
+  const [birthDate, setBirthDate] = useState(
+    new Date(new Date().setFullYear(startDate.getFullYear() - 18))
+  );
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
-
-  
 
   // Calculating maximum and minimum permissible dates
   let date = new Date(startDate);
@@ -62,15 +73,25 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
   let maxStartDate = new Date(startDate);
   maxStartDate.setFullYear(date.getFullYear() + 1);
 
-  
-
   // State hooks for managing different sections of the form
-  const [contact, setContact] = useState({ street: "", city: "", zip: "", state: ""});
-  const [infos, setInfos] = useState({ firstName: "", lastName: "", birthDate: "" });
-  const [onBoarding, setOnboarding] = useState({ startDate: "", department: "" });
+  const [contact, setContact] = useState({
+    street: "",
+    city: "",
+    zip: "",
+    state: "",
+  });
+  const [infos, setInfos] = useState({
+    firstName: "",
+    lastName: "",
+    birthDate: "",
+  });
+  const [onBoarding, setOnboarding] = useState({
+    startDate: "",
+    department: "",
+  });
 
   // State hooks for managing selections in CustomSelect components
-  const [selectedStateLocation, setSelectedStateLocation] = useState((states[0]));
+  const [selectedStateLocation, setSelectedStateLocation] = useState(states[0]);
   const [selectedDepartment, setSelectedDepartment] = useState(departments[0]);
 
   // State hooks for internal management of form state
@@ -96,8 +117,6 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
 
   // Effect hook for handling updates to form state
   useEffect(() => {
-    
-
     setInfos({
       firstName: firstName,
       lastName: lastName,
@@ -111,20 +130,17 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
       zip: zip,
     });
 
-    setOnboarding({ 
-      startDate: ConvertDate(startDate), 
-      department: department 
+    setOnboarding({
+      startDate: ConvertDate(startDate),
+      department: department,
     });
-    
 
-      if (needClose) {
-        resetForm();
-        setValidateForm(false);
-        setNeedClose(false)
-        
+    if (needClose) {
+      resetForm();
+      setValidateForm(false);
+      setNeedClose(false);
     }
-    
-    }, [
+  }, [
     isModaleActive,
     firstName,
     lastName,
@@ -141,12 +157,11 @@ const [birthDate, setBirthDate] = useState(new Date(new Date().setFullYear(start
     needClose,
   ]);
 
-function ConvertDate(date) {
-  let formattedDate =  date.getMonth()  + '/' + date.getDate() + '/' + date.getFullYear();
-  return formattedDate;
-}
-
-
+  function ConvertDate(date) {
+    let formattedDate = new Date(date).toLocaleDateString();
+    console.log(formattedDate);
+    return formattedDate;
+  }
 
   // Function for validating age
   function CalculatedBirthdate(birthDate, startDate) {
@@ -166,7 +181,6 @@ function ConvertDate(date) {
       onBoardingDay - birthday < -31 || onBoardingDay - birthday > 0;
 
     if (notYearAged || (!notYearAged && notMonthAged && notDayAged)) {
-      
       return false;
     }
 
@@ -231,12 +245,10 @@ function ConvertDate(date) {
     ];
 
     elements.map((el) => {
-      
       if (!el.tests && el.element.length < 2) {
         el.act(errorClass);
-         validate = false;
+        validate = false;
       } else {
-
         el.act(validClass);
       }
       return null;
@@ -246,24 +258,25 @@ function ConvertDate(date) {
 
   function checkForm() {
     if (checkFields()) {
-      
-        setInfos({
-          firstName: firstName,
-          lastName: lastName,
-          birthDate: birthDate,
-        });
+      setInfos({
+        firstName: firstName,
+        lastName: lastName,
+        birthDate: birthDate,
+      });
 
-        setContact({
-          street: street,
-          city: city,
-          state: stateLocation,
-          zip: zip,
-        });
+      setContact({
+        street: street,
+        city: city,
+        state: stateLocation,
+        zip: zip,
+      });
 
-        setOnboarding({ startDate: startDate, department: department });
+      setOnboarding({ 
+        startDate: startDate, 
+        department: department 
+      });
 
-        return true;
-      
+      return true;
     }
 
     return false;
@@ -275,10 +288,12 @@ function ConvertDate(date) {
     setStreet("");
     setCity("");
     setZip("");
-    setStartDate(new Date());    
-    setBirthDate(new Date(new Date().setFullYear(startDate.getFullYear() - 18)));
+    setStartDate(new Date());
+    setBirthDate(
+      new Date(new Date().setFullYear(startDate.getFullYear() - 18))
+    );
 
-    setContact({ street: "", city: "", zip: "", state: ""});
+    setContact({ street: "", city: "", zip: "", state: "" });
     setInfos({ firstName: "", lastName: "", birthDate: "" });
     setOnboarding({ startDate: "", department: "" });
     setSelectedStateLocation(states[0]);
@@ -301,37 +316,55 @@ function ConvertDate(date) {
 
   function resetForm() {
     const inputs = Array.from(document.querySelectorAll("input"));
-    inputs.map(input => input.value = "" );
-    
+    inputs.map((input) => (input.value = ""));
+
     resetState();
   }
 
   function migrateToState() {
-
-    dispatch(add_infos({ firstName: infos.firstName, lastName: infos.lastName, birthDate:infos.birthDate }));
-    dispatch(add_contact({ street: contact.street, city: contact.city, state: contact.state, zip: contact.zip }));
-    dispatch(add_onboarding({ startDate: onBoarding.startDate, department: onBoarding.department }));
-
-
+    dispatch(
+      add_infos({
+        firstName: infos.firstName,
+        lastName: infos.lastName,
+        birthDate: infos.birthDate,
+      })
+    );
+    dispatch(
+      add_contact({
+        street: contact.street,
+        city: contact.city,
+        state: contact.state,
+        zip: contact.zip,
+      })
+    );
+    dispatch(
+      add_onboarding({
+        startDate: onBoarding.startDate,
+        department: onBoarding.department,
+      })
+    );
+      console.log(store.getState().employee)
     const employee = store.getState().employee;
     const infosSelector = employee.infos;
     const contactSelector = employee.contact;
     const onboardingSelector = employee.onboarding;
 
     dispatch(
-      add_employee({ infos: {...infosSelector}, contact: {...contactSelector}, onBoarding: {...onboardingSelector}})
+      add_employee({
+        infos: { ...infosSelector },
+        contact: { ...contactSelector },
+        onBoarding: { ...onboardingSelector },
+      })
     );
-
   }
 
   function Handle_Submit(e) {
     e.preventDefault();
 
     if (checkForm()) {
-      migrateToState()
+      migrateToState();
       setValidateForm(true);
-    
-  }
+    }
   }
 
   return (
@@ -348,7 +381,6 @@ function ConvertDate(date) {
               minDate={minStartDate}
               maxDate={maxStartDate}
               fixedHeight={true}
-
             />
 
             <p id="StartDateError" className={StartDateErrorCls}>
