@@ -1,56 +1,52 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
-import { registerLocale } from  "react-datepicker";
-import en from 'date-fns/locale/es';
+import { registerLocale } from "react-datepicker";
+import en from "date-fns/locale/es";
 import "./DateTimePicker.module.css";
+import style from "./DateTimePicker.module.css";
+registerLocale("en", en); //register the locale for the datepicker
 
-registerLocale('en', en)
+/**
+ * A component for selecting a date and time.
+ *
+ * @component
+ * @param {string} id - The ID of the DateTimePicker component.
+ * @param {function} setElement - The function to set the selected date and time.
+ * @param {Date} element - The selected date and time.
+ * @param {Date} minDate - The minimum selectable date.
+ * @param {Date} maxDate - The maximum selectable date.
+ * @returns {JSX.Element} The DateTimePicker component.
+ */
+export default function DateTimePicker({
+  id,
+  setElement,
+  element,
+  minDate,
+  maxDate,
+}) {
+    // State to keep track of the selected date.
+    const [dateParams, setDateParams] = useState(element);
 
-
-export default function DateTimePicker({ id, setElement, element, minDate, maxDate  }) {
-  const [dateParams, setDateParams] = useState(element);
+    // useEffect hook to update dateParams when the element prop changes.
+    useEffect(() => {
+      setDateParams(element);
+    }, [element]);
   
-
-  useEffect(() => {
-    setDateParams(element);
-  }
-  , [element]);
-
-
-  return (
-    <DatePicker
-    
-
-      id={id}
-      placeholderText="Select Date"
-      selected={dateParams}
-      locale="en"
-      minDate={minDate ? minDate : null}
-      maxDate={maxDate ? maxDate : null}
-      
-      showYearDropdown
-      scrollableYearDropdown
-      styles={
-        {
-          width: "100%",
-          height:"1vw",
-          border: "none",
-          outline: "none",
-          color: "#000",
-          backgroundColor: "#fff",
-          borderRadius: "5px",
-          minHeight: "1.2vw",
-          fontSize: "1vw",
-          padding: "0.6vw 0",
-          "&:focus": {
-            outline: "none",
-          },
-        }
+    return (
+      <DatePicker
+        id={id}
+        placeholderText="Select Date"
+        selected={dateParams}
+        minDate={minDate ? minDate : null}  // Conditional rendering of calculated minDate.
+        maxDate={maxDate ? maxDate : null}  // Conditional rendering of calculated maxDate.
+        showYearDropdown  // Enable dropdown for year selection.
+        scrollableYearDropdown  // Enable scrolling within the year dropdown.
+        onChange={(date) => setElement(new Date(date))}  // Handler for date changes.
+        showIcon
+        calendarIconClassname={style.CalendarIcon}
         
-      }
-      showIcon
-      onChange={(date) => setElement(new Date(date))}
-    />
-  );
-}
+        />
+      
+    );
+  }
