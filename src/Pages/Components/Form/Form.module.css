@@ -1,4 +1,5 @@
 .form {
+  /* Styles the overall form layout with a column direction and even spacing */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -6,28 +7,29 @@
   width: 100%;
   color: lightGrey;
   font-weight: bold;
-  margin: 100px auto;;
-  max-width:70%;
+  margin: 100px auto;
+  max-width: 70%;
 }
 
-.form_group{
+.form_group {
+  /* Styles individual groups of form inputs with vertical spacing */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
-  padding: 10px 0 ;
+  padding: 10px 0;
 }
 
 .container_infos {
-  order:1;
+  /* Container for grouping information-related elements */
+  order: 1;
   display: flex;
   justify-content: space-between;
   width: 100%;
-  
-  
 }
 
-.employee_Group{
+.employee_Group {
+  /* Styles a group of employee-related input fields */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -35,8 +37,8 @@
   padding: 10px;
 }
 
-
 .container_employee_infos {
+  /* Styles the container for employee-specific information */
   display: flex;
   justify-content: space-between;
   background-color: #022138;
@@ -48,17 +50,17 @@
 }
 
 .container_employee_infos h2 {
+  /* Styles the heading inside the employee information container */
   -webkit-writing-mode: vertical-rl;
   -ms-writing-mode: tb-rl;
   writing-mode: vertical-rl;
   -webkit-text-orientation: mixed;
   text-orientation: mixed;
-  
-  text-align: end
-
+  text-align: end;
 }
 
 .container_contact_infos {
+  /* Styles the container for contact information */
   display: flex;
   justify-content: space-between;
   background-color: #022138;
@@ -69,7 +71,8 @@
   border-radius: 10px;
 }
 
-.contact_Group{
+.contact_Group {
+  /* Styles a group of contact-related input fields */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -78,34 +81,36 @@
 }
 
 .container_contact_infos h2 {
+  /* Styles the heading inside the contact information container */
   -webkit-writing-mode: vertical-rl;
   -ms-writing-mode: tb-rl;
   writing-mode: vertical-rl;
   -webkit-text-orientation: mixed;
   text-orientation: mixed;
-  
-  text-align: end
-
+  text-align: end;
 }
 
 .container_button {
+  /* Styles the container for the submit button */
   display: flex;
-  order:2;
+  order: 2;
   justify-content: center;
   width: 100%;
 }
 
 .container_corps_infos {
+  /* Styles the main container for onboarding information */
   display: flex;
   justify-content: space-between;
   background-color: #022138;
-  padding:20px;
+  padding: 20px;
   width: 100%;
   border: 1px solid lightGrey;
   border-radius: 10px;
 }
 
 .onboarding_Group {
+  /* Styles the group of elements within the onboarding section */
   display: flex;
   justify-content: space-around;
   width: 90%;
@@ -113,6 +118,7 @@
 }
 
 .onboarding_Group .form_group {
+  /* Styles each individual form group within the onboarding section */
   position: relative;
   justify-content: center;
   align-items: center;
@@ -122,17 +128,17 @@
 }
 
 .container_corps_infos h2 {
+  /* Styles the heading for the onboarding section */
   -webkit-writing-mode: vertical-rl;
   -ms-writing-mode: tb-rl;
   writing-mode: vertical-rl;
   -webkit-text-orientation: mixed;
   text-orientation: mixed;
-  
-  text-align: end
-
+  text-align: end;
 }
 
 .submit_button {
+  /* Styles the submit button with a distinct background color and size */
   display: flex;
   justify-content: center;
   background-color: orange;
@@ -141,8 +147,9 @@
 }
 
 .error_Message {
+  /* Styles for displaying error messages */
   display: flex;
-  position: relative  ;
+  position: relative;
   justify-content: flex-end;
   color: red;
   font-weight: 500;
@@ -151,26 +158,28 @@
 }
 
 .hidden {
+  /* Utility class for hiding elements */
   display: none;
 }
 
 input {
+  /* General styles for input fields */
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
   border-radius: 5px;
-  font-size:1vw;
-  height:2vw !important;
+  font-size: 1vw;
+  height: 2vw !important;
   padding: 10px;
   margin-top: 0.5vw;
   border: 1px solid lightGrey;
 }
 
-label{
-  font-size:1vw;
+label {
+  /* Styles for form labels */
+  font-size: 1vw;
   margin-top: 0;
-  height:1vw !important;
-  
+  height: 1vw !important;
 }

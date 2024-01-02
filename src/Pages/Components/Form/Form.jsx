@@ -86,7 +86,7 @@ export default function Form({
     lastName: "",
     birthDate: "",
   });
-  const [onBoarding, setOnboarding] = useState({ 
+  const [onBoarding, setOnboarding] = useState({
     startDate: "",
     department: "",
   });
@@ -131,12 +131,13 @@ export default function Form({
       zip: zip,
     });
 
-    setOnboarding({ 
+    setOnboarding({
       startDate: ConvertDate(startDate),
       department: department,
     });
 
-    if (needClose) { // Reset form state when modal is closed
+    if (needClose) {
+      // Reset form state when modal is closed
       resetForm();
       setValidateForm(false);
       setNeedClose(false);
@@ -158,44 +159,44 @@ export default function Form({
     needClose,
   ]);
 
-  function ConvertDate(date) { // Function for formatting date
+  function ConvertDate(date) {
+    // Function for formatting date
     let formattedDate = new Date(date).toLocaleDateString();
     console.log(formattedDate);
     return formattedDate;
   }
 
   // Function for validating age
-  function CalculatedBirthdate(birthDate, startDate) {  // Function for validating age
-    
+  function CalculatedBirthdate(birthDate, startDate) {
+    // Function for validating age
+
     // Get day, month, and year from date objects
-    const onBoardingDay = Number(new Date(startDate).getDay()); 
-    const onBoardingMonth = Number(new Date(startDate).getMonth()); 
+    const onBoardingDay = Number(new Date(startDate).getDay());
+    const onBoardingMonth = Number(new Date(startDate).getMonth());
     const onBoardingYear = Number(new Date(startDate).getFullYear());
 
-
-    
     const birthday = Number(new Date(birthDate).getDay());
     const birthmonth = Number(new Date(birthDate).getMonth());
     const birthyear = Number(new Date(birthDate).getFullYear());
 
     // Check if age is within limits
     const notYearAged =
-      onBoardingYear - birthyear < 18 
-      || onBoardingYear - birthyear > 100;
+      onBoardingYear - birthyear < 18 || onBoardingYear - birthyear > 100;
     const notMonthAged =
       onBoardingMonth - birthmonth < 0 || onBoardingMonth - birthmonth > 12;
     const notDayAged =
       onBoardingDay - birthday < -31 || onBoardingDay - birthday > 0;
 
-    if (notYearAged || (!notYearAged && notMonthAged && notDayAged)) { 
+    if (notYearAged || (!notYearAged && notMonthAged && notDayAged)) {
       return false; // Return false if age is not within limits
     }
 
     return true; // Return true if age is within limits
   }
 
-  function checkFields() { // Function for validating form fields
-    
+  function checkFields() {
+    // Function for validating form fields
+
     // Regular expressions for validating input
     const streetRegex = /^[a-zA-Z0-9\s,'-]*$/;
     const textRegEx = /^[a-zA-Z'-]+$/;
@@ -206,7 +207,8 @@ export default function Form({
     const errorClass = style.error_Message; // CSS class for displaying error messages
     const validClass = style.hidden; // CSS class for hiding error messages
 
-    const elements = [ // Array of form elements to validate
+    const elements = [
+      // Array of form elements to validate
       {
         type: "firstname", // Type of element
         element: firstName, // Element to validate
@@ -253,21 +255,24 @@ export default function Form({
       },
     ];
 
-    elements.map((el) => { // Iterate through elements to validate
+    elements.map((el) => {
+      // Iterate through elements to validate
       if (!el.tests && el.element.length < 2) {
         el.act(errorClass);
         validate = false;
       } else {
         el.act(validClass);
       }
-      return null; 
+      return null;
     });
     return validate; // Return validation status
   }
 
-  function checkForm() { // Function for validating form
-    if (checkFields()) { // Check if form fields are valid
-      setInfos({ 
+  function checkForm() {
+    // Function for validating form
+    if (checkFields()) {
+      // Check if form fields are valid
+      setInfos({
         firstName: firstName,
         lastName: lastName,
         birthDate: birthDate,
@@ -280,9 +285,9 @@ export default function Form({
         zip: zip,
       });
 
-      setOnboarding({ 
-        startDate: startDate, 
-        department: department 
+      setOnboarding({
+        startDate: startDate,
+        department: department,
       });
 
       return true; // Return true if form is valid
@@ -291,7 +296,8 @@ export default function Form({
     return false; // Return false if form is invalid
   }
 
-  function resetState() { // Function for resetting form state
+  function resetState() {
+    // Function for resetting form state
     setFirstName("");
     setLastName("");
     setStreet("");
@@ -323,43 +329,46 @@ export default function Form({
     dispatch(remove_onboarding());
   }
 
-  function resetForm() { // Function for resetting form
+  function resetForm() {
+    // Function for resetting form
     const inputs = Array.from(document.querySelectorAll("input"));
     inputs.map((input) => (input.value = "")); // Clear input fields
 
     resetState(); // Reset form state
   }
 
-  function migrateToState() { // Function for migrating form data to Redux state if valid
+  function migrateToState() {
+    // Function for migrating form data to Redux state if valid
     dispatch(
-      add_infos({
+      add_infos({ // Dispatch action to add infos to Redux state
         firstName: infos.firstName,
         lastName: infos.lastName,
         birthDate: infos.birthDate,
       })
     );
     dispatch(
-      add_contact({
+      add_contact({ // Dispatch action to add contact to Redux state
         street: contact.street,
         city: contact.city,
         state: contact.state,
         zip: contact.zip,
       })
     );
-    dispatch(
-      add_onboarding({
+    dispatch( 
+      add_onboarding({ // Dispatch action to add onboarding to Redux state
         startDate: onBoarding.startDate,
         department: onBoarding.department,
       })
     );
-      console.log(store.getState().employee)
+
+    // Get employee data from Redux state
     const employee = store.getState().employee;
     const infosSelector = employee.infos;
     const contactSelector = employee.contact;
     const onboardingSelector = employee.onboarding;
 
     dispatch(
-      add_employee({
+      add_employee({ // Dispatch action to add employee to Redux state
         infos: { ...infosSelector },
         contact: { ...contactSelector },
         onBoarding: { ...onboardingSelector },
@@ -367,10 +376,12 @@ export default function Form({
     );
   }
 
-  function Handle_Submit(e) { // Function for handling form submission
+  function Handle_Submit(e) {
+    // Function for handling form submission
     e.preventDefault();
 
-    if (checkForm()) { // Check if form is valid
+    if (checkForm()) {
+      // Check if form is valid
       migrateToState(); // Migrate form data to Redux state
       setValidateForm(true); // Set form validation status
     }
@@ -378,146 +389,176 @@ export default function Form({
 
   return (
     <form onSubmit={Handle_Submit} className={style.form}>
-      {/* Onboarding section */}
-      <div className={style.container_corps_infos}>
-        <h2>Onboarding</h2>
-        <div className={style.onboarding_Group}>
-          <div className={style.form_group}>
-            <label htmlFor="startDate">Start Date</label>
-            <DateTimePicker
-              id="startDate"
-              element={startDate}
-              setElement={setStartDate}
-              minDate={minStartDate}
-              maxDate={maxStartDate}
-              fixedHeight={true}
-            />
-            <p id="StartDateError" className={StartDateErrorCls}>
-              Start Date required!
-            </p>
-          </div>
-          <div className={style.form_group}>
-            <label htmlFor="department">Department</label>
-            <CustomSelect
-              id="department"
-              element={selectedDepartment}
-              setElement={setSelectedDepartment}
-              options={departments}
-            />
-          </div>
-        </div>
+  {/* Onboarding section of the form */}
+  <div className={style.container_corps_infos}>
+    <h2>Onboarding</h2>
+    {/* Group of inputs related to onboarding */}
+    <div className={style.onboarding_Group}>
+      {/* Form group for start date selection */}
+      <div className={style.form_group}>
+        <label htmlFor="startDate">Start Date</label>
+        {/* Custom date picker component for selecting start date */}
+        <DateTimePicker
+          id="startDate"
+          element={startDate}
+          setElement={setStartDate}
+          minDate={minStartDate}
+          maxDate={maxStartDate}
+          fixedHeight={true}
+        />
+        {/* Error message for start date */}
+        <p id="StartDateError" className={StartDateErrorCls}>
+          Start Date required!
+        </p>
       </div>
 
-      {/* Employee section */}
-      <div className={style.container_infos}>
-        <div className={style.container_employee_infos}>
-          <h2>Employee</h2>
-          <div className={style.employee_Group}>
-            <div className={style.form_group}>
-              <label htmlFor="firstName">First Name</label>
-              <input
-                onChange={(e) => setFirstName(e.target.value)}
-                type="text"
-                id="firstName"
-                name="firstName"
-              />
-              <p id="firstNameError" className={FirstNameErrorCls}>
-                FirstName required!
-              </p>
-            </div>
+      {/* Form group for department selection */}
+      <div className={style.form_group}>
+        <label htmlFor="department">Department</label>
+        {/* Custom select component for choosing department */}
+        <CustomSelect
+          id="department"
+          element={selectedDepartment}
+          setElement={setSelectedDepartment}
+          options={departments}
+        />
+      </div>
+    </div>
+  </div>
 
-            <div className={style.form_group}>
-              <label htmlFor="lastName">Last Name</label>
-              <input
-                onChange={(e) => setLastName(e.target.value)}
-                type="text"
-                id="lastName"
-                name="lastName"
-              />
-              <p id="lastNameError" className={LastNameErrorCls}>
-                LastName required!
-              </p>
-            </div>
-
-            <div className={style.form_group}>
-              <label htmlFor="birthDate">Date of birth</label>
-              <DateTimePicker
-                id="birthDate"
-                fixedHeight={true}
-                element={birthDate}
-                setElement={setBirthDate}
-                minDate={minBirthDate}
-                maxDate={maxBirthDate}
-              />
-              <p id="birthdateError" className={BirthdateErrorCls}>
-                BirthDate required!
-              </p>
-            </div>
-          </div>
+  {/* Employee section of the form */}
+  <div className={style.container_infos}>
+    <div className={style.container_employee_infos}>
+      <h2>Employee</h2>
+      {/* Group of inputs related to employee information */}
+      <div className={style.employee_Group}>
+        {/* Form group for first name input */}
+        <div className={style.form_group}>
+          <label htmlFor="firstName">First Name</label>
+          {/* Input for first name */}
+          <input
+            onChange={(e) => setFirstName(e.target.value)}
+            type="text"
+            id="firstName"
+            name="firstName"
+          />
+          {/* Error message for first name */}
+          <p id="firstNameError" className={FirstNameErrorCls}>
+            FirstName required!
+          </p>
         </div>
 
-        {/* Contact section */}
-        <div className={style.container_contact_infos}>
-          <h2>Contact</h2>
-          <div className={style.contact_Group}>
-            <div className={style.form_group}>
-              <label htmlFor="Street">Street</label>
-              <input
-                onChange={(e) => setStreet(e.target.value)}
-                type="text"
-                id="Street"
-                name="Street"
-              />
-              <p id="streetError" className={StreetErrorCls}>
-                Street required!
-              </p>
-            </div>
+        {/* Form group for last name input */}
+        <div className={style.form_group}>
+          <label htmlFor="lastName">Last Name</label>
+          {/* Input for last name */}
+          <input
+            onChange={(e) => setLastName(e.target.value)}
+            type="text"
+            id="lastName"
+            name="lastName"
+          />
+          {/* Error message for last name */}
+          <p id="lastNameError" className={LastNameErrorCls}>
+            LastName required!
+          </p>
+        </div>
 
-            <div className={style.form_group}>
-              <label htmlFor="City">City</label>
-              <input
-                onChange={(e) => setCity(e.target.value)}
-                type="text"
-                id="City"
-                name="City"
-              />
-              <p id="CityError" className={CityErrorCls}>
-                City required!
-              </p>
-            </div>
-
-            <div className={style.form_group}>
-              <label htmlFor="selectStates">State</label>
-              <CustomSelect
-                id="selectStates"
-                element={selectedStateLocation}
-                setElement={setSelectedStateLocation}
-                options={states}
-              />
-            </div>
-
-            <div className={style.form_group}>
-              <label htmlFor="Zip">Zip Code</label>
-              <input
-                onChange={(e) => setZip(e.target.value)}
-                type="text"
-                id="Zip"
-                name="Zip"
-              />
-              <p id="ZipCodeError" className={ZipCodeErrorCls}>
-                ZipCode required!
-              </p>
-            </div>
-          </div>
+        {/* Form group for birth date selection */}
+        <div className={style.form_group}>
+          <label htmlFor="birthDate">Date of birth</label>
+          {/* Custom date picker component for selecting birth date */}
+          <DateTimePicker
+            id="birthDate"
+            fixedHeight={true}
+            element={birthDate}
+            setElement={setBirthDate}
+            minDate={minBirthDate}
+            maxDate={maxBirthDate}
+          />
+          {/* Error message for birth date */}
+          <p id="birthdateError" className={BirthdateErrorCls}>
+            BirthDate required!
+          </p>
         </div>
       </div>
+    </div>
 
-      {/* Submit button */}
-      <div className={style.container_button}>
-        <button className={style.submit_button} type="submit">
-          save
-        </button>
+    {/* Contact section of the form */}
+    <div className={style.container_contact_infos}>
+      <h2>Contact</h2>
+      {/* Group of inputs related to contact information */}
+      <div className={style.contact_Group}>
+        {/* Form group for street input */}
+        <div className={style.form_group}>
+          <label htmlFor="Street">Street</label>
+          {/* Input for street */}
+          <input
+            onChange={(e) => setStreet(e.target.value)}
+            type="text"
+            id="Street"
+            name="Street"
+          />
+          {/* Error message for street */}
+          <p id="streetError" className={StreetErrorCls}>
+            Street required!
+          </p>
+        </div>
+
+        {/* Form group for city input */}
+        <div className={style.form_group}>
+          <label htmlFor="City">City</label>
+          {/* Input for city */}
+          <input
+            onChange={(e) => setCity(e.target.value)}
+            type="text"
+            id="City"
+            name="City"
+          />
+          {/* Error message for city */}
+          <p id="CityError" className={CityErrorCls}>
+            City required!
+          </p>
+        </div>
+
+        {/* Form group for state selection */}
+        <div className={style.form_group}>
+          <label htmlFor="selectStates">State</label>
+          {/* Custom select component for choosing state */}
+          <CustomSelect
+            id="selectStates"
+            element={selectedStateLocation}
+            setElement={setSelectedStateLocation}
+            options={states}
+          />
+        </div>
+
+        {/* Form group for zip code input */}
+        <div className={style.form_group}>
+          <label htmlFor="Zip">Zip Code</label>
+          {/* Input for zip code */}
+          <input
+            onChange={(e) => setZip(e.target.value)}
+            type="text"
+            id="Zip"
+            name="Zip"
+          />
+          {/* Error message for zip code */}
+          <p id="ZipCodeError" className={ZipCodeErrorCls}>
+            ZipCode required!
+          </p>
+        </div>
       </div>
-    </form>
+    </div>
+  </div>
+
+  {/* Submit button for the form */}
+  <div className={style.container_button}>
+    <button className={style.submit_button} type="submit">
+      save
+    </button>
+  </div>
+</form>
+
   );
 }

@@ -44,6 +44,7 @@ export default function CustomSelect({ id, options, element, setElement }) {
           padding: '0 5px',
           width: customWidth,
           height: "2vw",
+          marginTop: "0.5vw",
           "&:focus": { outline: "none" },
         }),
         control: (provided) => ({ // Custom styles the container for the selected value.

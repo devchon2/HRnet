@@ -1,4 +1,5 @@
-.CalendarIcon {
+.CalendarIcon { /* Styles for the Calendar Icon */
+
   display: flex;
   position: absolute;
   right:0;
@@ -7,13 +8,14 @@
     width: 1vw;
 }
 
-.wrapper {
+.wrapper { /* Styles for the wrapper element */
+
   height: 100%;
   justify-content: center;
   align-items: center;
 }
 
-.wrapper div {
+.wrapper div { /* Styles for div elements inside .wrapper */
   display: flex;
   justify-content: flex-start;
   align-items: center;
