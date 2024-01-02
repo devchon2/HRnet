@@ -96,7 +96,6 @@ export default function EmployeesTable({datas}) {
   const table = useMaterialReactTable({
     columns,
     data: datas,
-    enableStickyFooter: true,
     enableStickyHeader: true,
     enableHiding: false,
     enableColumnFiltersModes: true,
@@ -105,12 +104,13 @@ export default function EmployeesTable({datas}) {
     enableToolbar: false,
     enableFullScreenToggle: false,
     manualPagination:false, //optional custom manual pagination
+    paginationDisplayMode: 'pages', //optional custom pagination display mode
     manualSortBy: false, //optional custom manual sort by
     enableColumnFilters: false, //optional custom column filters
-    
 
     muiTablePaperProps: { //optional custom mui table paper props
       elevation: 4, 
+      
       sx: {
         border: '1px solid #001c30',
         boxShadow: '20px 20px 20px -20px white',
@@ -118,22 +118,18 @@ export default function EmployeesTable({datas}) {
         maxHeight:'95%',
         maxWidth:'65vw',
         margin:'auto',
+        overflow: 'auto',
+        
       },
     },
-    
 
-    
-
-    
     muiTableHeadCellProps: { //optional custom mui table head cell props
       sx: {
       color:'white',
       fontSize: '1.5vh',
       fontWeight: 'bold',
       textTransform: 'capitalize',
-      
     }},
-
 
     muiTableBodyCellProps: { //optional custom mui table body cell props
       sx: {
@@ -144,11 +140,27 @@ export default function EmployeesTable({datas}) {
 
     },
     },
+
+    muiColumnActionsButtonProps: { //optional custom mui column actions button props
+
+      sx: {
+      color:'white',
+      fontSize: '1.5vh',
+      fontWeight: 'bold',
+      textTransform: 'capitalize',
+      
+    }},
+
+    muiPaginationProps: { //optional custom mui pagination props
+      rowsPerPageOptions: [10,25,50,100],
+      showFirstButton: true,
+      showLastButton: true,
+      
+      
+    },
     
   });
+  return (<MaterialReactTable  className={style.tableContainer} table={table} />);
+}
 
-  return (
-  
-  <MaterialReactTable  className={style.tableContainer} table={table} />
-  
-)}
+
