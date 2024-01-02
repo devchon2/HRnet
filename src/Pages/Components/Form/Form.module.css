@@ -49,7 +49,7 @@
   border-radius: 10px;
 }
 
-.container_employee_infos h2 {
+ h2 {
   /* Styles the heading inside the employee information container */
   -webkit-writing-mode: vertical-rl;
   -ms-writing-mode: tb-rl;
@@ -57,6 +57,8 @@
   -webkit-text-orientation: mixed;
   text-orientation: mixed;
   text-align: end;
+  margin-right: 1vw;
+  margin-bottom: 1vw;
 }
 
 .container_contact_infos {
@@ -80,15 +82,6 @@
   padding: 10px;
 }
 
-.container_contact_infos h2 {
-  /* Styles the heading inside the contact information container */
-  -webkit-writing-mode: vertical-rl;
-  -ms-writing-mode: tb-rl;
-  writing-mode: vertical-rl;
-  -webkit-text-orientation: mixed;
-  text-orientation: mixed;
-  text-align: end;
-}
 
 .container_button {
   /* Styles the container for the submit button */
@@ -127,15 +120,7 @@
   border-radius: 5px;
 }
 
-.container_corps_infos h2 {
-  /* Styles the heading for the onboarding section */
-  -webkit-writing-mode: vertical-rl;
-  -ms-writing-mode: tb-rl;
-  writing-mode: vertical-rl;
-  -webkit-text-orientation: mixed;
-  text-orientation: mixed;
-  text-align: end;
-}
+
 
 .submit_button {
   /* Styles the submit button with a distinct background color and size */
