@@ -46,6 +46,8 @@ export default function DateTimePicker({
         calendarIconClassname={style.CalendarIcon}
         calendarClassName={style.CalendarContainer} // Custom styles for the calendar popup.
         CalendarContainer={style.CalendarContainer} // Custom styles for the calendar popup.
+        wrapperClassName={style.wrapper}
+        popperClassName={style.popper}
         showPopperArrow={false} // Hide the arrow for the calendar popup.
 
         />

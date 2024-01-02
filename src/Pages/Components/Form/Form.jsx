@@ -26,16 +26,17 @@ import CustomSelect from "../Select/CustomSelect.jsx";
 import DateTimePicker from "../DateTimePicker/DateTimePicker.jsx";
 import store from "../../../Redux/store.js";
 
-// Main functional component for the onboarding form
-
 /**
- * Represents a form component.
+ * Represents the main onboarding form component in the application.
+ * This component is responsible for gathering and validating the new employee's data.
  *
  * @component
  * @param {Object} props - The component props.
- * @param {boolean} props.isActive - Indicates if the modale is active.
+ * @param {boolean} props.isModaleActive - Indicates if the modal is active.
  * @param {function} props.setValidateForm - Callback function to set the form validation status.
- * @returns {JSX.Element} The form component.
+ * @param {function} props.setNeedClose - Function to handle the state of modal closure.
+ * @param {boolean} props.needClose - State to indicate if the modal needs to be closed.
+ * @returns {JSX.Element} - The rendered form component.
  */
 export default function Form({
   isModaleActive,
@@ -43,7 +44,7 @@ export default function Form({
   setNeedClose,
   needClose,
 }) {
-  // Constants for age limits
+  // Constants for setting age limits
   const maxAge = 70;
   const minAge = 18;
 
@@ -85,7 +86,7 @@ export default function Form({
     lastName: "",
     birthDate: "",
   });
-  const [onBoarding, setOnboarding] = useState({
+  const [onBoarding, setOnboarding] = useState({ 
     startDate: "",
     department: "",
   });
@@ -130,12 +131,12 @@ export default function Form({
       zip: zip,
     });
 
-    setOnboarding({
+    setOnboarding({ 
       startDate: ConvertDate(startDate),
       department: department,
     });
 
-    if (needClose) {
+    if (needClose) { // Reset form state when modal is closed
       resetForm();
       setValidateForm(false);
       setNeedClose(false);
@@ -157,52 +158,60 @@ export default function Form({
     needClose,
   ]);
 
-  function ConvertDate(date) {
+  function ConvertDate(date) { // Function for formatting date
     let formattedDate = new Date(date).toLocaleDateString();
     console.log(formattedDate);
     return formattedDate;
   }
 
   // Function for validating age
-  function CalculatedBirthdate(birthDate, startDate) {
-    const onBoardingDay = Number(new Date(startDate).getDay());
-    const onBoardingMonth = Number(new Date(startDate).getMonth());
+  function CalculatedBirthdate(birthDate, startDate) {  // Function for validating age
+    
+    // Get day, month, and year from date objects
+    const onBoardingDay = Number(new Date(startDate).getDay()); 
+    const onBoardingMonth = Number(new Date(startDate).getMonth()); 
     const onBoardingYear = Number(new Date(startDate).getFullYear());
 
+
+    
     const birthday = Number(new Date(birthDate).getDay());
     const birthmonth = Number(new Date(birthDate).getMonth());
     const birthyear = Number(new Date(birthDate).getFullYear());
 
+    // Check if age is within limits
     const notYearAged =
-      +onBoardingYear - birthyear < 18 || onBoardingYear - birthyear > 100;
+      onBoardingYear - birthyear < 18 
+      || onBoardingYear - birthyear > 100;
     const notMonthAged =
       onBoardingMonth - birthmonth < 0 || onBoardingMonth - birthmonth > 12;
     const notDayAged =
       onBoardingDay - birthday < -31 || onBoardingDay - birthday > 0;
 
-    if (notYearAged || (!notYearAged && notMonthAged && notDayAged)) {
-      return false;
+    if (notYearAged || (!notYearAged && notMonthAged && notDayAged)) { 
+      return false; // Return false if age is not within limits
     }
 
-    return true;
+    return true; // Return true if age is within limits
   }
 
-  function checkFields() {
+  function checkFields() { // Function for validating form fields
+    
+    // Regular expressions for validating input
     const streetRegex = /^[a-zA-Z0-9\s,'-]*$/;
     const textRegEx = /^[a-zA-Z'-]+$/;
     const zipRegEx = /^[0-9]{5}(?:-[0-9]{4})?$/;
     const dateRegEx = /^\d{2}\/\d{2}\/\d{4}$/;
 
     let validate = true;
-    const errorClass = style.error_Message;
-    const validClass = style.hidden;
+    const errorClass = style.error_Message; // CSS class for displaying error messages
+    const validClass = style.hidden; // CSS class for hiding error messages
 
-    const elements = [
+    const elements = [ // Array of form elements to validate
       {
-        type: "firstname",
-        element: firstName,
-        tests: textRegEx.test(firstName) && firstName.trim().length > 2,
-        act: setFirstNameErrorCls,
+        type: "firstname", // Type of element
+        element: firstName, // Element to validate
+        tests: textRegEx.test(firstName) && firstName.trim().length > 2, // Test for valid input
+        act: setFirstNameErrorCls, // Function to set error message visibility
       },
       {
         type: "lastname",
@@ -244,21 +253,21 @@ export default function Form({
       },
     ];
 
-    elements.map((el) => {
+    elements.map((el) => { // Iterate through elements to validate
       if (!el.tests && el.element.length < 2) {
         el.act(errorClass);
         validate = false;
       } else {
         el.act(validClass);
       }
-      return null;
+      return null; 
     });
-    return validate;
+    return validate; // Return validation status
   }
 
-  function checkForm() {
-    if (checkFields()) {
-      setInfos({
+  function checkForm() { // Function for validating form
+    if (checkFields()) { // Check if form fields are valid
+      setInfos({ 
         firstName: firstName,
         lastName: lastName,
         birthDate: birthDate,
@@ -276,13 +285,13 @@ export default function Form({
         department: department 
       });
 
-      return true;
+      return true; // Return true if form is valid
     }
 
-    return false;
+    return false; // Return false if form is invalid
   }
 
-  function resetState() {
+  function resetState() { // Function for resetting form state
     setFirstName("");
     setLastName("");
     setStreet("");
@@ -290,7 +299,7 @@ export default function Form({
     setZip("");
     setStartDate(new Date());
     setBirthDate(
-      new Date(new Date().setFullYear(startDate.getFullYear() - 18))
+      new Date(new Date().setFullYear(startDate.getFullYear() - 18)) // Set default birthdate to 18 years ago
     );
 
     setContact({ street: "", city: "", zip: "", state: "" });
@@ -314,14 +323,14 @@ export default function Form({
     dispatch(remove_onboarding());
   }
 
-  function resetForm() {
+  function resetForm() { // Function for resetting form
     const inputs = Array.from(document.querySelectorAll("input"));
-    inputs.map((input) => (input.value = ""));
+    inputs.map((input) => (input.value = "")); // Clear input fields
 
-    resetState();
+    resetState(); // Reset form state
   }
 
-  function migrateToState() {
+  function migrateToState() { // Function for migrating form data to Redux state if valid
     dispatch(
       add_infos({
         firstName: infos.firstName,
@@ -358,17 +367,18 @@ export default function Form({
     );
   }
 
-  function Handle_Submit(e) {
+  function Handle_Submit(e) { // Function for handling form submission
     e.preventDefault();
 
-    if (checkForm()) {
-      migrateToState();
-      setValidateForm(true);
+    if (checkForm()) { // Check if form is valid
+      migrateToState(); // Migrate form data to Redux state
+      setValidateForm(true); // Set form validation status
     }
   }
 
   return (
     <form onSubmit={Handle_Submit} className={style.form}>
+      {/* Onboarding section */}
       <div className={style.container_corps_infos}>
         <h2>Onboarding</h2>
         <div className={style.onboarding_Group}>
@@ -382,7 +392,6 @@ export default function Form({
               maxDate={maxStartDate}
               fixedHeight={true}
             />
-
             <p id="StartDateError" className={StartDateErrorCls}>
               Start Date required!
             </p>
@@ -398,6 +407,8 @@ export default function Form({
           </div>
         </div>
       </div>
+
+      {/* Employee section */}
       <div className={style.container_infos}>
         <div className={style.container_employee_infos}>
           <h2>Employee</h2>
@@ -445,6 +456,7 @@ export default function Form({
           </div>
         </div>
 
+        {/* Contact section */}
         <div className={style.container_contact_infos}>
           <h2>Contact</h2>
           <div className={style.contact_Group}>
@@ -498,7 +510,9 @@ export default function Form({
             </div>
           </div>
         </div>
-      </div>{" "}
+      </div>
+
+      {/* Submit button */}
       <div className={style.container_button}>
         <button className={style.submit_button} type="submit">
           save

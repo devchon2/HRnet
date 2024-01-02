@@ -6,7 +6,8 @@
   width: 100%;
   color: lightGrey;
   font-weight: bold;
-  margin: 100px;
+  margin: 100px auto;;
+  max-width:70%;
 }
 
 .form_group{
