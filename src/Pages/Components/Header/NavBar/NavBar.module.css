@@ -1,74 +1,72 @@
-.nav{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  width:100%;
-  text-align:center;
-  background-color:#2c2c60;
+.nav {
+  /* Styles the navigation bar with a flexible layout and center alignment */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  background-color: #2c2c60;
 }
 
-.createLink.active{
-  background-color:#2c2c60;
+.createLink.active {
+  /* Styles the 'Create new Employee' link when it is active */
+  background-color: #2c2c60;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  overflow:visible;
-
+  overflow: visible;
 } 
-.showLink.active{
-  background-color:#2c2c60;
+
+.showLink.active {
+  /* Styles the 'View current Employees' link when it is active */
+  background-color: #2c2c60;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   border-bottom-left-radius: 15px;
-  overflow:visible;
+  overflow: visible;
+}
 
-  
-} 
 .errorLink,
-.createLink{
-  display:flex;
-  justify-content:flex-start;
-  align-items:center;
-  text-decoration:none;
-  background-color:#001c30;
-  text-align:center;
-  padding:20px;
-  list-style:none;  
-  height:90px;
-  width:50%;
+.createLink {
+  /* Styles for both the 'Return to Home' (error link) and 'Create new Employee' links */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-decoration: none;
+  background-color: #001c30;
+  text-align: center;
+  padding: 20px;
+  list-style: none;
+  height: 90px;
+  width: 50%;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-bottom-right-radius: 15px;
-  
-  overflow:hidden;
-  
-  color:lightGrey;
-  font-weight:900;
-
+  overflow: hidden;
+  color: lightGrey;
+  font-weight: 900;
 }
 
-.errorLink{
-  width:100%;
+.errorLink {
+  /* Additional styles for the 'Return to Home' link */
+  width: 100%;
   border-bottom-right-radius: 0;
-  justify-content:center;
+  justify-content: center;
 }
 
-
-
-
-.showLink{
-  display:flex;
-  justify-content:flex-end;
-  align-items:center;
-  text-decoration:none;
-  text-align:center;
-  padding:20px;
-  list-style:none;  
-  height:90px;
-  width:50%;
-  color:lightGrey;
-  font-weight:900;
+.showLink {
+  /* Styles for the 'View current Employees' link */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-decoration: none;
+  text-align: center;
+  padding: 20px;
+  list-style: none;
+  height: 90px;
+  width: 50%;
+  color: lightGrey;
+  font-weight: 900;
   border-bottom-left-radius: 15px;
-  overflow:visible;
-  background-color:#001c30;
-  
+  overflow: visible;
+  background-color: #001c30;
 }
