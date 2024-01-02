@@ -101,6 +101,7 @@ const table = useMaterialReactTable({
   columns, // Column configuration
   data: datas, // Data to be displayed in the table
   enableStickyHeader: true, // Enable sticky header for better readability
+  enableStickyFooter:true,
   enableHiding: false, // Disable the ability to hide columns
   enableColumnFiltersModes: true, // Enable different filter modes for columns
   enableDensityToggle: true, // Enable toggle for changing row density
@@ -168,7 +169,7 @@ const table = useMaterialReactTable({
     showLastButton: true, // Show button to jump to the last page
   },
 
-  // Custom table body properties
+  // Custom  body properties
   muiTableBodyProps: {
     sx: {
       maxHeight: '100%',
@@ -177,6 +178,14 @@ const table = useMaterialReactTable({
       overflow: 'hidden', // Hide overflow to prevent scrolling
     },
   },
+
+  muiTableContainerProps: {  //custom table style
+
+    sx: {
+      height:'fit-content',
+      maxHeight:'72vh',
+    }
+  }
 });
 
 // Render the MaterialReactTable with the configured settings
