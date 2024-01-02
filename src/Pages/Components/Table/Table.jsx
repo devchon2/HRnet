@@ -34,8 +34,8 @@ export default function EmployeesTable({ datas }) {
           console.log(rowB.original.startDate)
           const dateASplitted = rowA.original.startDate.split('/');
           const dateBSplitted = rowB.original.startDate.split('/');
-          const dateA = new Date(dateASplitted[2], dateASplitted[1], dateASplitted[0]);
-          const dateB = new Date(dateBSplitted[2], dateBSplitted[1], dateBSplitted[0]);
+          const dateA = new Date(dateASplitted[2], dateASplitted[1], dateASplitted[0]);//#################################
+          const dateB = new Date(dateBSplitted[2], dateBSplitted[1], dateBSplitted[0]);//################################
           return dateA - dateB;
 
         },
