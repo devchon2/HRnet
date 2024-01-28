@@ -1,195 +1,205 @@
-
 import React, { useMemo } from "react";
-import { MaterialReactTable, useMaterialReactTable } from "material-react-table";
+import {
+  MaterialReactTable,
+  useMaterialReactTable,
+} from "material-react-table";
 import style from "./Table.module.css";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+// Custom theme for Material UI components, focusing on Table aesthetics.
+const theme = createTheme({
+  components: {
+    MuiPaper: {
+      // Customizes the outermost paper layout of the table
+      styleOverrides: {
+        root: {
+          border: "1px solid #001c30", // Dark border for contrast
+          boxShadow: "20px 20px 20px -20px white", // Shadow for depth
+          borderRadius: "15px", // Rounded corners for modern look
+          width: "100%", // Full width
+          height: "fit-content", // Height adjusts to content
+          margin: "0 5%", // Centering with margin
+        },
+      },
+    },
+    MuiTableHead: {
+      // Styles for the table header
+      styleOverrides: {
+        root: {
+          height: "3vh", // Fixed height for uniformity
+          backgroundColor: "transparent", // Dark background for header
+        },
+      },
+    },
+    MuiTableRow: {
+      // Styles applied to table rows
+      styleOverrides: {
+        root: {
+          display: "flex",
+          justifyContent: "space-between",
+          maxWidth: "100%",
+        },
+        head: {
+          // Special styling for header row
+          backgroundColor: "#001c30", // Matches header background color
+          
+        },
+      },
+    },
+    MuiTableCell: {
+      // Cell-specific styling
+      styleOverrides: {
+        root: {
+          // Applies to all cells
+          fontSize: "0.6vw", // Responsive font size
+          fontWeight: "normal", // Regular weight for readability
+        },
+        head: {
+          // Header cells specifically
+          fontWeight: "bold", // Bold for emphasis
+          fontSize: "0.8vw", // Slightly larger for importance
+          paddingLeft: "1vw", // Spacing for aesthetics
+          backgroundColor: "#001c30 !important", // Clear background for blend
+          color: "white", // White text for contrast
+        },
+      },
+    },
+    MuiButtonBase: {
+      // Styles for the sort label
+      styleOverrides: {
+        root: {
+          height: "100%", // Full height for clickability
+        },
+      },
+    },
+    MuiSvgIcon: {
+      // Styles for the sort icon
+      styleOverrides: {
+        root: {
+          fontSize: "1vw", // Responsive font size
+          fill: "white ", // White text for contrast
+          strokeWidth: "0.5px", // Thinner stroke for aesthetics
+        },
+        
+      },
+    },
+    MuiPaginationItem: {
+
+      styleOverrides: {
+        root: {
+          fontSize: "0.6vw", // Responsive font size
+          fontWeight: "normal", // Bold for emphasis
+          color: "#001c30", // Dark text for contrast
+          "&:hover": {
+            color: "#001c30", // Dark text for contrast
+          },
+          "&.Mui-selected": {
+            backgroundColor: "#001c30", // Dark background for contrast
+            color: "white", // White text for contrast
+          },
+        },
+      },
+    },
+    
+  },
+});
 
 /**
- * EmployeesTable Component
- * @param {Object} props - Component props
- * @param {Array} props.datas - Data to be displayed in the table
- * @returns {React.ReactElement} - Rendered component
+ * Functional component to render individual cell content in bold.
+ *
+ * @param {Object} props - Properties passed to the component.
+ * @param {string} props.renderedCellValue - The text content for the cell.
+ * @returns {React.ReactElement} - A strong element wrapping the cell value.
+ */
+const RenderedCell = ({ renderedCellValue }) => (
+  <strong>{renderedCellValue}</strong>
+);
+
+/**
+ * Main functional component to render an employee data table.
+ * Utilizes 'MaterialReactTable' for a rich UI experience with custom theming.
+ *
+ * @param {Object} props - Component properties.
+ * @param {Array} props.datas - Collection of employee data to be displayed.
+ * @returns {React.ReactElement} - The fully configured and styled data table.
  */
 export default function EmployeesTable({ datas }) {
-  
-  // useMemo hook to memoize columns configuration  const columns = useMemo(
-    const columns = useMemo(
+  // Defines the column configuration for the table, utilizing useMemo for performance.
+  const columns = useMemo(
     () => [
+      // Each object within this array configures a column of the table.
+
       {
-        accessorKey: "firstName", //simple recommended way to define a column
-        header: "First Name",
-        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
-        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render
+        accessorKey: "firstName", // Identifies the data field for this column.
+        header: "First Name", // Sets the display name for the header.
+        Cell: RenderedCell, // Custom render function for cell content.
+        width: 'calc(100/9)%', // Sets the width of the column.
       },
-      {
-        accessorKey: "lastName",
-        header: "Last Name",
-        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
-        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render
-      },
+      { accessorKey: "lastName", header: "Last Name", Cell: RenderedCell,        width: 'calc(100/9)%', // Sets the width of the column.
+    },
       {
         accessorKey: "startDate",
         header: "Start Date",
-        sortingFn: (rowA, rowB ) => {
-          console.log(rowA.original.startDate)
-          console.log(rowB.original.startDate)
-          const dateASplitted = rowA.original.startDate.split('/');
-          const dateBSplitted = rowB.original.startDate.split('/');
-          const dateA = new Date(dateASplitted[2], dateASplitted[1], dateASplitted[0]);//#################################
-          const dateB = new Date(dateBSplitted[2], dateBSplitted[1], dateBSplitted[0]);//################################
-          return dateA - dateB;
+        Cell: RenderedCell,
+        width: 'calc(100/9)%', // Sets the width of the column.
 
+        // Custom sorting function to handle dates in DD/MM/YYYY format.
+        sortingFn: (rowA, rowB) => {
+          const dateA = new Date(
+            rowA.original.startDate.split("/").reverse().join("-")
+          );
+          const dateB = new Date(
+            rowB.original.startDate.split("/").reverse().join("-")
+          );
+          return dateA - dateB; // Compares dates for sorting.
         },
-        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
-        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render
-
       },
-      {
-        accessorKey: "department",
-        header: "Department",
-        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
-        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
-      },
-      {
-        accessorKey: "birthDate",
-        header: "Date of Birth",
-        filterVariant: 'date',
-        format: (date) => new Date(date),
-        sortingFn: (rowA, rowB ) => {
-          console.log(rowA.original.startDate)
-          console.log(rowB.original.startDate)
-          const dateASplitted = rowA.original.startDate.split('/');
-          const dateBSplitted = rowB.original.startDate.split('/');
-          const dateA = new Date(dateASplitted[2], dateASplitted[1], dateASplitted[0]);
-          const dateB = new Date(dateBSplitted[2], dateBSplitted[1], dateBSplitted[0]);
-          return dateA - dateB;
-
-        },
-        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
-        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
-      },
-      {
-        accessorKey: "street",
-        header: "Street",
-        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
-        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
-      },
-      {
-        accessorKey: "city",
-        header: "City",
-        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
-        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
-      },
-      {
-        accessorKey: "abbreviation",
-        header: "State",
-        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
-        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
-      },
-      {
-        accessorKey: "zip",
-        header: "Zip Code",
-        muiTableHeadCellProps: { sx: { backgroundColor: "#001c30",color:'white' } }, //optional custom mui table head cell props
-        Cell: ({ renderedCellValue }) => <strong>{renderedCellValue}</strong> //optional custom cell render 
-      },
+      { accessorKey: "department", header: "Department", Cell: RenderedCell, grow:true, width: 'calc(100/9)%', // Sets the width of the column.
+    },
+      { accessorKey: "birthDate", header: "Date of Birth", Cell: RenderedCell,        width: 'calc(100/9)%', // Sets the width of the column.
+    },
+      { accessorKey: "street", header: "Street", Cell: RenderedCell,        width: 'calc(100/9)%', // Sets the width of the column.
+    },
+      { accessorKey: "city", header: "City", Cell: RenderedCell,        width: 'calc(100/9)%', // Sets the width of the column.
+    },
+      { accessorKey: "abbreviation", header: "State", Cell: RenderedCell,        width: 'calc(100/9)%', // Sets the width of the column.
+    },
+      { accessorKey: "zip", header: "Zip Code", Cell: RenderedCell,        width: 'calc(100/9)%', // Sets the width of the column.
+    },
     ],
     []
   );
-  
-  // Configuration for useMaterialReactTable hook
-const table = useMaterialReactTable({
-  
-  columns, // Column configuration
-  data: datas, // Data to be displayed in the table
-  enableStickyHeader: true, // Enable sticky header for better readability
-  enableStickyFooter:true,
-  enableHiding: false, // Disable the ability to hide columns
-  enableColumnFiltersModes: true, // Enable different filter modes for columns
-  enableDensityToggle: true, // Enable toggle for changing row density
-  enablePagination: true, // Enable pagination for the table
-  enableToolbar: false, // Disable the toolbar
-  enableFullScreenToggle: false, // Disable the full screen toggle option
-  manualPagination: false, // Disable manual control over pagination
-  paginationDisplayMode: 'pages', // Set pagination display mode to 'pages'
-  manualSortBy: false, // Disable manual control over sorting
-  enableColumnFilters: false, // Disable column filters
 
-  // Custom table paper properties
-  muiTablePaperProps: {
-    elevation: 4,
-    sx: {
-      border: '1px solid #001c30',
-      boxShadow: '20px 20px 20px -20px white',
-      borderRadius: '15px',
-      maxHeight: '100%',
-      maxWidth: '100%',
-      margin: 'auto',
-    },
-  },
+  const table = useMaterialReactTable({
+    columns,
+    data: datas,
+    enableStickyHeader: true,
+    enableStickyFooter: true,
+    enableHiding: false,
+    enableColumnFiltersModes: true,
+    enableDensityToggle: true,
+    enablePagination: true,
+    enableToolbar: false,
+    enableFullScreenToggle: false,
+    manualPagination: false,
+    paginationDisplayMode: "pages",
+    manualSortBy: false,
+    enableColumnFilters: false,
+    debugColumns: true,
+    debugTable: true,
+    debugPagination: true,
+    debugFilters: true,
+    defaultColumn: { 
+      minSize: 180, 
+      maxSize: 1000, 
+      size: 300 } //units are in px
 
-  // Custom table head cell properties
-  muiTableHeadCellProps: {
-    columns: {
-      sx: {
-        width: 'fit-content',
-      },
-    },
-    sx: {
-      color: 'white',
-      fontSize: '1.5vh',
-      fontWeight: 'bold',
-      textTransform: 'capitalize',
-    },
-  },
+  });
 
-  // Custom table body cell properties
-  muiTableBodyCellProps: {
-    sx: {
-      textWrap: 'nowrap',
-      height: '1vw',
-      fontSize: '1.15vh',
-      textTransform: 'capitalize',
-      width: 'fit-content',
-    },
-  },
-
-  // Custom column actions button properties
-  muiColumnActionsButtonProps: {
-    sx: {
-      color: 'white',
-      fontSize: '1.5vh',
-      fontWeight: 'bold',
-      textTransform: 'capitalize',
-    },
-  },
-
-  // Custom pagination properties
-  muiPaginationProps: {
-    rowsPerPageOptions: [10, 25, 50, 100], // Options for rows per page
-    showFirstButton: true, // Show button to jump to the first page
-    showLastButton: true, // Show button to jump to the last page
-  },
-
-  // Custom  body properties
-  muiTableBodyProps: {
-    sx: {
-      maxHeight: '100%',
-      maxWidth: '100%',
-      margin: 'auto',
-      overflow: 'hidden', // Hide overflow to prevent scrolling
-    },
-  },
-
-  muiTableContainerProps: {  //custom table style
-
-    sx: {
-      height:'fit-content',
-      maxHeight:'72vh',
-    }
-  }
-});
-
-// Render the MaterialReactTable with the configured settings
-return (
-  <MaterialReactTable className={style.tableContainer} table={table} />
-);
+  // Renders the table within a theme provider to apply custom styles.
+  return (
+    <ThemeProvider theme={theme}>
+      <MaterialReactTable className={style.tableContainer} table={table} />
+    </ThemeProvider>
+  );
 }
