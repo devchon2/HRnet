@@ -1,9 +1,10 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, forwardRef } from "react";
 import { registerLocale } from "react-datepicker";
 import en from "date-fns/locale/es";
 import style from "./DateTimePicker.module.css";
+import React from "react";
 registerLocale("en", en); //register the locale for the datepicker
 
 /**
@@ -26,16 +27,21 @@ export default function DateTimePicker({
 }) {
     // State to keep track of the selected date.
     const [dateParams, setDateParams] = useState(element);
+    const [clsName, setClsName] = useState('');
 
     // useEffect hook to update dateParams when the element prop changes.
     useEffect(() => {
       setDateParams(element);
-    }, [element]);
-  
+      setClsName(id === 'startDate' ? style.startDateInput : style.BirthdateInput);
+    }, [element,id]);
+    
+    const CustomInput = forwardRef(({ value, id, onClick, onChange }, ref) => (
+      <input id={id} className={clsName} onClick={onClick} ref={ref} onChange={onChange} value={value} />
+  ));
+
     return (
       <DatePicker
         id={id}
-        placeholderText="Select Date"
         selected={dateParams}
         minDate={minDate ? minDate : null}  // Conditional rendering of calculated minDate.
         maxDate={maxDate ? maxDate : null}  // Conditional rendering of calculated maxDate.
@@ -49,7 +55,8 @@ export default function DateTimePicker({
         wrapperClassName={style.wrapper}
         popperClassName={style.popper}
         showPopperArrow={false} // Hide the arrow for the calendar popup.
-
+        dateFormat={"dd/MM/yyyy"} // Format for the date display.
+        customInput={<CustomInput />} // Custom input component for the datepicker.
         />
       
     );

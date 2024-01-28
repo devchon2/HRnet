@@ -555,7 +555,7 @@ export default function Form({
   {/* Submit button for the form */}
   <div className={style.container_button}>
     <button className={style.submit_button} type="submit">
-      save
+      Save
     </button>
   </div>
 </form>

@@ -1,8 +1,9 @@
+/* Defines the layout and spacing for the overall form, setting a columnar direction and even distribution of child elements. */
 .form {
-  /* Styles the overall form layout with a column direction and even spacing */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   order: 0;
   width: 100%;
   color: lightGrey;
@@ -11,8 +12,8 @@
   max-width: 70%;
 }
 
+/* Styles individual form groups, arranging child elements in a vertical column with space around each. */
 .form_group {
-  /* Styles individual groups of form inputs with vertical spacing */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -20,25 +21,25 @@
   padding: 10px 0;
 }
 
+/* Container for grouping elements related to personal or general information, laid out horizontally with space between elements. */
 .container_infos {
-  /* Container for grouping information-related elements */
   order: 1;
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
+/* Applies to groups of employee-related input fields, organizing them in a vertical column with space between. */
 .employee_Group {
-  /* Styles a group of employee-related input fields */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  padding: 10px;
+  padding: 10px 10px 10px 32px;
 }
 
+/* Styles the container specifically for employee-related information, adding background color, opacity, and spacing. */
 .container_employee_infos {
-  /* Styles the container for employee-specific information */
   display: flex;
   justify-content: space-between;
   background-color: #022138;
@@ -49,20 +50,20 @@
   border-radius: 10px;
 }
 
- h2 {
-  /* Styles the heading inside the employee information container */
+/* Targets headings within the employee information container, setting a vertical writing mode and alignment. */
+h2 {
+  position: absolute;
   -webkit-writing-mode: vertical-rl;
   -ms-writing-mode: tb-rl;
   writing-mode: vertical-rl;
   -webkit-text-orientation: mixed;
   text-orientation: mixed;
   text-align: end;
-  margin-right: 1vw;
-  margin-bottom: 1vw;
+  font-size: 0.8vw;
 }
 
+/* Container for contact information elements, styled similarly to the employee info container for consistency. */
 .container_contact_infos {
-  /* Styles the container for contact information */
   display: flex;
   justify-content: space-between;
   background-color: #022138;
@@ -73,26 +74,17 @@
   border-radius: 10px;
 }
 
+/* Defines the layout for groups of contact-related input fields, arranging them vertically with space between. */
 .contact_Group {
-  /* Styles a group of contact-related input fields */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  padding: 10px;
+  padding: 10px 10px 10px 32px;
 }
 
-
-.container_button {
-  /* Styles the container for the submit button */
-  display: flex;
-  order: 2;
-  justify-content: center;
-  width: 100%;
-}
-
+/* Main container for onboarding-related information, styled for clear grouping of elements. */
 .container_corps_infos {
-  /* Styles the main container for onboarding information */
   display: flex;
   justify-content: space-between;
   background-color: #022138;
@@ -102,16 +94,16 @@
   border-radius: 10px;
 }
 
+/* Arranges onboarding-related elements within their group, spacing them evenly for a balanced layout. */
 .onboarding_Group {
-  /* Styles the group of elements within the onboarding section */
   display: flex;
   justify-content: space-around;
-  width: 90%;
-  padding: 10px;
+  width: 100%;
+  padding: 10px 10px 10px 32px;
 }
 
+/* Special styling for individual form groups within the onboarding section, centering content and adding borders for emphasis. */
 .onboarding_Group .form_group {
-  /* Styles each individual form group within the onboarding section */
   position: relative;
   justify-content: center;
   align-items: center;
@@ -120,35 +112,69 @@
   border-radius: 5px;
 }
 
-
-
-.submit_button {
-  /* Styles the submit button with a distinct background color and size */
+/* Styles the container for the form submission button, centering it horizontally. */
+.container_button {
   display: flex;
+  order: 2;
+  box-sizing:border-box;
   justify-content: center;
-  background-color: orange;
-  width: 100px;
-  padding: 10px 20px;
+  height: 3vw;
+  width: 10vw;
+  padding:10px;
+  overflow: visible;
+  border-radius: 25px;
 }
 
+
+/* Customizes the appearance of the submit button, making it stand out with a distinct color and size. */
+.submit_button {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  
+  font-size: 1vw;
+  background-color: #001c30;
+  padding: 20px 40px;
+  overflow: visible;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+  box-shadow: 0px 20px 0px 0px rgba(255,255,255, 1);
+}
+.submit_button:hover {
+  background-color: #063a5e;
+  transition: 0.2s ease-in-out;
+  border-width: 0px 1px 1px 0px;
+  transform: translateY(15px);
+  box-shadow: 0px 5px 10px 0px rgba(255,255,255, 1);
+  text-shadow: 0px 0px 10px rgba(255,255,255, 1);
+}
+
+.submit_button:active {
+  background-color: #001c30;
+  transform: translateY(20px);
+  box-shadow: 0px 0px 15px 1px rgba(255,255,255, 1);
+}
+
+/* Provides visual feedback for errors by styling error messages in a prominent color and placement. */
 .error_Message {
-  /* Styles for displaying error messages */
   display: flex;
   position: relative;
   justify-content: flex-end;
-  color: red;
+  color: #ff9148;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 0.5vw;
   padding: 5px 0 0 0;
 }
 
+/* Utility class to hide elements from view, useful for conditional rendering or error handling. */
 .hidden {
-  /* Utility class for hiding elements */
   display: none;
 }
 
+/* Standardizes the styling for input fields across the form, ensuring consistency in appearance and layout. */
 input {
-  /* General styles for input fields */
   width: 100%;
   display: flex;
   justify-content: center;
@@ -158,13 +184,13 @@ input {
   font-size: 1vw;
   height: 2vw !important;
   padding: 10px;
-  margin-top: 0.5vw;
+  margin-top: 0.2vw;
   border: 1px solid lightGrey;
 }
 
+/* Defines the presentation of labels across the form, setting font size and spacing for clear association with inputs. */
 label {
-  /* Styles for form labels */
-  font-size: 1vw;
+  font-size: 0.8vw;
   margin-top: 0;
   height: 1vw !important;
 }
