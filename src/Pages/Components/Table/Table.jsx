@@ -38,11 +38,19 @@ const theme = createTheme({
           display: "flex",
           justifyContent: "space-between",
           maxWidth: "100%",
+          backgroundColor: "transparent", // Clear background for blend
         },
         head: {
           // Special styling for header row
           backgroundColor: "#001c30", // Matches header background color
-          
+        },
+      },
+    },
+    MuiMenuList: {
+      // Styles for the menu list
+      styleOverrides: {
+        root: {
+          backgroundColor: "transparent", // Clear background for blend
         },
       },
     },
@@ -53,14 +61,46 @@ const theme = createTheme({
           // Applies to all cells
           fontSize: "0.6vw", // Responsive font size
           fontWeight: "normal", // Regular weight for readability
+          justifyContent: "center", // Centering for aesthetics
+          alignItems: "center", // Centering for aesthetics
+          textAlign: "center", // Centering for aesthetics
         },
         head: {
           // Header cells specifically
+          display: "flex", // Centering for aesthetics
           fontWeight: "bold", // Bold for emphasis
-          fontSize: "0.8vw", // Slightly larger for importance
-          paddingLeft: "1vw", // Spacing for aesthetics
+          fontSize: "0.7vw", // Slightly larger for importance
+          paddingLeft: "0", // Spacing for aesthetics
+          justifyContent: "space-between", // Centering for aesthetics
           backgroundColor: "#001c30 !important", // Clear background for blend
           color: "white", // White text for contrast
+          ".Mui-TableHeadCell-Content":{
+
+            display: "flex",
+            justifyContent: "space-between",
+            paddingRight: "0.5vw",
+            '&-Wrapper': {
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            height: "100%",
+            width: "100%",
+            margin: "auto",
+          },
+          "&-Labels": {
+            display: "flex",
+            justifyContent: "space-between",
+
+            height: "100%",
+            width: "100%",
+            margin: "auto",
+            color: "white",
+            fontWeight: "bold",
+            fontSize: "0.7vw",
+            paddingLeft: "0",
+            backgroundColor: "#001c30 !important",
+          },
+      },
         },
       },
     },
@@ -69,27 +109,70 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           height: "100%", // Full height for clickability
+          padding: "0 !important", // No padding for aesthetics
+          "&-MuiIconButton-root": {
+            backgroundColor: "#001c30", // Dark background for contrast
+          },
         },
       },
     },
+    MuiBox: {
+      // Styles for the sort box
+      styleOverrides: {
+        root: {
+          height: "100%", // Full height for clickability
+          padding: "0", // No padding for aesthetics
+          margin: "0", // No margin for aesthetics
+          display: "flex", // Centering for aesthetics
+          alignItems: "center", // Centering for aesthetics
+          justifyContent: "center", // Centering for aesthetics
+        },
+      },
+    },
+    MuiBadge: {
+      // Styles for the sort badge
+      styleOverrides: {
+        root: {
+          height: "100%", // Full height for clickability
+          padding: "5px", // No padding for aesthetics
+          margin: "0", // No margin for aesthetics
+          display: "flex", // Centering for aesthetics
+          alignItems: "center", // Centering for aesthetics
+          justifyContent: "center", // Centering for aesthetics
+          svg: {
+            height: "100%", // Full height for clickability
+            fontSize: "1.1vw", // Responsive font size
+            margin: "0", // No margin for aesthetics
+            padding: "0", // No padding for aesthetics
+            fill: "white ", // White text for contrast
+            strokeWidth: "0.5px", // Thinner stroke for aesthetics
+            opacity: "1", // Slightly transparent for aesthetics
+          },
+        },
+      },
+    },
+
     MuiSvgIcon: {
       // Styles for the sort icon
       styleOverrides: {
         root: {
-          fontSize: "1vw", // Responsive font size
+          fontSize: "1.1vw", // Responsive font size
           fill: "white ", // White text for contrast
           strokeWidth: "0.5px", // Thinner stroke for aesthetics
+          opacity: "1", // Slightly transparent for aesthetics
+          height: "100%",
+          margin: "0",
+          padding: "0 ",
         },
-        
       },
     },
     MuiPaginationItem: {
-
       styleOverrides: {
         root: {
           fontSize: "0.6vw", // Responsive font size
           fontWeight: "normal", // Bold for emphasis
           color: "#001c30", // Dark text for contrast
+
           "&:hover": {
             color: "#001c30", // Dark text for contrast
           },
@@ -100,7 +183,29 @@ const theme = createTheme({
         },
       },
     },
-    
+    MuiTable: {
+      // Styles for the table
+      styleOverrides: {
+        root: {
+          maxWidth: "100%", // Full width
+          height: "100%", // Full height
+          backgroundColor: "transparent", // Clear background for blend
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        select: {
+          fontSize: "0.6vw", // Responsive font size
+          fontWeight: "normal", // Regular weight for readability
+          color: "#001c30", // Dark text for contrast
+          backgroundColor: "transparent", // Clear background for blend
+          "&:focus": {
+            backgroundColor: "transparent", // Clear background for blend
+          },
+        },
+      },
+    },
   },
 });
 
@@ -133,15 +238,12 @@ export default function EmployeesTable({ datas }) {
         accessorKey: "firstName", // Identifies the data field for this column.
         header: "First Name", // Sets the display name for the header.
         Cell: RenderedCell, // Custom render function for cell content.
-        width: 'calc(100/9)%', // Sets the width of the column.
       },
-      { accessorKey: "lastName", header: "Last Name", Cell: RenderedCell,        width: 'calc(100/9)%', // Sets the width of the column.
-    },
+      { accessorKey: "lastName", header: "Last Name", Cell: RenderedCell },
       {
         accessorKey: "startDate",
         header: "Start Date",
         Cell: RenderedCell,
-        width: 'calc(100/9)%', // Sets the width of the column.
 
         // Custom sorting function to handle dates in DD/MM/YYYY format.
         sortingFn: (rowA, rowB) => {
@@ -154,18 +256,12 @@ export default function EmployeesTable({ datas }) {
           return dateA - dateB; // Compares dates for sorting.
         },
       },
-      { accessorKey: "department", header: "Department", Cell: RenderedCell, grow:true, width: 'calc(100/9)%', // Sets the width of the column.
-    },
-      { accessorKey: "birthDate", header: "Date of Birth", Cell: RenderedCell,        width: 'calc(100/9)%', // Sets the width of the column.
-    },
-      { accessorKey: "street", header: "Street", Cell: RenderedCell,        width: 'calc(100/9)%', // Sets the width of the column.
-    },
-      { accessorKey: "city", header: "City", Cell: RenderedCell,        width: 'calc(100/9)%', // Sets the width of the column.
-    },
-      { accessorKey: "abbreviation", header: "State", Cell: RenderedCell,        width: 'calc(100/9)%', // Sets the width of the column.
-    },
-      { accessorKey: "zip", header: "Zip Code", Cell: RenderedCell,        width: 'calc(100/9)%', // Sets the width of the column.
-    },
+      { accessorKey: "department", header: "Department", Cell: RenderedCell },
+      { accessorKey: "birthDate", header: "Date of Birth", Cell: RenderedCell },
+      { accessorKey: "street", header: "Street", Cell: RenderedCell },
+      { accessorKey: "city", header: "City", Cell: RenderedCell },
+      { accessorKey: "abbreviation", header: "State", Cell: RenderedCell },
+      { accessorKey: "zip", header: "Zip Code", Cell: RenderedCell },
     ],
     []
   );
@@ -182,18 +278,25 @@ export default function EmployeesTable({ datas }) {
     enableToolbar: false,
     enableFullScreenToggle: false,
     manualPagination: false,
-    paginationDisplayMode: "pages",
+    paginationDisplayMode: "default",
+    muiPaginationProps: {
+      color: "primary",
+      variant: "outlined",
+      shape: "rounded",
+      rowsPerPageOptions: [10, 25, 50, 100],
+    },
     manualSortBy: false,
     enableColumnFilters: false,
     debugColumns: true,
     debugTable: true,
     debugPagination: true,
     debugFilters: true,
-    defaultColumn: { 
-      minSize: 180, 
-      maxSize: 1000, 
-      size: 300 } //units are in px
-
+    defaultColumn: {
+      size: 290,
+      height: "100px",
+      align: "center",
+      headerAlign: "center",
+    },
   });
 
   // Renders the table within a theme provider to apply custom styles.
