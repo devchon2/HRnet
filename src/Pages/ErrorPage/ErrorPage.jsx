@@ -5,7 +5,7 @@ export default function ErrorPage() {
     <main>
       <h1 className={style.page_Title}>ErrorPage</h1>
       <div className={style.content}>
-        <h2>404</h2>
+        <h2 className={style.errorCode}>404</h2>
         <p>Something gets wrong</p>
       </div>
       

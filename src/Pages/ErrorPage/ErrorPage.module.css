@@ -35,9 +35,16 @@ main {
   font-weight: bold;
 }
 
-.content h2{
+.content h2.errorCode{
   font-size:6rem;
+  position:relative;
   text-shadow: 20px 15px 100px #fff;
+  -webkit-writing-mode: horizontal;
+          -ms-writing-mode: lr-tb;
+      writing-mode: horizontal-tb;
+      
+    -webkit-text-orientation: mixed;
+            text-orientation: mixed;
 }
 
 .content p{
