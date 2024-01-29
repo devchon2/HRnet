@@ -1,15 +1,16 @@
 /* Defines the layout and spacing for the overall form, setting a columnar direction and even distribution of child elements. */
 .form {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  order: 0;
-  width: 100%;
-  color: lightGrey;
-  font-weight: bold;
-  margin: 100px auto;
-  max-width: 70%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    order: 0;
+    width: 100%;
+    color: lightGrey;
+    font-weight: bold;
+    margin: auto;
+    max-width: 70%;
+    height: 100%;
 }
 
 /* Styles individual form groups, arranging child elements in a vertical column with space around each. */
@@ -140,14 +141,14 @@ h2 {
   overflow: visible;
   transition: 0.2s ease-in-out;
   cursor: pointer;
-  box-shadow: 0px 20px 0px 0px rgba(255,255,255, 1);
+  box-shadow: 5px 10px 0px 0px rgba(255,255,255, 1);
 }
 .submit_button:hover {
   background-color: #063a5e;
   transition: 0.2s ease-in-out;
   border-width: 0px 1px 1px 0px;
-  transform: translateY(15px);
-  box-shadow: 0px 5px 10px 0px rgba(255,255,255, 1);
+  transform: translate(5px,15px);
+  box-shadow: 0px 2px 2px 0px rgba(255,255,255, 1);
   text-shadow: 0px 0px 10px rgba(255,255,255, 1);
 }
 
