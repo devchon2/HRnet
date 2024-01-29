@@ -190,7 +190,7 @@ input {
 }
 
 /* Defines the presentation of labels across the form, setting font size and spacing for clear association with inputs. */
-label {
+.form_group label {
   font-size: 0.8vw;
   margin-top: 0;
   height: 1vw !important;
