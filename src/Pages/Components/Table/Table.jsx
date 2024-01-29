@@ -15,7 +15,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           // Overrides the default styles for the root element.
-          display:'flex',
+          display: "flex",
           flexDirection: "column",
           margin: "2vw 2%",
           borderRadius: "20px",
@@ -31,22 +31,22 @@ const theme = createTheme({
             "& > .MuiBox-root": {
               backgroundColor: "#001C30",
               height: "100%",
-              '& > .MuiBox-root':{
-                width:'100%',
-                '& > .MuiTablePagination-root':{
-width:'100%',              }
-
+              "& > .MuiBox-root": {
+                width: "100%",
+                "& > .MuiTablePagination-root": {
+                  width: "100%",
+                },
+              },
             },
           },
         },
-      },
       },
     },
     MuiTableContainer: {
       // Table container component.
       styleOverrides: {
         root: {
-flexGrow: 1,
+          flexGrow: 1,
           flexShrink: 1,
           maxWidth: "100%",
         },
@@ -81,15 +81,14 @@ flexGrow: 1,
       // Table footer component.
       styleOverrides: {
         root: {
-          display: 'none',
+          display: "none",
         },
-        },
+      },
     },
     MuiTableBody: {
       styleOverrides: {
         root: {
-          height:"95%",
-          
+          height: "95%",
         },
       },
     },
@@ -122,9 +121,9 @@ flexGrow: 1,
     },
     MuiTableRow: {
       styleOverrides: {
-        root: { 
+        root: {
           display: "flex",
-          width:'100%',
+          width: "100%",
         },
         head: {
           backgroundColor: "#001C30",
@@ -150,10 +149,10 @@ flexGrow: 1,
             justifyContent: "space-between",
             textAlign: "center",
             fontWeight: "bold",
-          
+
             "&-Labels": {
               position: "relative",
-              left: '1vw',
+              left: "1vw",
               alignItems: "center",
             },
             "&-Actions": {
@@ -237,8 +236,7 @@ flexGrow: 1,
         root: {
           width: "100%",
           justifyContent: "space-between",
-          
-       },
+        },
       },
     },
     MuiTypography: {
@@ -289,17 +287,40 @@ export default function EmployeesTable({ datas }) {
 
         // Custom sorting function to handle dates in DD/MM/YYYY format.
         sortingFn: (rowA, rowB) => {
-          const dateA = new Date(
-            rowA.original.startDate.split("/").reverse().join("-")
-          );
-          const dateB = new Date(
-            rowB.original.startDate.split("/").reverse().join("-")
-          );
-          return dateA - dateB; // Compares dates for sorting.
+          
+            const splittedDateA = rowA.original.startDate.split("/");
+            const splittedDateB = rowB.original.startDate.split("/");
+
+            const dateA = splittedDateA[2] + splittedDateA[0]  + splittedDateA[1];
+            const dateB = splittedDateB[2] + splittedDateB[0]  + splittedDateB[1];
+
+          console.log(dateA, 'dateA');
+          console.log(dateB, 'dateB');
+          return dateA - dateB;
+          
         },
       },
       { accessorKey: "department", header: "Department", Cell: RenderedCell },
-      { accessorKey: "birthDate", header: "Date of Birth", Cell: RenderedCell },
+      {
+        accessorKey: "birthDate",
+        header: "Date of Birth",
+        Cell: RenderedCell,
+        // Custom sorting function to handle dates in DD/MM/YYYY format.
+        sortingFn: (rowA, rowB) => {
+          console.log(rowA, 'rowA')
+          
+          const splittedDateA = rowA.original.birthDate.split("/");
+          const splittedDateB = rowB.original.birthDate.split("/");
+
+          const dateA = splittedDateA[2] + splittedDateA[0]  + splittedDateA[1];
+          const dateB = splittedDateB[2] + splittedDateB[0]  + splittedDateB[1];
+
+        console.log(dateA, 'dateA');
+        console.log(dateB, 'dateB');
+        return dateA - dateB;
+        
+      },
+      },
       { accessorKey: "street", header: "Street", Cell: RenderedCell },
       { accessorKey: "city", header: "City", Cell: RenderedCell },
       { accessorKey: "abbreviation", header: "State", Cell: RenderedCell },
