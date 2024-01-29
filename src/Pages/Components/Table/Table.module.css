@@ -1,11 +1,19 @@
 .tableContainer{
+  margin:5%;
   display:flex;
   flex-direction:column;
   align-items:center;
-  height:73vh;
   
 }
 
 ::-webkit-scrollbar {
   display: none; /* Pour les navigateurs WebKit/Blink */
+}
+
+::moz-scrollbar {
+  display: none; /* Pour les navigateurs Gecko */
+}
+
+::-o-scrollbar {
+  display: none; /* Pour les navigateurs Opera */
 }
