@@ -17,7 +17,7 @@ const theme = createTheme({
           // Overrides the default styles for the root element.
           display: "flex",
           flexDirection: "column",
-          margin: "2vw 2%",
+          margin: "2vw 5%",
           borderRadius: "20px",
           height: "fit-content",
           width: "95%",
@@ -287,17 +287,15 @@ export default function EmployeesTable({ datas }) {
 
         // Custom sorting function to handle dates in DD/MM/YYYY format.
         sortingFn: (rowA, rowB) => {
-          
-            const splittedDateA = rowA.original.startDate.split("/");
-            const splittedDateB = rowB.original.startDate.split("/");
+          const splittedDateA = rowA.original.startDate.split("/");
+          const splittedDateB = rowB.original.startDate.split("/");
 
-            const dateA = splittedDateA[2] + splittedDateA[0]  + splittedDateA[1];
-            const dateB = splittedDateB[2] + splittedDateB[0]  + splittedDateB[1];
+          const dateA = splittedDateA[2] + splittedDateA[0] + splittedDateA[1];
+          const dateB = splittedDateB[2] + splittedDateB[0] + splittedDateB[1];
 
-          console.log(dateA, 'dateA');
-          console.log(dateB, 'dateB');
+          console.log(dateA, "dateA");
+          console.log(dateB, "dateB");
           return dateA - dateB;
-          
         },
       },
       { accessorKey: "department", header: "Department", Cell: RenderedCell },
@@ -307,19 +305,18 @@ export default function EmployeesTable({ datas }) {
         Cell: RenderedCell,
         // Custom sorting function to handle dates in DD/MM/YYYY format.
         sortingFn: (rowA, rowB) => {
-          console.log(rowA, 'rowA')
-          
+          console.log(rowA, "rowA");
+
           const splittedDateA = rowA.original.birthDate.split("/");
           const splittedDateB = rowB.original.birthDate.split("/");
 
-          const dateA = splittedDateA[2] + splittedDateA[0]  + splittedDateA[1];
-          const dateB = splittedDateB[2] + splittedDateB[0]  + splittedDateB[1];
+          const dateA = splittedDateA[2] + splittedDateA[0] + splittedDateA[1];
+          const dateB = splittedDateB[2] + splittedDateB[0] + splittedDateB[1];
 
-        console.log(dateA, 'dateA');
-        console.log(dateB, 'dateB');
-        return dateA - dateB;
-        
-      },
+          console.log(dateA, "dateA");
+          console.log(dateB, "dateB");
+          return dateA - dateB;
+        },
       },
       { accessorKey: "street", header: "Street", Cell: RenderedCell },
       { accessorKey: "city", header: "City", Cell: RenderedCell },
@@ -350,13 +347,10 @@ export default function EmployeesTable({ datas }) {
     },
     manualSortBy: false,
     enableColumnFilters: false,
-    debugColumns: true,
-    debugTable: true,
-    debugPagination: true,
-    debugFilters: true,
     defaultColumn: {
-      maxsize: 300,
-      minsize: 40,
+      size: 50,
+      maxSize: 300,
+      minSize: 40,
     },
   });
 
