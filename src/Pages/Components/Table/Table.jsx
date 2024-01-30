@@ -184,6 +184,7 @@ const theme = createTheme({
           backgroundColor: "#001c30 !important",
           justifyContent: "space-around",
           fontSize: "0.7vw",
+          padding: "5px 2px !important",
           "& .Mui-TableHeadCell-Content": {
             justifyContent: "space-between",
             textAlign: "center",
