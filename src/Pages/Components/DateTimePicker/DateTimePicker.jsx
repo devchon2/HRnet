@@ -10,7 +10,6 @@ registerLocale("en", en); //register the locale for the datepicker
 /**
  * A component for selecting a date and time.
  *
- * @component
  * @param {string} id - The ID of the DateTimePicker component.
  * @param {function} setElement - The function to set the selected date and time.
  * @param {Date} element - The selected date and time.

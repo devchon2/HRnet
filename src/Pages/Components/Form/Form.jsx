@@ -31,7 +31,6 @@ import store from "../../../Redux/store.js";
  * This component is responsible for gathering and validating the new employee's data.
  *
  * @component
- * @param {Object} props - The component props.
  * @param {boolean} props.isModaleActive - Indicates if the modal is active.
  * @param {function} props.setValidateForm - Callback function to set the form validation status.
  * @param {function} props.setNeedClose - Function to handle the state of modal closure.
@@ -139,8 +138,8 @@ export default function Form({
     if (needClose) {
       // Reset form state when modal is closed
       resetForm();
-      setValidateForm(false);
-      setNeedClose(false);
+      setValidateForm(!needClose);
+      setNeedClose(!needClose);
     }
   }, [
     isModaleActive,
@@ -161,9 +160,7 @@ export default function Form({
 
   function ConvertDate(date) {
     // Function for formatting date
-    let formattedDate = new Date(date).toLocaleDateString();
-    console.log(formattedDate);
-    return formattedDate;
+    return new Date(date).toLocaleDateString();
   }
 
   // Function for validating age
@@ -324,9 +321,9 @@ export default function Form({
     setStartDateErrorCls(style.hidden);
     setValidated(false);
     setValidateForm(false);
-    dispatch(remove_infos());
-    dispatch(remove_contact());
-    dispatch(remove_onboarding());
+    dispatch(remove_infos()); // Dispatch action to remove infos from Redux state
+    dispatch(remove_contact()); // Dispatch action to remove contact from Redux state
+    dispatch(remove_onboarding()); // Dispatch action to remove onboarding from Redux state
   }
 
   function resetForm() {

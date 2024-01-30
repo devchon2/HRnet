@@ -1,34 +1,35 @@
-.CalendarIcon { /* Styles for the Calendar Icon */
+.CalendarIcon {
+  /* Styles for the Calendar Icon */
 
   display: flex;
   position: absolute;
-  right:0;
-  
-  height:1vw;
+  right: 0;
+
+  height: 1vw;
   width: 1vw;
 }
 
-input.startDate { /* Styles for the Start Date input */
+input.startDate {
+  /* Styles for the Start Date input */
 
-  width:100%;
+  width: 100%;
 }
 
-.wrapper { /* Styles for the wrapper element */
+.wrapper {
+  /* Styles for the wrapper element */
 
   justify-content: center;
   align-items: center;
   width: 100%;
-  
 }
 
-
-
-.wrapper div { /* Styles for div elements inside .wrapper */
+.wrapper div {
+  /* Styles for div elements inside .wrapper */
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
 input {
-  padding:0 5px !important;
+  padding: 0 5px !important;
 }
