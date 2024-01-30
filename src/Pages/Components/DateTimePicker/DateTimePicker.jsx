@@ -27,19 +27,16 @@ export default function DateTimePicker({
 }) {
     // State to keep track of the selected date.
     const [dateParams, setDateParams] = useState(element);
-    const clsName = id === "startDate" ? style.startDate : style.birthDate
+    const [clsName, setClsName] = useState('');
+
     // useEffect hook to update dateParams when the element prop changes.
     useEffect(() => {
       setDateParams(element);
-      
+      setClsName(id === 'startDate' ? style.startDateInput : style.BirthdateInput);
     }, [element,id]);
     
     const CustomInput = forwardRef(({ value, id, onClick, onChange }, ref) => (
-      <input id={id} className={clsName} onClick={onClick} ref={ref} onChange={onChange} value={value} placeholder="MM/DD/YYYY">
-
-          
-        </input>
-      
+      <input id={id} className={clsName} onClick={onClick} ref={ref} onChange={onChange} value={value} />
   ));
 
     return (
@@ -53,6 +50,8 @@ export default function DateTimePicker({
         onChange={(date) => setElement(new Date(date))}  // Handler for date changes.
         showIcon
         calendarIconClassname={style.CalendarIcon}
+        calendarClassName={style.CalendarContainer} // Custom styles for the calendar popup.
+        CalendarContainer={style.CalendarContainer} // Custom styles for the calendar popup.
         wrapperClassName={style.wrapper}
         popperClassName={style.popper}
         showPopperArrow={false} // Hide the arrow for the calendar popup.
