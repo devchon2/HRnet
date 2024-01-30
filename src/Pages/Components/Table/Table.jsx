@@ -137,6 +137,37 @@ const theme = createTheme({
         },
       },
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          color: "white",
+          fontSize: "0.8vw",
+          fontWeight: "normal",
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: "white",
+          },
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: "white",
+          },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+
+            borderColor: "white",
+
+          }
+        }
+      }
+    },
+
+    MuiInputAdornment: {
+      styleOverrides: {
+        root: {
+          svg: {
+            color: "white",
+          },
+      },
+    },
+  },
+
     MuiTableCell: {
       styleOverrides: {
         root: {
