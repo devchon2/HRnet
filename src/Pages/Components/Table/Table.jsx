@@ -90,6 +90,7 @@ const theme = createTheme({
         root: {
           height: "95%",
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
           '&> tr > td > p'  : {
             color: 'white',
@@ -281,6 +282,10 @@ const theme = createTheme({
       styleOverrides: {
         body2: {
           color: "white",
+          position:'absolute',
+          left:'50%',
+          translate:'-50%',
+
         },
       },
     },
