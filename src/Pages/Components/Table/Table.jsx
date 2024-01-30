@@ -89,6 +89,13 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           height: "95%",
+          display: "flex",
+          justifyContent: "center",
+          '&> tr > td > p'  : {
+            color: 'white',
+            fontSize: '0.8vw',
+            fontWeight: 'normal',
+          }
         },
       },
     },

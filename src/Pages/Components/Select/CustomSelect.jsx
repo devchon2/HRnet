@@ -21,8 +21,7 @@ export default function CustomSelect({ id, options, element, setElement }) {
   }, [element]);
 
   // Custom style settings based on the component's ID.
-  const customWidth = id === 'selectState' ? '200px' : '100%';
-  
+  const customWidth = id === "selectState" ? "200px" : "100%";
 
   // Return statement for the Select component with customized styles.
   return (
@@ -41,94 +40,100 @@ export default function CustomSelect({ id, options, element, setElement }) {
           backgroundColor: "#fff",
           borderRadius: "5px",
           fontSize: "1vw",
-          padding: '0 5px',
+          padding: "0 5px",
           width: customWidth,
           height: "2vw",
-          marginTop: "0.5vw",
+          marginTop: "0.2vw",
           "&:focus": { outline: "none" },
         }),
-        control: (provided) => ({ // Custom styles the container for the selected value.
+        control: (provided) => ({
+          // Custom styles the container for the selected value.
           ...provided,
           border: "none",
-          display:'flex',
-          alignContent:'center', 
-          justifyContent:'center',
+          display: "flex",
+          alignContent: "center",
+          justifyContent: "center",
           outline: "none",
           boxShadow: "none",
           borderRadius: "5px",
           overflow: "hidden",
           fontWeight: "500",
           fontSize: "1vw",
-          minHeight:'2vw',
-          position:"absolute",
-          height:'2vw',
-          width:'100%',
-          top:'0',
+          minHeight: "2vw",
+          position: "absolute",
+          height: "2vw",
+          width: "100%",
+          top: "0",
+          margin:0,
           "&:hover": { border: "none" },
         }),
-        indicatorsContainer: (provided) => ({ // Custom styles for the container of the dropdown indicator.
+        
+        indicatorsContainer: (provided) => ({
+          // Custom styles for the container of the dropdown indicator.
           ...provided,
           color: "#000",
-          padding:'0',
-          border:'none',
-
+          padding: "0",
+          border: "none",
         }),
-        indicatorSeparator: (provided) => ({ // Custom styles for the separator between the dropdown indicator and the selected value.
+        indicatorSeparator: (provided) => ({
+          // Custom styles for the separator between the dropdown indicator and the selected value.
           ...provided,
           display: "none",
         }),
-        dropdownIndicator: (provided) => ({ // Custom styles for the dropdown indicator.
+        dropdownIndicator: (provided) => ({
+          // Custom styles for the dropdown indicator.
           ...provided,
           color: "#fff",
-          padding:'0',
-          display:"flex",
-          justifyContent:'center',
-          alignItems:'center',
-          border:'none',
-          width:'2vw',
-          height:'100%',
-          backgroundSize:'cover',
-          backgroundPosition:'end',
-          backgroundRepeat:'no-repeat',
-          svg : {
-            width:'100%',
-            height:'100%',
-            fill:'#fff',
-            strokeWidth:'1px',
-            borderColor:'#001c30',
-            stroke:'#001c30',
+          padding: "0",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          border: "none",
+          width: "2vw",
+          height: "100%",
+          backgroundSize: "cover",
+          backgroundPosition: "end",
+          backgroundRepeat: "no-repeat",
+          svg: {
+            width: "100%",
+            height: "100%",
+            fill: "#fff",
+            strokeWidth: "1px",
+            borderColor: "#001c30",
+            stroke: "#001c30",
           },
         }),
-        valueContainer: (provided) => ({ // Custom styles for the container of the selected value.
+        valueContainer: (provided) => ({
+          // Custom styles for the container of the selected value.
           ...provided,
           padding: " 0",
           fontSize: "1vw",
-        justifyItems:'space-around',
-      alignContent:'center',
-    alignItems:'center',      }),
-        singleValue: (provided) => ({ // Custom styles for the selected value.
-          ...provided,
-          
-          
-
+          justifyItems: "space-around",
+          alignContent: "center",
+          alignItems: "center",
         }),
-        input: (provided) => ({ // Custom styles for the input.
+        singleValue: (provided) => ({
+          // Custom styles for the selected value.
           ...provided,
-          height: '100%',
+        }),
+        input: (provided) => ({
+          // Custom styles for the input.
+          ...provided,
+          height: "100%",
           margin: "0",
-          verticalAlign:'middle',
-
+          verticalAlign: "middle",
         }),
-        inputContainer: (provided) => ({ // Custom styles for the container of the input.
+        inputContainer: (provided) => ({
+          // Custom styles for the container of the input.
           ...provided,
           margin: "0",
-          
         }),
-        menu: (provided) => ({ // Custom styles for the dropdown menu.
+        menu: (provided) => ({
+          // Custom styles for the dropdown menu.
           ...provided,
           position: "absolute",
-          left:'0',
-          top:'0',
+          left: "0",
+          top: "0",
           borderRadius: "5px",
           marginTop: "0",
           fontSize: "1vw",
@@ -139,9 +144,9 @@ export default function CustomSelect({ id, options, element, setElement }) {
       value={selected}
       onChange={setElement} // Update the selected value.
       placeholder={options[0].value} // Set the placeholder to the first option.
-      name={id} 
+      name={id}
       inputId={id} // Set the ID of the input.
       options={options} // Set the options for the list
     />
-  )
+  );
 }

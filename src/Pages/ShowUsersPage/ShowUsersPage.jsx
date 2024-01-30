@@ -1,11 +1,11 @@
 import style from './ShowUsersPage.module.css'
 import EmployeesTable from '../Components/Table/Table.jsx'
-// import { useSelector } from 'react-redux'
-import JSONDatas from '../../utils/mockDatas.json'
+import { useSelector } from 'react-redux'
+// import JSONDatas from '../../utils/mockDatas.json' // uncomment this line to use data from MokeDatas.json
 
 export default function ShowUserPage() {
-  // Uncomment below to use data from Redux store
-  // const JSONDatas = useSelector((state) => state.database);
+  // comment below to use data from MokeDatas.json
+  const JSONDatas = useSelector((state) => state.database);
 
   // Flattening and restructuring the JSON data for the table
   const flated = JSONDatas.flatMap((item) => {
