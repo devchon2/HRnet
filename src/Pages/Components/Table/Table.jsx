@@ -6,15 +6,17 @@ import {
 import style from "./Table.module.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-// Custom theme for Material UI components, focusing on Table aesthetics.
 
+/**
+ * Theme configuration for the table component.
+ */
 const theme = createTheme({
   components: {
-    MuiPaper: {
-      // Paper component for the table container.
+    MuiPaper: {      // Paper component for the table container.
+
       styleOverrides: {
-        root: {
-          // Overrides the default styles for the root element.
+        root: {          // Overrides the default styles for the root element.
+
           display: "flex",
           flexDirection: "column",
           margin: "2vw 5%",
@@ -23,17 +25,17 @@ const theme = createTheme({
           width: "95%",
           maxHeight: "90%",
           backgroundColor: "#001C30 !important",
-          "& > .MuiBox-root": {
+          "& > .MuiBox-root": { // Overrides the default styles for the box element.
             height: "5%",
             width: "100%",
             borderRadius: 0,
             backgroundColor: "#001C30",
-            "& > .MuiBox-root": {
+            "& > .MuiBox-root": { // Overrides the default styles for the children box element.
               backgroundColor: "#001C30",
               height: "100%",
-              "& > .MuiBox-root": {
+              "& > .MuiBox-root": { // Overrides the default styles for the children box element.
                 width: "100%",
-                "& > .MuiTablePagination-root": {
+                "& > .MuiTablePagination-root": { // Overrides the default styles for the pagination component.
                   width: "100%",
                 },
               },
@@ -42,8 +44,8 @@ const theme = createTheme({
         },
       },
     },
-    MuiTableContainer: {
-      // Table container component.
+    MuiTableContainer: {      // Table container component.
+
       styleOverrides: {
         root: {
           flexGrow: 1,
@@ -52,8 +54,8 @@ const theme = createTheme({
         },
       },
     },
-    MuiTable: {
-      // Table component.
+    MuiTable: {      // Table component.
+
       styleOverrides: {
         root: {
           display: "flex",
@@ -64,8 +66,8 @@ const theme = createTheme({
         },
       },
     },
-    MuiTableHead: {
-      // Table head component.
+    MuiTableHead: {      // Table head component.
+
       styleOverrides: {
         root: {
           position: "sticky",
@@ -77,22 +79,22 @@ const theme = createTheme({
         },
       },
     },
-    MuiTableFooter: {
-      // Table footer component.
+    MuiTableFooter: {      // Table footer component.
+
       styleOverrides: {
         root: {
           display: "none",
         },
       },
     },
-    MuiTableBody: {
+    MuiTableBody: {     // Table body component.
       styleOverrides: {
-        root: {
+        root: {         // Overrides the default styles for the root element.
           height: "95%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          '&> tr > td > p'  : {
+          '&> tr > td > p'  : { // Overrides the default styles for the paragraph element.
             color: 'white',
             fontSize: '0.8vw',
             fontWeight: 'normal',
@@ -100,24 +102,24 @@ const theme = createTheme({
         },
       },
     },
-    MuiSelect: {
+    MuiSelect: {     // Select component.
       styleOverrides: {
-        select: {
+        select: {    // Overrides the default styles for the select element.
           color: "white",
           fontSize: "0.8vw",
           fontWeight: "normal",
-          "&:focus": {
+          "&:focus": { // Overrides the default styles for the focus state.
             backgroundColor: "transparent",
           },
         },
-        icon: {
+        icon: {   // Overrides the default styles for the icon element.
           color: "white",
         },
       },
     },
-    MuiFormLabel: {
-      styleOverrides: {
-        root: {
+    MuiFormLabel: {    // Form label component.
+      styleOverrides: { 
+        root: {   // Overrides the default styles for the root element.
           color: "white",
           fontSize: "0.8vw",
           fontWeight: "normal",
@@ -127,30 +129,30 @@ const theme = createTheme({
         },
       },
     },
-    MuiTableRow: {
+    MuiTableRow: {   // Table row component.
       styleOverrides: {
-        root: {
+        root: {  // Overrides the default styles for the root element.
           display: "flex",
           width: "100%",
         },
-        head: {
+        head: { // Overrides the default styles for the head element.
           backgroundColor: "#001C30",
         },
       },
     },
-    MuiOutlinedInput: {
+    MuiOutlinedInput: {  // Outlined input component.
       styleOverrides: {
-        root: {
+        root: { // Overrides the default styles for the root element.
           color: "white",
           fontSize: "0.8vw",
           fontWeight: "normal",
-          "& .MuiOutlinedInput-notchedOutline": {
+          "& .MuiOutlinedInput-notchedOutline": { // Overrides the default styles for the notched search outline element.
             borderColor: "white",
           },
-          "&:hover .MuiOutlinedInput-notchedOutline": {
+          "&:hover .MuiOutlinedInput-notchedOutline": { // Overrides the default styles for the notched outline element on hover.
             borderColor: "white",
           },
-          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": { // Overrides the default styles for the notched outline element on focus.
 
             borderColor: "white",
 
@@ -159,19 +161,19 @@ const theme = createTheme({
       }
     },
 
-    MuiInputAdornment: {
+    MuiInputAdornment: { // Input adornment component.
       styleOverrides: {
         root: {
-          svg: {
+          svg: { // Overrides the default styles for the svg element.
             color: "white",
           },
       },
     },
   },
 
-    MuiTableCell: {
+    MuiTableCell: { // Table cell component.
       styleOverrides: {
-        root: {
+        root: { // Overrides the default styles for the root element.
           fontSize: "0.6vw",
           flexShrink: 1,
           flexGrow: 1,
@@ -179,27 +181,27 @@ const theme = createTheme({
           alignItems: "center",
           padding: "5px",
         },
-        head: {
+        head: { // Overrides the default cells for the head element.
           color: "#fff",
           backgroundColor: "#001c30 !important",
           justifyContent: "space-around",
           fontSize: "0.7vw",
           padding: "5px 2px !important",
-          "& .Mui-TableHeadCell-Content": {
+          "& .Mui-TableHeadCell-Content": { // Overrides the default styles for the table head cell content element.
             justifyContent: "space-between",
             textAlign: "center",
             fontWeight: "bold",
 
-            "&-Labels": {
+            "&-Labels": { // Overrides the default styles for the table head cell content labels element.
               position: "relative",
               left: "1vw",
               alignItems: "center",
             },
-            "&-Actions": {
+            "&-Actions": { // Overrides the default styles for the table head cell content Svg element.
               position: "relative",
               fill: "white",
               right: 0,
-              "& .MuiIconButton-root": {
+              "& .MuiIconButton-root": { // Overrides the default styles for the icon button element.
                 color: "white",
               },
             },
@@ -207,19 +209,19 @@ const theme = createTheme({
         },
       },
     },
-    MuiTableSortLabel: {
+    MuiTableSortLabel: { // Table sort label component.
       styleOverrides: {
         root: {
-          "& .MuiTableSortLabel-icon": {
+          "& .MuiTableSortLabel-icon": { // Overrides the default styles for the table sort label icon element.
             fill: "white",
           },
         },
       },
     },
-    MuiMenu: {
+    MuiMenu: { // Menu component.
       styleOverrides: {
-        paper: {
-          backgroundColor: "#001C30",
+        paper: { // Overrides the default styles for the paper element.
+          backgroundColor: "#001C30", 
           color: "white",
           margin: 0,
           width: "fit-content",
@@ -227,7 +229,7 @@ const theme = createTheme({
           position: "absolute",
           borderRadius: "0",
         },
-        list: {
+        list: { // Overrides the default styles for the list element.
           padding: "0",
           margin: "0",
           justifyContent: "center",
@@ -236,9 +238,9 @@ const theme = createTheme({
         },
       },
     },
-    MuiMenuItem: {
+    MuiMenuItem: { // Menu item component.
       styleOverrides: {
-        gutters: {
+        gutters: { // Overrides the default styles for the li element.
           color: "white",
           justifyContent: "center",
           textAlign: "center",
@@ -248,38 +250,38 @@ const theme = createTheme({
         },
       },
     },
-    MuiListItemIcon: {
+    MuiListItemIcon: { // List item icon component.
       styleOverrides: {
         root: {
           color: "white",
         },
       },
     },
-    MuiBox: {
+    MuiBox: { // Box component.
       styleOverrides: {
-        root: {
+        root: { // Overrides the default styles for the root element.
           backgroundColor: "#001C30",
         },
       },
     },
-    MuiButtonBase: {
+    MuiButtonBase: { // Button base component.
       styleOverrides: {
         root: {
-          "&.MuiIconButton-root": {
+          "&.MuiIconButton-root": { // Overrides the default styles for the icon button element.
             color: "white",
           },
         },
       },
     },
-    MuiTablePagination: {
+    MuiTablePagination: { // Table pagination block.
       styleOverrides: {
-        root: {
+        root: { // Overrides the default styles for the root element.
           width: "100%",
           justifyContent: "space-between",
         },
       },
     },
-    MuiTypography: {
+    MuiTypography: { // Typography component.
       styleOverrides: {
         body2: {
           color: "white",
@@ -293,10 +295,20 @@ const theme = createTheme({
   },
 });
 
+
+
 /**
+ * Main functional component to render an employee data table.
+ * Utilizes 'MaterialReactTable' for a rich UI experience with custom theming.
+ *
+ * @param {Array} props.datas - Collection of employee data to be displayed.
+ * @returns {React.ReactElement} - The fully configured and styled data table.
+ */
+export default function EmployeesTable({ datas }) {
+
+  /**
  * Functional component to render individual cell content in bold.
  *
- * @param {Object} props - Properties passed to the component.
  * @param {string} props.renderedCellValue - The text content for the cell.
  * @returns {React.ReactElement} - A strong element wrapping the cell value.
  */
@@ -304,15 +316,7 @@ const RenderedCell = ({ renderedCellValue }) => (
   <strong>{renderedCellValue}</strong>
 );
 
-/**
- * Main functional component to render an employee data table.
- * Utilizes 'MaterialReactTable' for a rich UI experience with custom theming.
- *
- * @param {Object} props - Component properties.
- * @param {Array} props.datas - Collection of employee data to be displayed.
- * @returns {React.ReactElement} - The fully configured and styled data table.
- */
-export default function EmployeesTable({ datas }) {
+
   // Defines the column configuration for the table, utilizing useMemo for performance.
   const columns = useMemo(
     () => [
@@ -370,7 +374,7 @@ export default function EmployeesTable({ datas }) {
     []
   );
 
-  const table = useMaterialReactTable({
+  const table = useMaterialReactTable({ // Creates the table instance.
     columns,
     data: datas,
     enableStickyHeader: true,
@@ -385,13 +389,13 @@ export default function EmployeesTable({ datas }) {
     paginationDisplayMode: "default",
     muiPaginationProps: {
       color: "#001c30",
-      variant: "outlined",
+      variant: "outlined", 
       shape: "rounded",
-      rowsPerPageOptions: [10, 25, 50, 100],
+      rowsPerPageOptions: [10, 25, 50, 100], // Sets the available rows per page options.
     },
     manualSortBy: false,
     enableColumnFilters: false,
-    defaultColumn: {
+    defaultColumn: { // Sets the default column configuration.
       size: 50,
       maxSize: 300,
       minSize: 40,
