@@ -8,6 +8,12 @@ import style from "./NavBar.module.css";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
+
+/**
+ * Component representing the navigation bar.
+ *
+ * @returns {JSX.Element} The rendered navigation bar.
+ */
 export default function Navbar() {
   // Hook to get the current location (path) in the app
   const location = useLocation();

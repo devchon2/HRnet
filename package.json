@@ -4,8 +4,8 @@
   "dependencies": {
     "@babel/core": "7.23.6",
     "@babel/plugin-syntax-flow": "7.23.3",
-    "@babel/plugin-transform-react-jsx": "7.23.4",
     "@babel/plugin-transform-private-property-in-object": "^7.14.5",
+    "@babel/plugin-transform-react-jsx": "7.23.4",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.2",
@@ -53,5 +53,8 @@
       "last 4 firefox version",
       "last 4 safari version"
     ]
+  },
+  "devDependencies": {
+    "serve": "^14.2.1"
   }
 }

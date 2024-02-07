@@ -3,6 +3,10 @@ import style from './Header.module.css'
 import logo from '../../../assets/hr_logo.png'
 import Navbar from './NavBar/Navbar.jsx';
 
+/**
+ * Renders the header section of the web application.
+ * @returns {JSX.Element} The JSX structure for the header.
+ */
 export default function Header() {
   // The Header function component renders the header section of the web application.
 

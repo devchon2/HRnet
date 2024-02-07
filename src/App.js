@@ -1,3 +1,9 @@
+/**
+ * Main Application Component
+ * Defines the routing structure for the application.
+ *
+ * @returns {JSX.Element} The rendered application component.
+ */
 import './App.css';
 import CreateUserPage from './Pages/CreateUserPage/CreateUserPage.jsx';
 import ShowUserPage from './Pages/ShowUsersPage/ShowUsersPage.jsx';
