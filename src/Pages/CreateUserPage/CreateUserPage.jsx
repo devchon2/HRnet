@@ -3,6 +3,12 @@ import style from "./CreateUserPage.module.css";
 import Form from "../Components/Form/Form.jsx";
 import TinyModale from "tinymodalebyrchon";
 
+
+/**
+ * Component for creating a new user.
+ *
+ * @returns {JSX.Element} The CreateUserPage component.
+ */
 export default function CreateUserPage() {
   // State for tracking form validation status
   const [validateForm, setValidateForm] = useState(false);
