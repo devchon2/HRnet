@@ -52,7 +52,7 @@ export default function CreateUserPage() {
         buttonMargin="25px"
         btnOnClick={setActiveModale}
         showButton={true}
-        buttonTextContent="yeeeahhh"
+        buttonTextContent="Close"
         buttonRadius="50px"
         bgAnimation="fade"
       />

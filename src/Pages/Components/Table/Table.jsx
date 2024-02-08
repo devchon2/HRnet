@@ -94,14 +94,19 @@ const theme = createTheme({
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          '&> tr > td > p'  : { // Overrides the default styles for the paragraph element.
+          '&> tr > td': { // Overrides the default styles for the paragraph element.
+            display:'flex',
+            justifyContent:'center',
+            '& > p ':{
             color: 'white',
             fontSize: '0.8vw',
             fontWeight: 'normal',
-          }
+            justifyContent:'center',
+          },
+          },
         },
-      },
     },
+  },
     MuiSelect: {     // Select component.
       styleOverrides: {
         select: {    // Overrides the default styles for the select element.
@@ -341,8 +346,7 @@ const RenderedCell = ({ renderedCellValue }) => (
           const dateA = splittedDateA[2] + splittedDateA[0] + splittedDateA[1];
           const dateB = splittedDateB[2] + splittedDateB[0] + splittedDateB[1];
 
-          console.log(dateA, "dateA");
-          console.log(dateB, "dateB");
+
           return dateA - dateB;
         },
       },
