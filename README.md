@@ -1,70 +1,180 @@
-# Getting Started with Create React App
+# HRnet — Migration d’un plugin jQuery vers un composant React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![CI](https://img.shields.io/badge/CI-none-lightgrey)]() [![Licence](https://img.shields.io/badge/Licence-MIT-blue)]()
 
-## Available Scripts
+> Projet : **Faites passer une librairie jQuery vers React** — refonte d’un plugin jQuery pour une application HR interne.  
+> **Objectif général :** remplacer un plugin jQuery par un composant React, mesurer les gains de performance et fournir une documentation et packaging du composant.
 
-In the project directory, you can run:
+## 📚 Table des matières
+- [Description](#-description)
+- [Objectifs pédagogiques](#-objectifs-p%C3%A9dagogiques)
+- [Compétences & Preuves](#-comp%C3%A9tences--preuves)
+- [Stack & Versions](#-stack--versions)
+- [Structure du projet](#-structure-du-projet)
+- [Fonctionnalités clés](#-fonctionnalit%C3%A9s-cl%C3%A9s)
+- [Installation & Lancement](#-installation--lancement)
+- [Available Scripts](#available-scripts)
+- [Tests & Audit de performance](#-tests--audit-de-performance)
+- [Démo & Captures](#-d%C3%A9mo--captures)
+- [Roadmap](#-roadmap)
+- [Licence](#-licence)
+- [Contact](#-contact)
+- [English version](#english-version)
 
-### `yarn start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🚀 Description
+Mission de migration : remplacer un plugin jQuery utilisé dans HRnet par un composant React réutilisable. Il s’agit de réduire la dette technique, d’améliorer les performances et de documenter le composant (usage, API, packaging). Le projet inclut des audits performance (Lighthouse) avant/après conversion. :contentReference[oaicite:8]{index=8}
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+> **Résultats clés** : composant React publié (npm/GitHub Packages possible) • rapport Lighthouse avant/après • documentation technique.
 
-### `yarn test`
+## 🎯 Objectifs pédagogiques
+- Comprendre l’interaction jQuery ↔ DOM et la remplacer par un composant React propre.  
+- Mesurer et comparer les performances via Lighthouse (build avant audit).  
+- Produire de la documentation technique du composant et le publier (npm / GitHub Packages).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🧠 Compétences & Preuves
+| Exigence pédagogique | Compétence recrutée | Mise en œuvre | Preuves |
+|---|---|---:|---|
+| Migration | **React from jQuery** | Refactor d’un plugin jQuery en composant React | Repo final contenant le composant React (+ code du projet migré) |
+| Performance | **Lighthouse audit** | Audit avant/après conversion (build prod conseillé) | Rapports Lighthouse (PDF) avant/après |
+| Packaging & Doc | **npm / docs** | Publication du composant (npm ou GitHub Packages) et doc technique | Lien npm / README du composant |
 
-### `yarn build`
+*(Détails et exigences de livrables : livrable TXT/PDF avec liens, rapport Lighthouse, code source du composant.)* :contentReference[oaicite:9]{index=9}
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🧰 Stack & Versions
+| Tech | Rôle |
+|---|---|
+| React (Create React App) | Frontend |
+| Node / npm | Packaging & scripts |
+| Lighthouse | Audit de perf |
+| jQuery | Legacy (à remplacer) |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🗂️ Structure du projet
+```txt
+HRnet/
+├─ frontend/          # Create React App project (ou conversion)
+│  ├─ src/
+│  │  ├─ components/
+│  │  │  └─ ConvertedComponent/   # composant remplacé
+│  │  └─ ...
+│  └─ package.json
+├─ backend/ (si présent)
+└─ docs/
+   ├─ lighthouse-before.pdf
+   ├─ lighthouse-after.pdf
+   └─ component-docs.md
+```
+(Le projet frontend utilise Create React App ; lire la suite pour les scripts.) :contentReference[oaicite:10]{index=10}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## ✅ Fonctionnalités clés
+* [x] Composant React remplaçant le plugin jQuery.  
+* [x] Documentation du composant (API, usage).  
+* [x] Rapport Lighthouse comparatif (avant / après).  
+* [x] Publication du composant (npm ou GitHub Packages) — optionnel si demandé.
 
-### `yarn eject`
+## ⚡ Installation & Lancement
+```bash
+# 1) Cloner
+git clone https://github.com/devchon2/HRnet.git
+cd HRnet/frontend
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# 2) Installer
+yarn install   # ou npm install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# 3) Lancer en dev
+yarn start     # ou npm start
+# Ouvrir http://localhost:3000
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 📜 Available Scripts
+```bash
+# depuis le dossier frontend (Create React App)
+yarn start        # dev
+yarn test         # tests
+yarn build        # build production
+yarn eject        # attention: one-way
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# si npm
+npm run start
+npm run test
+npm run build
+```
+(Adaptation standard Create React App.) :contentReference[oaicite:11]{index=11}
 
-## Learn More
+## 🧪 Tests & Audit de performance
+* **Tests unitaires / integration** : `yarn test` (CRA).  
+* **Audit Lighthouse** : effectuer un `yarn build` puis lancer l’audit Lighthouse sur la build prod pour comparer performances avant/après. L’audit doit être documenté (PDF).  
+* **Critères** : mesurer temps de chargement, appels réseau, et autres métriques pertinentes.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🎥 Démo & Captures
+* Livrables attendus :  
+  * Fichier TXT/PDF contenant les liens (code complet, composant publié, rapport Lighthouse).  
+  * Rapport Lighthouse (PDF) avant & après conversion.  
+  * Documentation technique du composant (README ou docs). :contentReference[oaicite:12]{index=12}
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🗺️ Roadmap
+* Ajouter tests E2E (Cypress) pour le composant.  
+* Créer une CI (GitHub Actions) qui exécute build, tests et génère un rapport Lighthouse automatisé.
 
-### Code Splitting
+## 📝 Licence
+MIT (ajouter `LICENSE` si absent).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📫 Contact
+Rachid Chon — `cgpt1euro@rchon-dev.fr`
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## English version
 
-### Making a Progressive Web App
+<details>
+<summary>🇬🇧 Click to expand</summary>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# HRnet — Migrating a jQuery plugin to React
 
-### Advanced Configuration
+[![CI](https://img.shields.io/badge/CI-none-lightgrey)]() [![License](https://img.shields.io/badge/License-MIT-blue)]()
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+> Goal: replace a legacy jQuery plugin in HRnet by a React component, measure performance gains, and deliver component documentation and packaging.
 
-### Deployment
+## 🚀 Description
+Refactor a jQuery plugin into a React component. Deliver a production build and Lighthouse audits before and after migration. Provide documentation and optionally publish the component (npm / GitHub Packages). :contentReference[oaicite:13]{index=13}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🎯 Learning objectives
+- Replace jQuery-based UI with a clean React implementation.  
+- Measure and compare performance (Lighthouse) — run audits against a production build.  
+- Document and publish the component.
 
-### `yarn build` fails to minify
+## 🧠 Skills & Evidence
+| Requirement | Skill | Implementation | Evidence |
+|---|---|---|---|
+| Migration | **React** | Converted React component replacing jQuery plugin | Converted component in `frontend/src/components` |
+| Performance | **Lighthouse** | Pre/post build audits | Lighthouse PDFs (before & after) |
+| Packaging | **npm / docs** | Publishable component + docs | npm link or GitHub Packages + component README |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## ⚡ Setup & Run
+```bash
+git clone https://github.com/devchon2/HRnet.git
+cd HRnet/frontend
+yarn install
+yarn start
+```
+
+## 📜 Available Scripts
+```bash
+yarn start
+yarn test
+yarn build
+yarn eject
+```
+
+## 🧪 Tests & Audits
+* Unit & integration tests via `yarn test`.  
+* Run `yarn build` and perform Lighthouse audits on the production files. Provide PDFs for both before and after conversion.
+
+## 📝 License
+MIT.
+
+## 📫 Contact
+Rachid Chon — `cgpt1euro@rchon-dev.fr`
+
+</details>
