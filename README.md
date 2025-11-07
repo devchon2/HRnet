@@ -121,7 +121,7 @@ npm run build
 MIT (ajouter `LICENSE` si absent).
 
 ## 📫 Contact
-Rachid Chon — `cgpt1euro@rchon-dev.fr`
+Rachid Chon — `rchon@rchon-dev.fr`
 
 ---
 
@@ -175,6 +175,6 @@ yarn eject
 MIT.
 
 ## 📫 Contact
-Rachid Chon — `cgpt1euro@rchon-dev.fr`
+Rachid Chon — `rchon@rchon-dev.fr`
 
 </details>
