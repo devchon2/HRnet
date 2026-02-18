@@ -1,6 +1,7 @@
 {
   "name": "hrnet",
   "version": "0.1.0",
+  "homepage": "https://devchon2.github.io/HRnet/",
   "dependencies": {
     "@babel/core": "7.23.6",
     "@babel/plugin-syntax-flow": "7.23.3",
@@ -23,7 +24,6 @@
     "react-error-boundary": "^4.0.11",
     "react-redux": "9.0.4",
     "react-router-dom": "6.20.1",
-    "react-scripts": "5.0.1",
     "react-select": "5.8.0",
     "styled-components": "^6.1.1",
     "tinymodalebyrchon": "^1.0.2",
@@ -31,15 +31,17 @@
     "web-vitals": "3.5.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "rsbuild dev",
+    "build": "rsbuild build",
+    "preview": "rsbuild preview",
+    "start": "rsbuild dev",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "eslint:recommended",
+      "plugin:react/recommended"
     ]
   },
   "browserslist": {
@@ -55,6 +57,10 @@
     ]
   },
   "devDependencies": {
-    "serve": "^14.2.1"
+    "@vitejs/plugin-react": "^5.1.4",
+    "gh-pages": "^6.3.0",
+    "serve": "^14.2.1",
+    "vite": "^7.3.1",
+    "vite-plugin-svgr": "^4.5.0"
   }
 }

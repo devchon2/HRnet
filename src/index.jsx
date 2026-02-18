@@ -16,11 +16,11 @@ root.render(
     <Provider store={store}>
 
       {/* BrowserRouter enables navigation and routing in the application */}
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
 
         {/* Main App component is rendered here */}
         <App />
-        
+
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
